@@ -1,8 +1,13 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
+import LogInForm from '../components/LogInFrom'
 
 function Login() {
   return (
-    <div>Login</div>
+    <>
+      <Navbar />
+      <LogInForm />
+    </>
   )
 }
 

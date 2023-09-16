@@ -5,11 +5,14 @@ import NationalMember from '../components/NationalMember'
 
 function Main() {
   return (
-    <div>
+    <>
       <Navbar />
+
       <MainBoard/>
       <NationalMember />
-    </div>
+
+    </>
+
   )
 }
 
