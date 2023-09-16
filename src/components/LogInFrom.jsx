@@ -12,9 +12,9 @@ function LogInForm() {
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" action="#" method="POST">
           <div>
-            {/* <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+            <label htmlFor="password" className="block text-sm font-black leading-6 text-gray-900">
               아이디
-            </label> */}
+            </label>
             <div className="mt-2">
               <input
                 placeholder="아이디"
@@ -30,10 +30,10 @@ function LogInForm() {
 
           <div>
             <div className="flex items-center justify-between">
-              {/* <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                Password
+              <label htmlFor="password" className="block text-sm font-black leading-6 text-gray-900">
+                비밀번호
               </label>
-              <div className="text-sm">
+              {/* <div className="text-sm">
                 <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                   Forgot password?
                 </a>
@@ -52,12 +52,18 @@ function LogInForm() {
             </div>
           </div>
 
-          <div>
+          <div className="flex justify-around">
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-[150px] mt-4 justify-center rounded-md bg-gray-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500"
             >
-              Sign in
+              로그인
+            </button>
+            <button
+              type="submit"
+              className="flex w-[150px] mt-4 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              회원가입
             </button>
           </div>
         </form>
