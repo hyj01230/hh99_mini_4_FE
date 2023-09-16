@@ -1,16 +1,18 @@
 import React from 'react'
-import ActivitiesCollection from './ActivitiesCollection'
+import UserP_Info from '../components/UserP_Info'
+import UserP_Content from './UserP_Content'
+import UserP_Comment from './UserP_Comment'
 
 function UserPolitician() {
   return (
     <div className="flex w-[1300px] mx-auto">
-      <div className="w-[350px] h-screen bg-gray-200">
+      <div className="w-[350px] h-screen">
         <div className="flex flex-col justify-center items-center -space-x-1 overflow-hidden">
           <label className="block text-2xl mt-10 font-black leading-10 text-gray-900">
             마이페이지
           </label>
           <img
-            className="inline-block h-[230px] w-[230px] rounded-full mt-5"
+            className="inline-block h-[230px] w-[230px] rounded-full mt-5 border border-zinc-300"
             src="https://i.namu.wiki/i/HfPaXJ6qhoBdHtpSh_ivra2eGF8z04V9kmd93toYyzhxaQoKvBfXF6VZ5-zcTLRYFpcT8aS_IjhBtdntFeHP-eHdcWYJQHIUQxCB3fzTvokwitrLW9Y4P2jWWRc4P9mMjvkoZFJno3slsPX8cZMCvg.webp"
             alt=""
           />
@@ -40,14 +42,13 @@ function UserPolitician() {
           </button>
         </div>
       </div>
-      <div className="w-[1200px] h-screen flex justify-center flex-col items-center bg-gray-300">
 
-        <div>내정보</div>
-        <div>주요활동</div>
-        <ActivitiesCollection />
-        <div>오늘의 한마디</div>
+      {/* 조건 걸어서 렌더링 할 예정 */}
+      {/* <UserP_Info /> */}
+      {/* <UserP_Content /> */}
+      {/* <UserP_Comment /> */}
 
-      </div>
+      /
     </div>
   )
 }
