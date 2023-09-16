@@ -5,6 +5,7 @@ import UserInfo from "../pages/UserInfo";
 import Content from "../pages/Content";
 import Join from "../pages/Join";
 import Login from "../pages/Login";
+import Error404 from "../pages/Error404";
 
 
 const Router = () => {
@@ -17,6 +18,7 @@ const Router = () => {
         <Route path="/content/:id" element={<Content />} />
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>
   )
