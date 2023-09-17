@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from "react";
+import MyInfo from "./usercomponents/MyInfo";
 
 function UserCitizen() {
+  const [buttonState, setButtonState] = useState("내정보");
+
   return (
     <div className="flex w-[1300px] mx-auto">
       <div className="w-[350px] h-screen bg-gray-200">
-        <div className="flex flex-col justify-center items-center -space-x-1 overflow-hidden">
+        <div className="flex flex-col justify-center items-center -space-x-1 overflow-hidden ">
           <label className="block text-2xl mt-10 font-black leading-10 text-gray-900">
             마이페이지
           </label>
@@ -39,11 +42,13 @@ function UserCitizen() {
           </button>
         </div>
       </div>
-
-      
-
+      <div>
+        {buttonState === "내정보" ? <MyInfo /> : null}
+        {/* {buttonState === "댓글관리" ?  : null} */}
+        {/* {buttonState === "팔로우관리" ?  : null} */}
+      </div>
     </div>
-  )
+  );
 }
 
-export default UserCitizen
+export default UserCitizen;
