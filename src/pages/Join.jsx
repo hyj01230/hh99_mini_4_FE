@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar'
 
 function Join() {
 
-  // 아디/비번 state
+  // ID/PW 입력값 state
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [checkPassword, setCheckPassword] = useState('');
@@ -12,6 +12,40 @@ function Join() {
   const onChangeIdHandler = (e) => { setId(e.target.value) };
   const onChangePasswordHandler = (e) => { setPassword(e.target.value) };
   const onChangeCheckPasswordHandler = (e) => { setCheckPassword(e.target.value) };
+
+  // id 유효성검사 및 안내메시지
+  const [idInputClick, setIdInputClick] = useState(false);
+
+  let idmessage = '';
+
+  if (idInputClick) {
+    if (id === "") {
+      idmessage = '아이디를 입력해주세요.';
+    } else if (id.length < 6 || id.length > 20) {
+      idmessage = '아이디는 6~20자로 입력해주세요.';
+    }
+  }
+
+  // pw 유효성검사 및 안내메시지
+  const [pwInputClick, setPwInputClick] = useState(false);
+
+  let pwmessage = '';
+
+  if (pwInputClick) {
+    if (id === "") {
+      pwmessage = '비밀번호를 입력해주세요.';
+    } else if (id.length < 6 || id.length > 20) {
+      pwmessage = '아이디는 6~20자로 입력해주세요.';
+    }
+  }
+
+
+
+  // 비밀번호 유효성 검사 : 문자, 숫지, 특수문자 포함 8~20자
+
+  // 비밀번호 확인 : 동일여부
+
+  // 가입하기 클릭하면 id,pw,정치인 여부 서버로 보내기!
 
   return (
     <>
@@ -29,52 +63,46 @@ function Join() {
               <label htmlFor="email" className="block text-lg font-black leading-6 text-gray-900">
                 아이디
               </label>
+              {idmessage && <p className='my-2 text-red-600'>{idmessage}</p>}
               <div className="mt-3">
                 <input
                   placeholder="아이디 입력(6~20자)"
-                  // id="text"
-                  // name="text"
                   type="text"
-                  // autoComplete="text"
-                  // required
                   value={id}
                   onChange={onChangeIdHandler}
+                  onClick={() => setIdInputClick(true)}
                   className="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
-              <div className="flex items-center justify-between">
+              <div>
                 <label htmlFor="password" className="mt-2 block text-lg font-black leading-6 text-gray-900">
                   비밀번호
                 </label>
-                {/* <div className="text-sm">
-                <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                  Forgot password?
-                </a>
-              </div> */}
+                <p className="my-2 text-red-600">
+                  {1 === 0 ? '비밀번호를 입력해주세요' : '비밀번호는 문자, 숫자, 특수문자 포함 8~20자 입니다'}</p>
               </div>
               <div className="mt-3">
                 <input
                   placeholder="비밀번호 입력(문자, 숫자, 특수문자 포함 8~20자)"
-                  // id="password"
-                  // name="password"
                   type="password"
-                  // autoComplete="current-password"
-                  // required
                   value={password}
                   onChange={onChangePasswordHandler}
+                  onClick={()=>setPwInputClick(true)}
                   className="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
-              <div className="flex items-center justify-between">
+              <div>
                 <label htmlFor="password" className="mt-2 block text-lg font-black leading-6 text-gray-900">
                   비밀번호 확인
                 </label>
+                <p className='my-2 text-red-600'>
+                  {1 === 0 ? '비밀번호가 일치하지 않습니다' : null}</p>
                 {/* <div className="text-sm">
                 <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                   Forgot password?
