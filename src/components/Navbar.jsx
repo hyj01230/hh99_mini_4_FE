@@ -8,9 +8,9 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const navigation = [
   { name: "메인페이지", href: "/", current: true },
-  { name: "팔로워", href: "#", current: false },
-  { name: "지역별", href: "#", current: false },
-  { name: "정당별", href: "#", current: false },
+  { name: "팔로워", href: "/", current: false },
+  { name: "지역별", href: "/", current: false },
+  { name: "정당별", href: "/", current: false },
 ];
 
 function classNames(...classes) {
@@ -165,6 +165,7 @@ function Navbar() {
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => (
                 <Disclosure.Button
+                  
                   key={item.name}
                   as="a"
                   href={item.href}

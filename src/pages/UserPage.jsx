@@ -7,7 +7,7 @@ function UserPage() {
   return (
     <>
       <Navbar />
-      {1 === 1 ? <UserPolitician /> : <UserCitizen />}
+      {1 === 0 ? <UserPolitician /> : <UserCitizen />}
     </>
   )
 }

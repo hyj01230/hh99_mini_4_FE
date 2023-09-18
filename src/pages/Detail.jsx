@@ -1,14 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function Detail() {
-  
+  const [follow, setFollow] = useState(true);
+
+  const toggleFollow = () => {
+    setFollow(!follow);
+  };
+
   const xWheelEvent = (event) => {
     const delta = event.deltaY;
     const container = event.currentTarget;
     container.scrollLeft += delta;
   };
-  
 
   return (
     <>
@@ -16,11 +22,29 @@ function Detail() {
       {/* 사진 + 약력 */}
       <div className="pl-20 pr-20">
         <div className="flex justify-center mt-10 items-center flex-grow mb-5">
-          <div className=" w-[150px]">
-            <img src="https://place-hold.it/150x150" alt="" />
+          <div className="w-40 relative">
+            <img
+              src="https://place-hold.it/150x150"
+              alt=""
+              className="w-full h-auto"
+            />
+            <div className="absolute bottom-[-20px] p-1 left-1/2 transform -translate-x-1/2 bg-black rounded-full"
+            onClick={toggleFollow}>
+              {follow ? (
+                <FontAwesomeIcon
+                  icon={faStar}
+                  style={{ color: "#ffc436", fontSize: "1.5em" }}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faStar}
+                  style={{ color: "white", fontSize: "1.5em" }}
+                />
+              )}
+            </div>
           </div>
 
-          <div className="bg-gray-400 w-full p-5">
+          <div className="w-full p-5 pl-20">
             약력이 작성될 곳이에요 <br />
             약력이 작성될 곳이에요 <br />
             약력이 작성될 곳이에요 <br />
@@ -152,13 +176,27 @@ function Detail() {
             </div>
           </div>
           {/* 댓글 */}
-          <div className="w-1/5 min-w-[250px] bg-slate-200 flex flex-col items-center justify-center">
-            <div className="flex flex-col items-start h-[80%] gap-5">
-              <div>댓글1</div>
-              <div>댓글2</div>
-              <div>댓글3</div>
-              <div>댓글4</div>
-              <div>댓글5</div>
+          <div className="w-1/5 min-w-[250px] bg-slate-200 flex flex-col items-center justify-center h-[450px]">
+            <div className="flex flex-col items-start h-[400px] gap-5 overflow-y-scroll scrollbar-hide bg-slate-500">
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+              <div className="w-[250px] text-center"> 댓글1</div>
+
             </div>
             <div className="space-x-5">
               <input type="text" />
