@@ -1,9 +1,11 @@
 import React from 'react'
 
-function UserP_Info() {
+// 마이페이지 - 내 정보
+
+function Mypage_Info() {
 
   return (
-    <div className=' h-screen w-[1200px] flex flex-col justify-start items-center'>
+    <div className=' h-screen w-[1000px] flex flex-col justify-start items-center'>
       <div className=' h-[240px] w-[950px] p-3 mt-[50px] border-2 flex flex-row justify-start items-center'>
         <div className=' h-full w-[200px] mt-5 text-center text-lg font-black'>
           회원 정보
@@ -77,4 +79,4 @@ function UserP_Info() {
   )
 }
 
-export default UserP_Info
+export default Mypage_Info

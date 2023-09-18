@@ -5,6 +5,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 // Navbar.jsx 파일 상단에 아래 코드 추가
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faLink } from '@fortawesome/free-solid-svg-icons';
 
 const navigation = [
   { name: "메인페이지", href: "/", current: true },
@@ -38,11 +39,7 @@ function Navbar() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
+                  <FontAwesomeIcon icon={faLink} className="text-[#949494] text-2xl" />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4 py-2">
