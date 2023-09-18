@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -7,18 +7,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 
-const navigation = [
-  { name: "메인페이지", href: "/", current: true },
-  { name: "팔로워", href: "/", current: false },
-  { name: "지역별", href: "/", current: false },
-  { name: "정당별", href: "/", current: false },
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function Navbar() {
+  const [currentMenuItem, setCurrentMenuItem] = useState(window.location.pathname);
+  const navigation = [
+    { name: "메인페이지", href: "/", current: currentMenuItem === "/" },
+    { name: "팔로워", href: "/follow", current: currentMenuItem === "/follow" },
+    { name: "지역별", href: "/location", current: currentMenuItem === "/location" },
+    { name: "정당별", href: "/party", current: currentMenuItem === "/party" },
+  ];
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -54,6 +54,7 @@ function Navbar() {
                           "rounded-md px-3 py-2 text-sm font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
+                        onClick={() => setCurrentMenuItem(item.name)}
                       >
                         {item.name}
                       </a>
