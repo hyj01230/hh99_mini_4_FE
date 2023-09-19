@@ -83,8 +83,9 @@ function Join() {
     console.log(id, password);
     try {
       const response = await axios.post(`${serverUrl}/user/signup`, {
-        voterId: id,
-        voterPw: password,
+        username: id,
+        password: password,
+        nickname:"banana-master"
       });
       console.log(response);
     } catch (error) {
