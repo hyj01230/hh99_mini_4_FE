@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 
 function Join() {
+  const serverUrl = process.env.REACT_APP_API_URL;
+
   // ID/PW 입력값 state
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
   const [isPolitician, setIsPolitician] = useState(false); // 체크박스 상태
-
   const onChangeIdHandler = (e) => {
     setId(e.target.value);
   };
@@ -71,12 +72,24 @@ function Join() {
       alert("모든 필수 정보를 올바르게 입력하세요.");
       return;
     }
-    alert(`모든 정보를 올바르게 입력했지만 회원가입 구현이 안되있어요`)
+    // alert(`모든 정보를 올바르게 입력했지만 회원가입 구현이 안되있어요`);
     // 가입 로직 추가
-    // ...
+    submitHandler(e);
+  };
 
-    // 가입 성공 시 다음 단계로 이동 또는 홈페이지로 리디렉션
-    // ...
+  // 회원가입 연결해보기
+  const submitHandler = async (e) => {
+    console.log(e);
+    console.log(id, password);
+    try {
+      const response = await axios.post(`${serverUrl}/user/signup`, {
+        voterId: id,
+        voterPw: password,
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
