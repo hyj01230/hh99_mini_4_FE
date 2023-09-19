@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
 
 function Join() {
   const serverUrl = process.env.REACT_APP_API_URL;
@@ -82,13 +81,16 @@ function Join() {
     console.log(e);
     console.log(id, password);
     try {
-      const response = await axios.post(`${serverUrl}/user/signup`, {
+      // `${serverUrl}/api/user/signup`
+      const response = await axios.post(`http://52.79.240.177/api/user/signup`, {
         username: id,
         password: password,
         nickname:"banana-master"
       });
       console.log(response);
+      alert(`회원가입 완료`)
     } catch (error) {
+      alert(`회원가입 실패 ${error}`)
       console.error(error);
     }
   };
