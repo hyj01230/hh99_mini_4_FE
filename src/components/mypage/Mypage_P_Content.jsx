@@ -21,13 +21,21 @@ function Mypage_P_Content() {
       <div className='bg-slate-300 my-6 mx-7 p-7'>
         <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>제목</p>
-          <input placeholder='10자 내외' type="text" className='rounded-md mx-3 flex-grow h-8 px-2' />
+          <input
+            placeholder='10자 내외'
+            type="text"
+            maxLength={10}
+            className='rounded-md mx-3 flex-grow h-8 px-2' />
           <p className='text-lg font-bold'>사진첨부(크기/용량🚨)</p>
           <input type="file" accept="image/*" onChange={handleFileUpload} className='rounded-md mx-3 flex-grow h-8 px-2' />
         </div>
         <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>내용</p>
-          <input placeholder='20자 내외' type="text" className='rounded-md mx-3 flex-grow h-20 p-2' />
+          <input
+            placeholder='30자 내외'
+            type="text"
+            maxLength={30}
+            className='rounded-md mx-3 flex-grow h-20 p-2' />
         </div>
         <div className='flex justify-end'>
           <button
@@ -38,7 +46,7 @@ function Mypage_P_Content() {
       </div>
 
       <p className='mt-[50px] ml-7 text-2xl font-black'>
-      {1 === 1 ? '주요활동 목록(최대 0개)' : '오늘의 한마디 목록(최대 0개)'}</p>
+        {1 === 1 ? '주요활동 목록(최대 0개)' : '오늘의 한마디 목록(최대 0개)'}</p>
 
       {/* 맵으로 돌려서 뽑기!!! */}
       <div className='bg-slate-300 my-6 mx-7 p-7'>
