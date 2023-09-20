@@ -141,22 +141,20 @@ function Navbar() {
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="#"
+                            <div
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
                               마이페이지
-                            </a>
+                            </div>
                           )}
                         </Menu.Item>
 
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href=""
+                            <div
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
@@ -164,10 +162,11 @@ function Navbar() {
                               onClick={() => {
                                 deleteCookie("token"); // "token" 쿠키 삭제
                                 // 로그아웃 후 추가적인 로직을 수행할 수 있습니다.
+                                navigate("/");
                               }}
                             >
                               로그아웃
-                            </a>
+                            </div>
                           )}
                         </Menu.Item>
                       </Menu.Items>
@@ -201,12 +200,16 @@ function Navbar() {
         )}
       </Disclosure>
       <div className="flex gap-20 justify-center p-5">
-        { currentMenuItem === "/location" && locations.map((item) => {
-          return <button className="">{item.location}</button>;
-        })}
-        { currentMenuItem === "/party" &&  partys.map((item) => {
-          return <button>{item.party}</button>;
-        })}
+        {currentMenuItem === "/location" &&
+          locations.map((item) => (
+            <button key={item.id}>{item.location}</button>
+          ))}
+        {currentMenuItem === "/party" &&
+          partys.map((item) => (
+            <button key={item.id} className={`bg-[${item.color}]`}>
+              {item.party}
+            </button>
+          ))}
       </div>
     </>
   );
