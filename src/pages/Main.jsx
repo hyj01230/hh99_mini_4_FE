@@ -1,19 +1,14 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import MainBoard from '../components/MainBoard'
-import NationalMember from '../components/NationalMember'
+import React from "react";
+import NationalMember from "../components/NationalMember";
+import Navbar from "../components/Navbar";
 
 function Main() {
   return (
     <>
       <Navbar />
-
-      <MainBoard/>
       <NationalMember />
-
     </>
-
-  )
+  );
 }
 
-export default Main
+export default Main;
