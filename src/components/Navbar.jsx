@@ -199,14 +199,21 @@ function Navbar() {
           </>
         )}
       </Disclosure>
-      <div className="flex gap-20 justify-center p-5">
+      <div className="flex justify-center pt-5 flex-wrap mx-auto max-w-7xl px-20" style={{justifyContent: "space-between"}}>
         {currentMenuItem === "/location" &&
           locations.map((item) => (
-            <button key={item.id}>{item.location}</button>
+            <button key={item.id} className="bg-slate-300 pt-[5px] pb-[5px] pl-[10px] pr-[10px] rounded-[8px]">{item.location}</button>
           ))}
         {currentMenuItem === "/party" &&
           partys.map((item) => (
-            <button key={item.id} className={`bg-[${item.color}]`}>
+            <button
+              key={item.id}
+              style={{
+                backgroundColor: `${item.color}`,
+                padding: "5px 10px",
+                borderRadius: "8px",
+              }}
+            >
               {item.party}
             </button>
           ))}
