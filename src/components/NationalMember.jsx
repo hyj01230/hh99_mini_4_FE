@@ -1,71 +1,146 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
-const people = [
-  {
-    name: "김성호",
-    role: "프론트엔드",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    name: "전하영",
-    role: "프론트엔드",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    name: "김병관",
-    role: "백엔드",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    name: "정우용",
-    role: "백엔드",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-
-  // More people...
-];
-
 function NationalMember() {
   const navigate = useNavigate();
   return (
-    <div className="bg-white py-24 sm:py-32">
-      <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-8 px-6 lg:px-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-        {people.map((person) => (
-          // JSX 내에서 변수 선언 및 값 할당
-          <div
-            key={person.name}
-            className="bg-red-200 rounded-lg p-3 mb-4"
-            onClick={() => {
-              //TODO: 국회의원 상세페이지로 가게 해야됨
-              navigate("/detail/1");
-            }}
-          >
-            <div className="flex items-center gap-x-6 mb-2">
+    <section className="text-neutral-700 dark:text-neutral-300 flex justify-center flex-wrap">
+      <div className="grid gap-6 text-center md:grid-cols-3">
+        {/* First Testimonial */}
+        <div
+          className="max-w-md"
+          onClick={() => {
+            navigate("/detail/1");
+          }}
+        >
+          <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 dark:shadow-black/30">
+            <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
+            <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
               <img
-                className="h-16 w-16 rounded-full"
-                src={person.imageUrl}
-                alt=""
+                src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+                alt="Avatar 1"
               />
-              <div>
-                <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
-                  {person.name}
-                </h3>
-                <p className="text-sm font-semibold leading-6 text-indigo-600">
-                  {person.role}
-                </p>
-              </div>
             </div>
-            <p className="ml-2">안녕하세요 감사해요 잘있어요 다시만나요 </p>
+            <div className="p-6">
+              <h4 className="mb-4 text-2xl font-semibold">Maria Smantha</h4>
+              <hr />
+              <p className="mt-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  className="inline-block h-7 w-7 pr-2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
+                </svg>
+                Lorem ipsum dolor sit amet eos adipisci, consectetur adipisicing
+                elit.
+              </p>
+            </div>
           </div>
+        </div>
 
-        ))}
+        {/* First Testimonial */}
+        <div
+          className="max-w-md"
+          onClick={() => {
+            navigate("/detail/1");
+          }}
+        >
+          <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 dark:shadow-black/30">
+            <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
+            <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+              <img
+                src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+                alt="Avatar 1"
+              />
+            </div>
+            <div className="p-6">
+              <h4 className="mb-4 text-2xl font-semibold">Maria Smantha</h4>
+              <hr />
+              <p className="mt-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  className="inline-block h-7 w-7 pr-2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
+                </svg>
+                Lorem ipsum dolor sit amet eos adipisci, consectetur adipisicing
+                elit.
+              </p>
+            </div>
+          </div>
+        </div>
+        {/* First Testimonial */}
+        <div
+          className="max-w-md"
+          onClick={() => {
+            navigate("/detail/1");
+          }}
+        >
+          <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 dark:shadow-black/30">
+            <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
+            <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+              <img
+                src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+                alt="Avatar 1"
+              />
+            </div>
+            <div className="p-6">
+              <h4 className="mb-4 text-2xl font-semibold">Maria Smantha</h4>
+              <hr />
+              <p className="mt-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  className="inline-block h-7 w-7 pr-2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
+                </svg>
+                Lorem ipsum dolor sit amet eos adipisci, consectetur adipisicing
+                elit.
+              </p>
+            </div>
+          </div>
+        </div>
+        {/* First Testimonial */}
+        <div
+          className="max-w-md"
+          onClick={() => {
+            navigate("/detail/1");
+          }}
+        >
+          <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 dark:shadow-black/30">
+            <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
+            <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+              <img
+                src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+                alt="Avatar 1"
+              />
+            </div>
+            <div className="p-6">
+              <h4 className="mb-4 text-2xl font-semibold">Maria Smantha</h4>
+              <hr />
+              <p className="mt-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  className="inline-block h-7 w-7 pr-2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
+                </svg>
+                Lorem ipsum dolor sit amet eos adipisci, consectetur adipisicing
+                elit.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
