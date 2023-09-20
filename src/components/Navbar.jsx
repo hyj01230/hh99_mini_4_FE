@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { deleteCookie, getTokenFromCookie } from "../auth/cookie";
 import { locations, partys } from "../data/data";
+import { titleStyle } from "../styles/fonsts";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -32,7 +33,7 @@ function Navbar() {
 
   return (
     <>
-      <Disclosure as="nav" className="bg-gray-800">
+      <Disclosure as="nav" className="bg-white">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -51,13 +52,10 @@ function Navbar() {
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
-                    <FontAwesomeIcon
-                      icon={faLink}
-                      className="text-[#949494] text-2xl"
-                    />
+                    <p style={titleStyle} className="text-2xl">Town Assembly</p>
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
-                    <div className="flex space-x-4 py-2">
+                    <div className="flex w-full items-center">
                       {navigation.map((item) => (
                         <a
                           key={item.name}
@@ -65,7 +63,7 @@ function Navbar() {
                           className={classNames(
                             item.current
                               ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                              : "text-gray-300 hover:bg-[#F9F5EB] hover:text-black",
                             "rounded-md px-3 py-2 text-sm font-medium"
                           )}
                           aria-current={item.current ? "page" : undefined}
@@ -78,7 +76,7 @@ function Navbar() {
                   </div>
                   {/* 검색태그 시작 */}
 
-                  <form className="flex items-center bg-slate-500">
+                  <form className="flex items-center bg-[]#E4DCCF">
                     <label
                       htmlFor="search"
                       className="mb-1 text-xs font-medium text-gray-900 sr-only dark:text-white"
@@ -228,7 +226,6 @@ function Navbar() {
         )}
       </Disclosure>
       <div
-        className="flex justify-center pt-5 mx-auto max-w-7xl px-20 gap-1"
         style={{ justifyContent: "space-between" }}
       >
         {currentMenuItem === "/location" &&

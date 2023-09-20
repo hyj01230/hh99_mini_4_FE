@@ -33,7 +33,7 @@ const people = [
 function NationalMember() {
   const navigate = useNavigate();
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="bg-[#F9F5EB] w-full sm:py-32">
       <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-8 px-6 lg:px-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
         {people.map((person) => (
           // JSX 내에서 변수 선언 및 값 할당

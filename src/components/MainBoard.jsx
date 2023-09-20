@@ -5,7 +5,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 function MainBoard() {
   return (
-    <div>
+    <div className='w-full'>
       
     </div>
   )

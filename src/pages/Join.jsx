@@ -4,12 +4,14 @@ import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { locations, partys } from "../data/data";
+import { titleStyle } from "../styles/fonsts";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function Join() {
+
   const serverUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   // ID/PW 입력값 state
@@ -134,16 +136,18 @@ function Join() {
 
   return (
     <>
-      <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-[url('http://www.kasancamera.co.kr/shop/data/goods/2013110813095011.jpg')] bg-bottom bg-cover">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-5 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900" onClick={() => {navigate('/')}}>
-            Town Assembly
-          </h2>
+      <div className="w-full h-[1200px] flex flex-col items-center p-6 bg-[#F9F5EB]">
+        <div className="flex flex-row m-12">
+          <p style={titleStyle} className="px-3 text-center text-5xl font-bold text-[#65451F] cursor-pointer " onClick={() => { navigate('/') }}>
+            Town
+          </p>
+          <p style={titleStyle} className="px-3 text-center text-5xl font-bold text-[#65451F] cursor-pointer" onClick={() => { navigate('/') }}>
+            Assembly
+          </p>
         </div>
-
-        <div className="mt-12 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={onJoinButtonClick}>
-            <div>
+        <div className="bg-white w-[500px] p-12 rounded-md">
+          <form onSubmit={onJoinButtonClick}>
+            <div className="w-full">
               <label
                 htmlFor="username"
                 className="block text-lg font-black leading-6 text-gray-900"
@@ -159,21 +163,19 @@ function Join() {
                   value={id}
                   onChange={onChangeIdHandler}
                   maxLength={20}
-                  className="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="mb-[25px] pl-3 block w-full h-[35px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#65451F] sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="mt-2 block text-lg font-black leading-6 text-gray-900"
-                >
-                  비밀번호
-                </label>
-                <p className="my-2 text-red-600">{pwMessage}</p>
-              </div>
+              <label
+                htmlFor="password"
+                className="mt-2 block text-lg font-black leading-6 text-gray-900"
+              >
+                비밀번호
+              </label>
+              <p className="my-2 text-red-600">{pwMessage}</p>
               <div className="mt-3">
                 <input
                   id="password"
@@ -182,22 +184,20 @@ function Join() {
                   value={password}
                   onChange={onChangePasswordHandler}
                   maxLength={20}
-                  className="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="mb-[25px] pl-3 block w-full h-[35px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#65451F] sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
-              <div>
-                <label
-                  htmlFor="checkPassword"
-                  className="mt-2 block text-lg font-black leading-6 text-gray-900"
-                >
-                  비밀번호 확인
-                </label>
-                <p className="my-2 text-red-600">{pwCheckMessage}</p>
-              </div>
-              <div className="mt-3 mb-9">
+              <label
+                htmlFor="checkPassword"
+                className="mt-2 block text-lg font-black leading-6 text-gray-900"
+              >
+                비밀번호 확인
+              </label>
+              <p className="my-2 text-red-600">{pwCheckMessage}</p>
+              <div className="mt-3">
                 <input
                   id="checkPassword"
                   placeholder="비밀번호 재입력"
@@ -205,22 +205,20 @@ function Join() {
                   value={checkPassword}
                   onChange={onChangeCheckPasswordHandler}
                   maxLength={20}
-                  className="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="mb-[25px] pl-3 block w-full h-[35px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#65451F] sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
-              <div>
-                <label
-                  htmlFor="nickname"
-                  className="mt-2 block text-lg font-black leading-6 text-gray-900"
-                >
-                  닉네임
-                </label>
-                {/* <p className="my-2 text-red-600">{pwCheckMessage}</p> */}
-              </div>
-              <div className="mt-3 mb-9">
+              <label
+                htmlFor="nickname"
+                className="mt-2 block text-lg font-black leading-6 text-gray-900"
+              >
+                닉네임
+              </label>
+              {/* <p className="my-2 text-red-600">{pwCheckMessage}</p> */}
+              <div className="mt-3">
                 <input
                   id="nickname"
                   placeholder="닉네임 입력(2~10자)"
@@ -228,24 +226,24 @@ function Join() {
                   value={nickname}
                   onChange={onChangeNickNameHandler}
                   maxLength={10}
-                  className="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="mb-[25px] pl-3 block w-full h-[35px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#65451F] sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
-            <div className="bg-slate-100 rounded-md p-4">
+            <div className="bg-gray-200 p-3 rounded-md mt-8 mb-7">
               <div className="flex items-center">
                 <input
                   id="comments"
                   name="comments"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                  className="accent-[#65451F] h-4 w-4 rounded border-gray-300 text-[#65451F] focus:ring-[#65451F]"
                   checked={isPolitician}
                   onChange={onCheckboxChangeHandler}
                 />
                 <label
                   htmlFor="comments"
-                  className="pl-3 block text-lg font-black leading-6 text-gray-900"
+                  className="pl-3 block text-[16px] font-black leading-6 text-black"
                 >
                   정치인 회원입니다
                 </label>
@@ -265,7 +263,7 @@ function Join() {
                       {({ open }) => (
                         <>
                           <div className="relative mt-2">
-                            <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
+                            <Listbox.Button className="relative w-[400px] h-[35px] cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-[#65451F] sm:text-sm sm:leading-6">
                               <span className="flex items-center">
                                 <span className="ml-3 block truncate">
                                   {selected.party}
@@ -293,7 +291,7 @@ function Join() {
                                     className={({ active }) =>
                                       classNames(
                                         active
-                                          ? "bg-indigo-600 text-white"
+                                          ? "bg-[#F9F5EB] text-black"
                                           : "text-gray-900",
                                         "relative cursor-default select-none py-2 pl-3 pr-9"
                                       )
@@ -347,7 +345,7 @@ function Join() {
                   <div>
                     <div
                       htmlFor="location"
-                      className="mt-2 block text-lg font-black leading-6 text-gray-900"
+                      className="mt-5 block text-lg font-black leading-6 text-gray-900"
                     >
                       지역
                     </div>
@@ -358,7 +356,7 @@ function Join() {
                       {({ open }) => (
                         <>
                           <div className="relative mt-2">
-                            <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
+                            <Listbox.Button className="mb-3 relative w-[400px] h-[35px] cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-[#65451F] sm:text-sm sm:leading-6">
                               <span className="flex items-center">
                                 <span className="ml-3 block truncate">
                                   {locate.location}
@@ -386,7 +384,7 @@ function Join() {
                                     className={({ active }) =>
                                       classNames(
                                         active
-                                          ? "bg-indigo-600 text-white"
+                                          ? "bg-[#F9F5EB] text-black"
                                           : "text-gray-900",
                                         "relative cursor-default select-none py-2 pl-3 pr-9"
                                       )
@@ -413,7 +411,7 @@ function Join() {
                                             className={classNames(
                                               active
                                                 ? "text-white"
-                                                : "text-indigo-600",
+                                                : "text-[#F2EAD3]",
                                               "absolute inset-y-0 right-0 flex items-center pr-4"
                                             )}
                                           >
@@ -439,15 +437,15 @@ function Join() {
             )}
 
             <div className="mt-4 flex justify-center gap-[20px]">
-            <button
+              <button
                 type="submit"
-                className="mt-4 flex w-[150px] justify-center rounded-md bg-green-700 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="text-[15px] flex w-[150px] justify-center rounded-md bg-[#F2EAD3] px-3 py-2 font-semibold leading-6 text-black shadow-sm hover:bg-[#F2EAD3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2EAD3]"
               >
                 로그인
               </button>
               <button
                 type="submit"
-                className="mt-4 flex w-[150px] justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="text-[15px] flex w-[150px] justify-center rounded-md bg-[#65451F] px-3 py-2 font-semibold leading-6 text-white shadow-sm hover:bg-[#65451F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2EAD3]"
               >
                 가입하기
               </button>
