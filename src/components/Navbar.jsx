@@ -76,7 +76,7 @@ function Navbar() {
                   </div>
                   {/* 검색태그 시작 */}
 
-                  <form className="flex items-center bg-[]#E4DCCF">
+                  <form className="flex items-center">
                     <label
                       htmlFor="search"
                       className="mb-1 text-xs font-medium text-gray-900 sr-only dark:text-white"
