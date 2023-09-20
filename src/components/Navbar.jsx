@@ -2,7 +2,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React, { Fragment, useState } from "react";
 // Navbar.jsx 파일 상단에 아래 코드 추가
-import { faLink, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useNavigate } from "react-router-dom";
@@ -77,21 +77,49 @@ function Navbar() {
                     </div>
                   </div>
                   {/* 검색태그 시작 */}
-                  <div>
-                    <div className="relative mt-2 rounded-md shadow-sm ml-5">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-52">
-                        <span className="text-gray-500 sm:text-sm">
-                          <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </span>
+
+                  <form className="flex items-center bg-slate-500">
+                    <label
+                      htmlFor="search"
+                      className="mb-1 text-xs font-medium text-gray-900 sr-only dark:text-white"
+                    >
+                      Search
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                        {/* 돋보기 */}
+                        <svg
+                          className="w-3 h-3 text-gray-500 dark:text-gray-400"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                          />
+                        </svg>
                       </div>
                       <input
-                        type="text"
-                        name="price"
-                        id="price"
-                        className="block w-full rounded-md border-0 py-2 pl-10 pr-10  text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        type="search"
+                        id="search"
+                        className="block w-full p-2 pl-7 text-xs text-gray-900 border border-gray-300 rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Search"
+                        required
                       />
+                      <button
+                        type="submit"
+                        className="text-white absolute right-1 bottom-1 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded text-xs px-3 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      >
+                        Search
+                      </button>
                     </div>
-                  </div>
+                  </form>
+
                   {/* 검색태그 끝 */}
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -199,14 +227,32 @@ function Navbar() {
           </>
         )}
       </Disclosure>
-      <div className="flex gap-20 justify-center p-5">
+      <div
+        className="flex justify-center pt-5 mx-auto max-w-7xl px-20 gap-1"
+        style={{ justifyContent: "space-between" }}
+      >
         {currentMenuItem === "/location" &&
           locations.map((item) => (
-            <button key={item.id}>{item.location}</button>
+            <button
+              key={item.id}
+              className="bg-slate-300 pt-[5px] pb-[5px] pl-[10px] pr-[10px] rounded-[8px]"
+            >
+              {item.location}
+            </button>
           ))}
         {currentMenuItem === "/party" &&
           partys.map((item) => (
-            <button key={item.id} className={`bg-[${item.color}]`}>
+            <button
+              key={item.id}
+              style={{
+                backgroundColor: `${item.color}`,
+                padding: "5px 20px",
+                borderRadius: "8px",
+                fontWeight: "100",
+                color: "white",
+                WebkitTextStroke: "1px #f6f4f4",
+              }}
+            >
               {item.party}
             </button>
           ))}
