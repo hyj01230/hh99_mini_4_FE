@@ -1,14 +1,36 @@
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { locations, partys } from "../data/data";
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 function Join() {
   const serverUrl = process.env.REACT_APP_API_URL;
-
+  const navigate = useNavigate();
   // ID/PW 입력값 state
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
+  const [nickname, setNickName] = useState("");
   const [isPolitician, setIsPolitician] = useState(false); // 체크박스 상태
+  const [selected, setSelected] = useState(isPolitician ? partys[0] : "");
+  const [locate, setLocate] = useState(isPolitician ? locations[0] : "");
+
+  useEffect(() => {
+    if (isPolitician) {
+      setSelected(partys[0]);
+      setLocate(locations[0]);
+    } else {
+      setSelected("");
+      setLocate("");
+    }
+  }, [isPolitician]);
+
   const onChangeIdHandler = (e) => {
     setId(e.target.value);
   };
@@ -20,6 +42,19 @@ function Join() {
   };
   const onCheckboxChangeHandler = (e) => {
     setIsPolitician(e.target.checked);
+  };
+  const onChangeNickNameHandler = (e) => {
+    setNickName(e.target.value);
+  };
+  const onChangePartyHandler = (e) => {
+    const partyTarget = partys.findIndex((party) => party.party === e);
+    setSelected(partys[partyTarget]);
+  };
+  const onChangeLocateHandler = (e) => {
+    const locateTarget = locations.findIndex(
+      (location) => location.location === e
+    );
+    setLocate(locations[locateTarget]);
   };
 
   // id 유효성검사 및 안내메시지
@@ -78,19 +113,21 @@ function Join() {
 
   // 회원가입 연결해보기
   const submitHandler = async (e) => {
-    console.log(e);
-    console.log(id, password);
+    const obj = {
+      username: id,
+      password: password,
+      nickname: "banana-master",
+    };
     try {
-      // `${serverUrl}/api/user/signup`
-      const response = await axios.post(`http://52.79.240.177/api/user/signup`, {
-        username: id,
-        password: password,
-        nickname:"banana-master"
-      });
+      const response = await axios.post(
+        `${serverUrl}/api/user/signup`,
+        obj
+      );
       console.log(response);
-      alert(`회원가입 완료`)
+      alert(`회원가입 완료`);
+      navigate("/login");
     } catch (error) {
-      alert(`회원가입 실패 ${error}`)
+      alert(`회원가입 실패 ${error}`);
       console.error(error);
     }
   };
@@ -108,7 +145,7 @@ function Join() {
           <form className="space-y-6" onSubmit={onJoinButtonClick}>
             <div>
               <label
-                htmlFor="email"
+                htmlFor="username"
                 className="block text-lg font-black leading-6 text-gray-900"
               >
                 아이디
@@ -116,6 +153,7 @@ function Join() {
               <p className="my-2 text-red-600">{idMessage}</p>
               <div className="mt-3">
                 <input
+                  id="username"
                   placeholder="아이디 입력(6~20자)"
                   type="text"
                   value={id}
@@ -138,6 +176,7 @@ function Join() {
               </div>
               <div className="mt-3">
                 <input
+                  id="password"
                   placeholder="비밀번호 입력(문자, 숫자, 특수문자 포함 8~20자)"
                   type="password"
                   value={password}
@@ -151,7 +190,7 @@ function Join() {
             <div>
               <div>
                 <label
-                  htmlFor="password"
+                  htmlFor="checkPassword"
                   className="mt-2 block text-lg font-black leading-6 text-gray-900"
                 >
                   비밀번호 확인
@@ -160,11 +199,35 @@ function Join() {
               </div>
               <div className="mt-3 mb-9">
                 <input
+                  id="checkPassword"
                   placeholder="비밀번호 재입력"
                   type="password"
                   value={checkPassword}
                   onChange={onChangeCheckPasswordHandler}
                   maxLength={20}
+                  className="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div>
+                <label
+                  htmlFor="nickname"
+                  className="mt-2 block text-lg font-black leading-6 text-gray-900"
+                >
+                  닉네임
+                </label>
+                {/* <p className="my-2 text-red-600">{pwCheckMessage}</p> */}
+              </div>
+              <div className="mt-3 mb-9">
+                <input
+                  id="nickname"
+                  placeholder="닉네임 입력(2~10자)"
+                  type="password"
+                  value={nickname}
+                  onChange={onChangeNickNameHandler}
+                  maxLength={10}
                   className="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -181,14 +244,207 @@ function Join() {
                   onChange={onCheckboxChangeHandler}
                 />
                 <label
-                  htmlFor="password"
+                  htmlFor="comments"
                   className="pl-3 block text-lg font-black leading-6 text-gray-900"
                 >
                   정치인 회원입니다
                 </label>
               </div>
             </div>
-            <div className="mt-4 flex justify-center">
+
+            {isPolitician && (
+              <>
+                <div>
+                  <div>
+                    <div className="mt-2 block text-lg font-black leading-6 text-gray-900">
+                      정당
+                    </div>
+                  </div>
+                  <div className="mt-3">
+                    <Listbox value={selected} onChange={onChangePartyHandler}>
+                      {({ open }) => (
+                        <>
+                          <div className="relative mt-2">
+                            <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
+                              <span className="flex items-center">
+                                <span className="ml-3 block truncate">
+                                  {selected.party}
+                                </span>
+                              </span>
+                              <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                                <ChevronUpDownIcon
+                                  className="h-5 w-5 text-gray-400"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            </Listbox.Button>
+
+                            <Transition
+                              show={open}
+                              as={Fragment}
+                              leave="transition ease-in duration-100"
+                              leaveFrom="opacity-100"
+                              leaveTo="opacity-0"
+                            >
+                              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                {partys.map((item) => (
+                                  <Listbox.Option
+                                    key={item.id}
+                                    className={({ active }) =>
+                                      classNames(
+                                        active
+                                          ? "bg-indigo-600 text-white"
+                                          : "text-gray-900",
+                                        "relative cursor-default select-none py-2 pl-3 pr-9"
+                                      )
+                                    }
+                                    value={item.party}
+                                  >
+                                    {({ selected, active }) => (
+                                      <>
+                                        <div className="flex items-center">
+                                          <span
+                                            className={classNames(
+                                              selected
+                                                ? "font-semibold"
+                                                : "font-normal",
+                                              "ml-3 block truncate"
+                                            )}
+                                          >
+                                            {item.party}
+                                          </span>
+                                        </div>
+
+                                        {selected ? (
+                                          <span
+                                            className={classNames(
+                                              active
+                                                ? "text-white"
+                                                : "text-indigo-600",
+                                              "absolute inset-y-0 right-0 flex items-center pr-4"
+                                            )}
+                                          >
+                                            <CheckIcon
+                                              className="h-5 w-5"
+                                              aria-hidden="true"
+                                            />
+                                          </span>
+                                        ) : null}
+                                      </>
+                                    )}
+                                  </Listbox.Option>
+                                ))}
+                              </Listbox.Options>
+                            </Transition>
+                          </div>
+                        </>
+                      )}
+                    </Listbox>
+                  </div>
+                </div>
+
+                <div>
+                  <div>
+                    <div
+                      htmlFor="location"
+                      className="mt-2 block text-lg font-black leading-6 text-gray-900"
+                    >
+                      지역
+                    </div>
+                  </div>
+                  <div className="mt-3">
+                    {/*  */}
+                    <Listbox value={locate} onChange={onChangeLocateHandler}>
+                      {({ open }) => (
+                        <>
+                          <div className="relative mt-2">
+                            <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
+                              <span className="flex items-center">
+                                <span className="ml-3 block truncate">
+                                  {locate.location}
+                                </span>
+                              </span>
+                              <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                                <ChevronUpDownIcon
+                                  className="h-5 w-5 text-gray-400"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            </Listbox.Button>
+
+                            <Transition
+                              show={open}
+                              as={Fragment}
+                              leave="transition ease-in duration-100"
+                              leaveFrom="opacity-100"
+                              leaveTo="opacity-0"
+                            >
+                              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                {locations.map((item) => (
+                                  <Listbox.Option
+                                    key={item.id}
+                                    className={({ active }) =>
+                                      classNames(
+                                        active
+                                          ? "bg-indigo-600 text-white"
+                                          : "text-gray-900",
+                                        "relative cursor-default select-none py-2 pl-3 pr-9"
+                                      )
+                                    }
+                                    value={item.location}
+                                  >
+                                    {({ selected, active }) => (
+                                      <>
+                                        <div className="flex items-center">
+                                          <span
+                                            className={classNames(
+                                              selected
+                                                ? "font-semibold"
+                                                : "font-normal",
+                                              "ml-3 block truncate"
+                                            )}
+                                          >
+                                            {item.location}
+                                          </span>
+                                        </div>
+
+                                        {selected ? (
+                                          <span
+                                            className={classNames(
+                                              active
+                                                ? "text-white"
+                                                : "text-indigo-600",
+                                              "absolute inset-y-0 right-0 flex items-center pr-4"
+                                            )}
+                                          >
+                                            <CheckIcon
+                                              className="h-5 w-5"
+                                              aria-hidden="true"
+                                            />
+                                          </span>
+                                        ) : null}
+                                      </>
+                                    )}
+                                  </Listbox.Option>
+                                ))}
+                              </Listbox.Options>
+                            </Transition>
+                          </div>
+                        </>
+                      )}
+                    </Listbox>
+                  </div>
+                </div>
+              </>
+            )}
+
+            <div className="mt-4 flex justify-center gap-[20px]">
+            <button
+                type="submit"
+                className="mt-4 flex w-[150px] justify-center rounded-md bg-green-700 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                로그인
+              </button>
               <button
                 type="submit"
                 className="mt-4 flex w-[150px] justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
