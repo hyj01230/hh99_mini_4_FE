@@ -5,7 +5,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 function MainBoard() {
   return (
-    <div className='w-full'>
+    <div className='w-full bg-[#F9F5EB]'>
       
     </div>
   )

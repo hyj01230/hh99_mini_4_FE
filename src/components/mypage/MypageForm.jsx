@@ -14,8 +14,8 @@ function MypageForm() {
   // 클릭했을때 컴퍼넌트 변경!
   const onClickMyInfoHandler = () => { setSideTab(<Mypage_Info />) }
   // 유권자와 정치인 별로 다르게 state 변경(id)받기!
-  const onClickMyCommentHandler = () => { setSideTab(1 === 0 ? <Mypage_C_Comment /> : <Mypage_P_Content title1={'주요활동 업로드'} title2={'주요활동 목록(최대 0개)'} />) }
-  const onClickMyFollowHandler = () => { setSideTab(1 === 0 ? <Mypage_C_Follow /> : <Mypage_P_Content title3={'오늘의 한마디 업로드'} title4={'오늘의 한마디 목록(최대 0개)'} />) }
+  const onClickMyCommentHandler = () => { setSideTab(1 === 1 ? <Mypage_C_Comment /> : <Mypage_P_Content title1={'주요활동 업로드'} title2={'주요활동 목록(최대 0개)'} />) }
+  const onClickMyFollowHandler = () => { setSideTab(1 === 1 ? <Mypage_C_Follow /> : <Mypage_P_Content title3={'오늘의 한마디 업로드'} title4={'오늘의 한마디 목록(최대 0개)'} />) }
 
   // 파일업로드
   const fileInputRef = useRef(null);
@@ -39,7 +39,7 @@ function MypageForm() {
 
 
   return (
-    <div className="flex w-[1300px] mx-auto">
+    <div className="w-full mx-auto bg-[#F9F5EB] flex justify-center">
       <div className="w-[300px] h-screen">
         <div className="flex flex-col justify-center items-center">
           <label className="block text-2xl mt-10 font-black leading-10 text-gray-900">
