@@ -15,10 +15,10 @@ function Activity() {
   }
 
   return (
-    <div className=' h-screen w-[1000px]'>
+    <div className=' h-full w-[1000px]'>
       <p className='mt-[50px] ml-7 text-2xl font-black'>
         주요활동 업로드</p>
-      <div className='bg-slate-300 my-6 mx-7 p-7'>
+      <div className='bg-[#F2EAD3] my-6 mx-7 p-7'>
         <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>제목</p>
           <input
@@ -49,7 +49,7 @@ function Activity() {
       주요활동 업로드 목록(최대 0개)</p>
 
       {/* 맵으로 돌려서 뽑기!!! */}
-      <div className='bg-slate-300 my-6 mx-7 p-7'>
+      <div className='bg-[#F2EAD3] my-6 mx-7 p-7'>
         <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>제목</p>
           <input placeholder='제목1' type="text" className='rounded-md mx-3 flex-grow h-8 px-2' />

@@ -45,8 +45,8 @@ function MypageForm() {
 
   return (
     <div className="w-full mx-auto flex justify-center">
-      <div className="w-[300px] h-screen">
-        <div className="flex flex-col justify-center items-center">
+      <div className="w-[300px] h-screen ">
+        <div className="flex flex-col justify-center items-center fixed w-[300px]">
           <img
             className="inline-block h-[200px] w-[200px] rounded-full mt-[50px] border border-gray-200"
             src="https://i.namu.wiki/i/HfPaXJ6qhoBdHtpSh_ivra2eGF8z04V9kmd93toYyzhxaQoKvBfXF6VZ5-zcTLRYFpcT8aS_IjhBtdntFeHP-eHdcWYJQHIUQxCB3fzTvokwitrLW9Y4P2jWWRc4P9mMjvkoZFJno3slsPX8cZMCvg.webp"
@@ -56,7 +56,7 @@ function MypageForm() {
           <button
             type="button"
             onClick={handleUploadButtonClick}
-            className="flex items-center w-[200px] h-[50px] mt-8 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex items-center w-[180px] h-[50px] text-[#65451F] bg-[#F2EAD3] hover:bg-[#f7e9c1] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm "
           >
             프로필 사진 수정
           </button>
@@ -73,28 +73,28 @@ function MypageForm() {
           <button
             type="button"
             onClick={onClickMyInfoHandler}
-            className="flex items-center w-[200px] h-[50px] mt-8 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
             내 정보
           </button>
           <button
             type="button"
             onClick={onClickFollow_ActivityHandler}
-            className="flex items-center w-[200px] h-[50px] mt-8 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
             {1 === 0 ? '팔로우 관리' : '주요활동'}
           </button>
           <button
             type="button"
             onClick={onClickTodayCommentHandler}
-            className="flex items-center w-[200px] h-[50px] mt-8 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
             오늘의 한마디
           </button>
           <button
             type="button"
             onClick={onClickSupportCommentHandler}
-            className="flex items-center w-[200px] h-[50px] mt-8 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
             응원 댓글
           </button>

@@ -136,18 +136,18 @@ function MyInfo() {
     <div className=' h-screen w-[1000px]'>
       <p className='mt-[50px] ml-7 text-2xl font-black'>내 정보</p>
 
-      <div className='border my-6 mx-7 py-7 pl-7 pr-16 flex flex-col'>
+      <div className='my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB]'>
         <div className='flex flex-row'>
           <div className='w-[150px] text-xl font-bold flex justify-center'>
             회원정보
           </div>
           <div className='flex flex-col w-full'>
             <div className='flex flex-row mb-5'>
-              <p className='w-[100px] flex justify-start mx-3'>이름</p>
+              <p className='w-[100px] flex justify-start mx-3 '>이름</p>
               <input
                 value={'회원 이름 가져와서 고정!'}
                 disabled
-                className='border flex items-center w-full px-3' />
+                className='border flex items-center w-full px-3 rounded-md' />
             </div>
             <div className='flex flex-row mb-5'>
               <p className='w-[100px] flex justify-start mx-3'>닉네임</p>
@@ -156,14 +156,14 @@ function MyInfo() {
                 onChange={onChangeNickNameHandler}
                 placeholder="닉네임 입력(2~10자)"
                 maxLength={10}
-                className='border flex items-center w-full px-3' />
+                className='border flex items-center w-full px-3 rounded-md' />
             </div>
             <div className='flex flex-row mb-5'>
               <p className='w-[100px] flex justify-start mx-3'>이메일</p>
               <input
                 value={email}
                 onChange={onChangeEmailHandler}
-                className='border flex items-center w-full px-3' />
+                className='border flex items-center w-full px-3 rounded-md' />
             </div>
             <div className='flex flex-row mb-5'>
               <p className='w-[100px] flex justify-start mx-3'>전화번호</p>
@@ -172,7 +172,7 @@ function MyInfo() {
                 onChange={onChangePhoneNumHandler}
                 placeholder='010-1234-5678'
                 maxLength={13}
-                className='border flex items-center w-full px-3' />
+                className='border flex items-center w-full px-3 rounded-md' />
             </div>
             <div className='flex flex-row mb-5'>
               <p className='w-[100px] flex justify-start mx-3'>소속정당</p>
@@ -181,7 +181,7 @@ function MyInfo() {
                   {({ open }) => (
                     <>
                       <div className="relative">
-                        <Listbox.Button className="relative w-full cursor-default bg-white text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
+                        <Listbox.Button className="rounded-md relative w-full cursor-default bg-white text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2  sm:text-sm sm:leading-6">
                           <span className="flex items-center">
                             <span className="ml-3 block truncate">
                               {partyList.party}
@@ -265,7 +265,7 @@ function MyInfo() {
                   {({ open }) => (
                     <>
                       <div className="relative">
-                        <Listbox.Button className="relative w-full cursor-default bg-white text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
+                        <Listbox.Button className="rounded-md relative w-full cursor-default bg-white text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2  sm:text-sm sm:leading-6">
                           <span className="flex items-center">
                             <span className="ml-3 block truncate">
                               {locationList.location}
@@ -349,7 +349,7 @@ function MyInfo() {
                 onChange={onChangeProfileHandler}
                 placeholder=""
                 maxLength={10}
-                className='border flex items-center w-full px-3' />
+                className='border flex items-center w-full px-3 rounded-md' />
             </div>
           </div>
         </div>
@@ -357,20 +357,20 @@ function MyInfo() {
           <button
             type="button"
             onClick={onClickInfoCancleHandler}
-            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] 0"
           >
             취소
           </button>
           <button
             type="submit"
-            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex items-center w-[100px] h-[40px] my-2 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
           >
             저장
           </button>
         </form>
       </div>
 
-      <div className='border my-6 mx-7 py-7 pl-7 pr-16 flex flex-col'>
+      <div className='my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB]'>
         <div className='flex flex-row'>
           <div className='w-[150px] text-xl font-bold flex justify-center'>
             비밀번호
@@ -383,7 +383,7 @@ function MyInfo() {
                 value={currentPassword}
                 onChange={onChangeCurrentPwHandler}
                 maxLength={20}
-                className='border flex items-center w-full px-3' />
+                className='rounded-md border flex items-center w-full px-3' />
             </div>
             <div>
               <p className="ml-[170px] my-2 text-red-600">{pwMessage}</p>
@@ -395,7 +395,7 @@ function MyInfo() {
                 value={newPassword}
                 onChange={onChangeNwePwHandler}
                 maxLength={20}
-                className='border flex items-center w-full px-3' />
+                className='rounded-md border flex items-center w-full px-3' />
             </div>
             <div>
               <p className="ml-[170px] my-2 text-red-600">{newPwMessage}</p>
@@ -407,7 +407,7 @@ function MyInfo() {
                 value={checkPassword}
                 onChange={onChangeCheckPwHandler}
                 maxLength={20}
-                className='border flex items-center w-full px-3' />
+                className='rounded-md border flex items-center w-full px-3' />
             </div>
             <div>
               <p className="ml-[170px] my-2 text-red-600">{checkPwMessage}</p>
@@ -419,13 +419,13 @@ function MyInfo() {
           <button
             type="button"
             onClick={onClickPWCancleHandler}
-            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 " 
           >
             취소
           </button>
           <button
             type="submit"
-            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex items-center w-[100px] h-[40px] my-2 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
           >
             저장
           </button>
