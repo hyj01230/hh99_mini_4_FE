@@ -6,6 +6,7 @@ import React, { Fragment, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteCookie, getTokenFromCookie } from "../auth/cookie";
 import { locations, partys } from "../data/data";
+import { titleStyle } from "../styles/fonsts";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -31,14 +32,14 @@ function Navbar() {
 
   return (
     <>
-      <Disclosure as="nav" className="bg-gray-800">
+      <Disclosure as="nav" className="bg-white">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
               <div className="relative flex h-16 items-center justify-between">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                   {/* Mobile menu button*/}
-                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Open main menu</span>
                     {open ? (
@@ -50,17 +51,21 @@ function Navbar() {
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
-                    <p
+
+                    {/* <p
                       className="text-[white] font-[600] text-xl"
-                      onClick={() => {
-                        navigate("/");
-                      }}
+                      
                     >
                       Town Assembly
-                    </p>
+                    </p> */}
+
+                    <p style={titleStyle} className="text-2xl" onClick={() => {
+                        navigate("/");
+                      }}>Town Assembly</p>
+
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
-                    <div className="flex space-x-4 py-2">
+                    <div className="flex w-full items-center">
                       {navigation.map((item) => (
                         <a
                           key={item.name}
@@ -68,7 +73,7 @@ function Navbar() {
                           className={classNames(
                             item.current
                               ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                              : "text-gray-300 hover:bg-[#F9F5EB] hover:text-black",
                             "rounded-md px-3 py-2 text-sm font-medium"
                           )}
                           aria-current={item.current ? "page" : undefined}
@@ -81,7 +86,7 @@ function Navbar() {
                   </div>
                   {/* 검색태그 시작 */}
 
-                  <form className="flex items-center">
+                  <form className="flex items-center bg-slate-500">
                     <label
                       htmlFor="search"
                       className="mb-1 text-xs font-medium text-gray-900 sr-only dark:text-white"
@@ -234,7 +239,6 @@ function Navbar() {
         )}
       </Disclosure>
       <div
-        className="flex justify-center pt-5 mx-auto max-w-7xl px-20 gap-1"
         style={{ justifyContent: "space-between" }}
       >
         {currentMenuItem === "/location" &&
