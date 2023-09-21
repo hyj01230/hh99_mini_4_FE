@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Main from "../pages/Main";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Detail from "../pages/Detail";
-import MyPage from "../pages/MyPage";
+import Error404 from "../pages/Error404";
 import Join from "../pages/Join";
 import Login from "../pages/Login";
-import Error404 from "../pages/Error404";
+import Main from "../pages/Main";
+import MyPage from "../pages/MyPage";
 
 
 const Router = () => {

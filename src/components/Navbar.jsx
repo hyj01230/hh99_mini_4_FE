@@ -1,11 +1,9 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import React, { Fragment, useState } from "react";
 // Navbar.jsx 파일 상단에 아래 코드 추가
-import { faLink } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { deleteCookie, getTokenFromCookie } from "../auth/cookie";
 import { locations, partys } from "../data/data";
 
@@ -16,8 +14,9 @@ function classNames(...classes) {
 function Navbar() {
   const navigate = useNavigate();
   const token = getTokenFromCookie(); // 토큰 확인
+  const { id } = useParams();
   const [currentMenuItem, setCurrentMenuItem] = useState(
-    window.location.pathname
+    id === undefined ? "/" : id
   );
   const navigation = [
     { name: "전체조회", href: "/", current: currentMenuItem === "/" },
@@ -51,10 +50,14 @@ function Navbar() {
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
-                    <FontAwesomeIcon
-                      icon={faLink}
-                      className="text-[#949494] text-2xl"
-                    />
+                    <p
+                      className="text-[white] font-[600] text-xl"
+                      onClick={() => {
+                        navigate("/");
+                      }}
+                    >
+                      Town Assembly
+                    </p>
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4 py-2">
@@ -129,7 +132,7 @@ function Navbar() {
                   >
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
                   </button>
 
                   {/* Profile dropdown */}
@@ -174,6 +177,9 @@ function Navbar() {
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
+                              onClick={() => {
+                                navigate("/mypage/1");
+                              }}
                             >
                               마이페이지
                             </div>
