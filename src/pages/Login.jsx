@@ -91,7 +91,7 @@ function Login() {
             <div className="mt-[30px] flex flex-col">
               <button
                 type="submit"
-                className="h-12 pl-3 w-full flex mt-3 justify-center rounded-md bg-[#65451F] px-3 py-2 text-base items-center font-semibold leading-6 text-white shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500"
+                className="h-12 pl-3 w-full flex mt-3 justify-center rounded-md bg-[#65451F] px-3 py-2 text-base items-center font-semibold leading-6 text-white shadow-sm "
               >
                 로그인
               </button>
