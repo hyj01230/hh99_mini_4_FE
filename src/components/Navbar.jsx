@@ -32,7 +32,7 @@ function Navbar() {
 
   return (
     <>
-      <Disclosure as="nav" className="bg-white">
+      <Disclosure as="nav" className="bg-[#F2EAD3]">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -49,7 +49,7 @@ function Navbar() {
                     )}
                   </Disclosure.Button>
                 </div>
-                <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
 
                     {/* <p
@@ -59,12 +59,12 @@ function Navbar() {
                       Town Assembly
                     </p> */}
 
-                    <p style={titleStyle} className="text-2xl" onClick={() => {
+                    <p style={titleStyle} className="text-2xl cursor-pointer text-[#65451F]" onClick={() => {
                         navigate("/");
                       }}>Town Assembly</p>
 
                   </div>
-                  <div className="hidden sm:ml-6 sm:block">
+                  <div className="hidden sm:ml-6 sm:block w-[500px] justify-around">
                     <div className="flex w-full items-center">
                       {navigation.map((item) => (
                         <a
@@ -72,8 +72,8 @@ function Navbar() {
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-[#F9F5EB] hover:text-black",
+                              ? "text-[#65451F] text-[16px] hover:font-bold"
+                              : "text-[#65451F] text-[16px] hover:font-bold",
                             "rounded-md px-3 py-2 text-sm font-medium"
                           )}
                           aria-current={item.current ? "page" : undefined}
@@ -86,18 +86,18 @@ function Navbar() {
                   </div>
                   {/* 검색태그 시작 */}
 
-                  <form className="flex items-center bg-slate-500">
+                  <form className="flex items-center w-full">
                     <label
                       htmlFor="search"
-                      className="mb-1 text-xs font-medium text-gray-900 sr-only dark:text-white"
+                      className="mb-1 text-xs font-medium text-gray-900 sr-only "
                     >
                       Search
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                    <div className="relative w-full">
+                      <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
                         {/* 돋보기 */}
                         <svg
-                          className="w-3 h-3 text-gray-500 dark:text-gray-400"
+                          className="w-3 h-3 text-gray-500"
                           aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -115,13 +115,13 @@ function Navbar() {
                       <input
                         type="search"
                         id="search"
-                        className="block w-full p-2 pl-7 text-xs text-gray-900 border border-gray-300 rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="block w-full h-10 p-2 pl-8 text-xs text-gray-900 border border-gray-300 rounded bg-gray-50"
                         placeholder="Search"
                         required
                       />
                       <button
                         type="submit"
-                        className="text-white absolute right-1 bottom-1 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded text-xs px-3 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="text-white absolute mr-2 right-1 bottom-2 bg-[#65451F] hover:bg-[#564024] focus:ring-2 focus:outline-none font-medium rounded text-xs px-3 py-1"
                       >
                         Search
                       </button>
@@ -156,7 +156,7 @@ function Navbar() {
                         </Menu.Button>
                       ) : (
                         <button
-                          className="text-[white]"
+                          className="text-[#65451F] text-[16px] hover:font-bold"
                           onClick={() => {
                             navigate("/login");
                           }}
