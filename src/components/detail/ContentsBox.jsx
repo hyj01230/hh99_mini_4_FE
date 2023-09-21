@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import Modal from "../detail/Modal";
 
-function ContentsBox({ onOpenModal }) {
+function ContentsBox() {
   const list = [
     {
       id: 1,
@@ -68,35 +69,46 @@ function ContentsBox({ onOpenModal }) {
     },
   ];
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const openModal = () => {
-    onOpenModal(true);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
-    <div className="flex flex-wrap gap-[30px] mt-4 mb-4">
+    <div className="flex flex-wrap justify-between mt-4 mb-4 gap-2">
       {list.map((item) => {
         return (
           <div
-            className="bg-slate-300 flex-grow w-[250px] h-[200px]"
             key={item.id}
+            className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:flex-col md:w-[31%]"
             onClick={openModal}
           >
             <img
-              src={item.imgUrl}
+              className="rounded-t-lg"
+              src="https://velog.velcdn.com/images/tosspayments/post/8f0f4014-8406-45fe-9700-02276563ba97/image.jpeg"
               alt=""
-              className="w-[80%] h-[55%] ml-auto mr-auto mt-2 mb-2"
             />
-            <div className="p-2">
-              <p className="font-semibold text-2xl overflow-hidden overflow-ellipsis whitespace-nowrap">
-                {item.title}
-              </p>
-              <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">
-                {item.content}
+
+            <div className="p-5">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Noteworthy technology acquisitions 2021
+              </h5>
+
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
               </p>
             </div>
           </div>
         );
       })}
+
+      {isModalOpen && <Modal onCloseModal={closeModal} />}
     </div>
   );
 }

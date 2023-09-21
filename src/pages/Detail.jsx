@@ -6,7 +6,6 @@ import Carousel from "../components/detail/Carousel";
 import Chatting from "../components/detail/Chatting";
 import ContentsBox from "../components/detail/ContentsBox";
 import Info from "../components/detail/Info";
-import Modal from "../components/detail/Modal";
 
 function Detail2() {
   const [follow, setFollow] = useState(false);
@@ -21,15 +20,7 @@ function Detail2() {
   };
   console.log(chat);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  
 
   return (
     <div>
@@ -103,11 +94,11 @@ function Detail2() {
         </aside>
       </div>
       {chat && <Chatting style={{ zIndex: 100 }} />}
-      <div className="max-w-[1200px] bg-slate-200 ml-auto mr-auto mt-20 text-black">
+      <div className="max-w-[1200px] ml-auto mr-auto mt-20 text-black">
         <div className="p-6">
-          <Info /> 
+          <Info />
         </div>
-        
+
         <div className="p-6">
           <p>활동모음</p>
           <Carousel />
@@ -115,13 +106,10 @@ function Detail2() {
 
         <div className="p-6">
           <p>활동모음</p>
-          <ContentsBox onOpenModal={openModal}/>
+          <ContentsBox  />
         </div>
-        
       </div>
-      {
-          isModalOpen && <Modal onCloseModal={closeModal}/>
-        }
+
     </div>
   );
 }
