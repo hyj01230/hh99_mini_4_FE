@@ -1,17 +1,16 @@
 import React, { useRef, useState } from 'react'
-import MyInfo from './MyInfo'
-import Follow from './Follow'
 import Activity from './Activity'
+import Follow from './Follow'
+import MyInfo from './MyInfo'
+import SupportComment from './SupportComment'
 import TodayComment_C from './TodayComment_C'
 import TodayComment_P from './TodayComment_P'
-import SupportComment from './SupportComment'
 
 
 // Mypage 틀 - 시민/정치인 별로 사이드바 버튼명, 페이지 구성 달라짐
 
 function MypageForm() {
 
-  // 사이드탭 state(초기값:<Mypage_Info />???)
   const [sideTab, setSideTab] = useState(<MyInfo />);
 
   // 클릭했을때 컴퍼넌트 변경!
