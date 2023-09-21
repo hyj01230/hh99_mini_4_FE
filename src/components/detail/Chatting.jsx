@@ -32,7 +32,7 @@ function Chatting() {
   return (
     <>
       <div
-        className={`fixed top-0 right-0 h-screen p-4 overflow-y-auto transition-transform pt-20 ${
+        className={`fixed top-0 right-0 h-screen p-4 overflow-y-auto transition-transform pt-20 z-10 ${
           isDrawerOpen ? "translate-x-0" : "translate-x-full"
         } bg-slate-200 w-80 dark:bg-gray-800`}
         tabIndex="-1"
