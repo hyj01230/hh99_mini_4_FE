@@ -11,7 +11,6 @@ function classNames(...classes) {
 }
 
 function Join() {
-
   const serverUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   // ID/PW 입력값 state
@@ -19,6 +18,7 @@ function Join() {
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
   const [nickname, setNickName] = useState("");
+  const [email, setEmail] = useState("");
   const [isPolitician, setIsPolitician] = useState(false); // 체크박스 상태
   const [selected, setSelected] = useState(isPolitician ? partys[0] : "");
   const [locate, setLocate] = useState(isPolitician ? locations[0] : "");
@@ -47,6 +47,9 @@ function Join() {
   };
   const onChangeNickNameHandler = (e) => {
     setNickName(e.target.value);
+  };
+  const onChangeEmailHandler = (e) => {
+    setEmail(e.target.value);
   };
   const onChangePartyHandler = (e) => {
     const partyTarget = partys.findIndex((party) => party.party === e);
@@ -98,6 +101,17 @@ function Join() {
       setPwCheckMessage(true);
     }
   }, [password, checkPassword]);
+  const [emailMessage, setEmailMessage] = useState("");
+  useEffect(() => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    if (email.length === 0) {
+      setEmailMessage("");
+    } else if (!emailRegex.test(email)) {
+      setEmailMessage("이메일 형태를 지켜주세요");
+    } else {
+      setEmailMessage(true);
+    }
+  }, [email]);
 
   // 가입하기 버튼 클릭 핸들러
   const onJoinButtonClick = (e) => {
@@ -115,16 +129,27 @@ function Join() {
 
   // 회원가입 연결해보기
   const submitHandler = async (e) => {
-    const obj = {
-      username: id,
-      password: password,
-      nickname: "banana-master",
-    };
+    let obj = {};
+    if (isPolitician) {
+      obj = {
+        username: id,
+        password: password,
+        nickname: nickname,
+        email,
+        party: selected,
+        location: locate,
+      };
+    } else {
+      obj = {
+        username: id,
+        password: password,
+        nickname: nickname,
+        email,
+      };
+    }
+
     try {
-      const response = await axios.post(
-        `${serverUrl}/api/user/signup`,
-        obj
-      );
+      const response = await axios.post(`${serverUrl}/api/user/signup`, obj);
       console.log(response);
       alert(`회원가입 완료`);
       navigate("/login");
@@ -138,10 +163,22 @@ function Join() {
     <>
       <div className="w-full h-[1200px] flex flex-col items-center p-6 bg-[#F9F5EB]">
         <div className="flex flex-row m-12">
-          <p style={titleStyle} className="px-3 text-center text-5xl font-bold text-[#65451F] cursor-pointer " onClick={() => { navigate('/') }}>
+          <p
+            style={titleStyle}
+            className="px-3 text-center text-5xl font-bold text-[#65451F] cursor-pointer "
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             Town
           </p>
-          <p style={titleStyle} className="px-3 text-center text-5xl font-bold text-[#65451F] cursor-pointer" onClick={() => { navigate('/') }}>
+          <p
+            style={titleStyle}
+            className="px-3 text-center text-5xl font-bold text-[#65451F] cursor-pointer"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             Assembly
           </p>
         </div>
@@ -222,10 +259,31 @@ function Join() {
                 <input
                   id="nickname"
                   placeholder="닉네임 입력(2~10자)"
-                  type="password"
+                  type="text"
                   value={nickname}
                   onChange={onChangeNickNameHandler}
                   maxLength={10}
+                  className="mb-[25px] pl-3 block w-full h-[35px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#65451F] sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="email"
+                className="mt-2 block text-lg font-black leading-6 text-gray-900"
+              >
+                이메일
+              </label>
+              <p className="my-2 text-red-600">{emailMessage}</p>
+              <div className="mt-3">
+                <input
+                  id="email"
+                  placeholder="이메일을 입력해주세요"
+                  type="email"
+                  value={email}
+                  onChange={onChangeEmailHandler}
+                  maxLength={20}
                   className="mb-[25px] pl-3 block w-full h-[35px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#65451F] sm:text-sm sm:leading-6"
                 />
               </div>
