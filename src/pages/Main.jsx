@@ -6,7 +6,10 @@ function Main() {
   return (
     <>
       <Navbar />
-      <NationalMember />
+      <div className="pt-10">
+        <NationalMember />
+      </div>
+      
     </>
   );
 }
