@@ -133,10 +133,10 @@ function MyInfo() {
 
 
   return (
-    <div className=' h-screen w-[1000px]'>
-      <p className='mt-[50px] ml-7 text-2xl font-black'>내 정보</p>
+    <div className=' h-full w-[1000px]'>
+      <p className='mt-[50px] ml-7 text-2xl font-black'>내 정보 수정</p>
 
-      <div className='my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB]'>
+      <div className='my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB] shadow-lg'>
         <div className='flex flex-row'>
           <div className='w-[150px] text-xl font-bold flex justify-center'>
             회원정보
@@ -349,7 +349,7 @@ function MyInfo() {
                 onChange={onChangeProfileHandler}
                 placeholder=""
                 maxLength={10}
-                className='border flex items-center w-full px-3 rounded-md' />
+                className='border flex items-center w-full h-[200px] px-3 rounded-md' />
             </div>
           </div>
         </div>
@@ -370,7 +370,7 @@ function MyInfo() {
         </form>
       </div>
 
-      <div className='my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB]'>
+      <div className='my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB] shadow-lg'>
         <div className='flex flex-row'>
           <div className='w-[150px] text-xl font-bold flex justify-center'>
             비밀번호

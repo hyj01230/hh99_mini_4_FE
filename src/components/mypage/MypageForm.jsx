@@ -89,7 +89,7 @@ function MypageForm() {
             onClick={onClickTodayCommentHandler}
             className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
-            오늘의 한마디
+            오늘의 한마디 댓글
           </button>
           <button
             type="button"
@@ -100,20 +100,7 @@ function MypageForm() {
           </button>
         </div>
       </div>
-
       {sideTab}
-
-      {/* 시민 - 조건 걸어서 렌더링 할 예정 */}
-      {/* <Mypage_Info /> */}
-      {/* <Mypage_C_Comment /> */}
-      {/* <Mypage_C_Follow /> */}
-
-      {/* 정치인 - 조건 걸어서 렌더링 할 예정 */}
-      {/* <Mypage_Info /> */}
-      {/* <Mypage_P_Content /> */}
-
-
-
     </div>
   )
 }
