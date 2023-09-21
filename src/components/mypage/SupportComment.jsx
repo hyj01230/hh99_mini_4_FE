@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 // 시민 - 댓글관리 양식
 
-function Mypage_C_Comment() {
+function SupportComment() {
 
   const Comment = [
     { id: 1, title: "제목입니다", contents: "이건 내용이에요", isDelete: false },
@@ -32,7 +32,7 @@ function Mypage_C_Comment() {
 
   return (
     <div className=' h-full w-[1000px]'>
-      <p className='mt-[50px] ml-7 text-2xl font-black'>나의 댓글</p>
+      <p className='mt-[50px] ml-7 text-2xl font-black'>응원 댓글</p>
 
       {/* 맵으로 돌려서 뽑기!!! */}
       {Comment.map((item) => (
@@ -87,4 +87,4 @@ function Mypage_C_Comment() {
   )
 }
 
-export default Mypage_C_Comment
+export default SupportComment

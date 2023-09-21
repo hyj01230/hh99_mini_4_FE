@@ -2,7 +2,7 @@ import React from 'react'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Mypage_C_Follow() {
+function Follow() {
 
   return (
     <div className=' h-screen w-[1000px]'>
@@ -157,4 +157,4 @@ function Mypage_C_Follow() {
   )
 }
 
-export default Mypage_C_Follow
+export default Follow

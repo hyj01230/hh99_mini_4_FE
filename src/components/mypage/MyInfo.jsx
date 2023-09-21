@@ -11,14 +11,15 @@ function classNames(...classes) {
 
 
 // 마이페이지_내 정보
-function Mypage_Info() {
+function MyInfo() {
 
   // 회원정보 state/onChange --------------------------------------------------
-  const [nickname, setNickName] = useState('');
-  const [email, setEmail] = useState('')
-  const [phoneNum, setPhoneNum] = useState('')
-  const [locationList, setLocationList] = useState(locations[0])
-  const [partyList, setPartyList] = useState(partys[0])
+  const [nickname, setNickName] = useState('');  // 닉네임
+  const [email, setEmail] = useState('')  // 이메일
+  const [phoneNum, setPhoneNum] = useState('')  // 전화번호
+  const [locationList, setLocationList] = useState(locations[0])  // 지역 - 국회의원일때만!
+  const [partyList, setPartyList] = useState(partys[0])  // 소속정당 - 국회의원일때만!
+  const [profile, setProfile] = useState('');  // 약력 - 국회의원일때만!
 
   const onChangeNickNameHandler = (e) => { setNickName(e.target.value) };
   const onChangeEmailHandler = (e) => { setEmail(e.target.value) }
@@ -36,6 +37,7 @@ function Mypage_Info() {
     const partyTarget = partys.findIndex((party) => party.party === e);
     setPartyList(partys[partyTarget]);
   };
+  const onChangeProfileHandler = (e) => { setProfile(e.target.value) };
 
 
   // PW state/onChange --------------------------------------------------
@@ -173,7 +175,7 @@ function Mypage_Info() {
                 className='border flex items-center w-full px-3' />
             </div>
             <div className='flex flex-row mb-5'>
-              <p className='w-[100px] flex justify-start mx-3'>지역</p>
+              <p className='w-[100px] flex justify-start mx-3'>소속정당</p>
               <div className='w-full'>
                 <Listbox value={partyList} onChange={onChangePartyHandler}>
                   {({ open }) => (
@@ -257,7 +259,7 @@ function Mypage_Info() {
               </div>
             </div>
             <div className='flex flex-row mb-5'>
-              <p className='w-[100px] flex justify-start mx-3'>소속정당</p>
+              <p className='w-[100px] flex justify-start mx-3'>지역</p>
               <div className='w-full'>
                 <Listbox value={locationList} onChange={onChangeLocateHandler}>
                   {({ open }) => (
@@ -339,6 +341,15 @@ function Mypage_Info() {
                   )}
                 </Listbox>
               </div>
+            </div>
+            <div className='flex flex-row mb-5'>
+              <p className='w-[100px] flex justify-start mx-3'>약력</p>
+              <input
+                value={profile}
+                onChange={onChangeProfileHandler}
+                placeholder=""
+                maxLength={10}
+                className='border flex items-center w-full px-3' />
             </div>
           </div>
         </div>
@@ -425,4 +436,4 @@ function Mypage_Info() {
   )
 }
 
-export default Mypage_Info
+export default MyInfo
