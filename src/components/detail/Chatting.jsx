@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Chatting() {
   const list = [
@@ -21,22 +21,24 @@ function Chatting() {
     { id: 14, text: "댓글14" },
     { id: 15, text: "댓글15" },
     { id: 16, text: "댓글16" },
-
   ];
+
+  const [isDrawerOpen, setDrawerOpen] = useState(true);
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!isDrawerOpen);
+  };
 
   return (
     <>
-      <div className="h-[80%] overflow-y-auto mt-10 ml-10 mr-10 scrollbar-hide">
-        {list.map((item) => (
-          <div className="flex items-top pl-[10px] pr-[10px] mb-5" key={item.id}>
-            <p className="text-[20px] w-[30px] mr-[30px]">{item.id}</p>
-            <p className="text-left text-[20px]">{item.text}</p>
-          </div>
-        ))}
-      </div>
-      <div className="h-[20%] flex justify-center items-center gap-3">
-        <input type="text" />
-        <button>전송</button>
+      <div
+        className={`fixed top-0 right-0 h-screen p-4 overflow-y-auto transition-transform pt-20 ${
+          isDrawerOpen ? "translate-x-0" : "translate-x-full"
+        } bg-slate-200 w-80 dark:bg-gray-800`}
+        tabIndex="-1"
+        aria-labelledby="drawer-right-label"
+      >
+        <p>댓글 or 채팅</p>
       </div>
     </>
   );

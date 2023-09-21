@@ -9,7 +9,7 @@ import Modal from "../components/detail/Modal";
 
 function Detail() {
   const [follow, setFollow] = useState(true);
-
+  
   const toggleFollow = () => {
     setFollow(!follow);
   };
