@@ -5,6 +5,8 @@ import { getTokenFromCookie, setCookie } from "../auth/cookie";
 import { titleStyle } from "../styles/fonsts";
 
 function Login() {
+  const serverUrl = process.env.REACT_APP_API_URL;
+
   // 페이지 연결 --------------------------------------------------
   const navigate = useNavigate();
 
@@ -36,7 +38,7 @@ function Login() {
     e.preventDefault();
     console.log(inputId, inputPassword)
     try {
-      const response = await axios.post(`http://52.79.240.177/api/user/login`, {
+      const response = await axios.post(`${serverUrl}/api/user/login`, {
         username: inputId,
         password: inputPassword,
       });
