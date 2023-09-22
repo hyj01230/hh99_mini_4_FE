@@ -36,17 +36,19 @@ function Login() {
   // 토큰 받아서 저장하기
   const loginHandler = async (e) => {
     e.preventDefault();
+    console.log(inputId, inputPassword)
     try {
       const response = await axios.post(`${serverUrl}/api/user/login`, {
         username: inputId,
         password: inputPassword,
       });
+      console.log(response)
       const token = response.headers.authorization.split(" ")[1];
       setCookie("token", token, 1 / 24); // 정수는 0일  1/24 는 1시간
       alert(`로그인완료`);
       navigate("/");
     } catch (error) {
-      alert(`회원가입 실패 ${error}`);
+      alert(`로그인 실패 ${error.message}`);
       console.error(error);
     }
   };
