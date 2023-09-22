@@ -15,8 +15,8 @@ function MypageForm() {
 
   // 클릭했을때 컴퍼넌트 변경!
   const onClickMyInfoHandler = () => { setSideTab(<MyInfo />) }
-  const onClickFollow_ActivityHandler = () => { { 1 === 0 ? setSideTab(<Follow />) : setSideTab(<Activity />) } }
-  const onClickTodayCommentHandler = () => { { 1 === 0 ? setSideTab(<TodayComment_C />) : setSideTab(<TodayComment_P />) } }
+  const onClickFollow_ActivityHandler = () => { { 1 === 1 ? setSideTab(<Follow />) : setSideTab(<Activity />) } }
+  const onClickTodayCommentHandler = () => { { 1 === 1 ? setSideTab(<TodayComment_C />) : setSideTab(<TodayComment_P />) } }
   const onClickSupportCommentHandler = () => { setSideTab(<SupportComment />) }
 
 
@@ -55,7 +55,7 @@ function MypageForm() {
           <button
             type="button"
             onClick={handleUploadButtonClick}
-            className="flex items-center w-[180px] h-[50px] text-[#65451F] bg-[#F2EAD3] hover:bg-[#f7e9c1] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm "
+            className="flex items-center w-[180px] h-[50px] text-[#65451F] bg-[#F9F5EB] hover:bg-[#F2EAD3] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm "
           >
             프로필 사진 수정
           </button>
@@ -81,14 +81,14 @@ function MypageForm() {
             onClick={onClickFollow_ActivityHandler}
             className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
-            {1 === 0 ? '팔로우 관리' : '주요활동'}
+            {1 === 1 ? '팔로우 관리' : '주요활동'}
           </button>
           <button
             type="button"
             onClick={onClickTodayCommentHandler}
             className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
-            오늘의 한마디
+            {1 === 1 ? '오늘의 한마디 댓글' : '오늘의 한마디'}
           </button>
           <button
             type="button"
@@ -99,20 +99,7 @@ function MypageForm() {
           </button>
         </div>
       </div>
-
       {sideTab}
-
-      {/* 시민 - 조건 걸어서 렌더링 할 예정 */}
-      {/* <Mypage_Info /> */}
-      {/* <Mypage_C_Comment /> */}
-      {/* <Mypage_C_Follow /> */}
-
-      {/* 정치인 - 조건 걸어서 렌더링 할 예정 */}
-      {/* <Mypage_Info /> */}
-      {/* <Mypage_P_Content /> */}
-
-
-
     </div>
   )
 }

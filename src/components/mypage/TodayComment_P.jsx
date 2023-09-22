@@ -2,7 +2,7 @@ import React from 'react'
 
 // 정치인 - 주요활동, 오늘의 한마디 양식
 
-function TodayComment_P() {
+function Activity() {
   // 사진 업로드
   function handleFileUpload(event) {
     const selectedFile = event.target.files[0]; // 선택된 파일 가져오기
@@ -15,10 +15,10 @@ function TodayComment_P() {
   }
 
   return (
-    <div className=' h-screen w-[1000px]'>
-      <p className='mt-[50px] ml-7 text-2xl font-black'>
-        오늘의 한마디 업로드</p>
-      <div className='bg-slate-300 my-6 mx-7 p-7'>
+    <div className=' h-full w-[1000px]'>
+      <p className='mt-[50px] ml-7 text-2xl font-black '>
+        오늘의 한마디</p>
+      <div className='bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg'>
         <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>제목</p>
           <input
@@ -40,16 +40,16 @@ function TodayComment_P() {
         <div className='flex justify-end'>
           <button
             type="submit"
-            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
             저장</button>
         </div>
       </div>
 
       <p className='mt-[50px] ml-7 text-2xl font-black'>
-      오늘의 한마디 업로드 목록(최대 0개)</p>
+        오늘의 한마디 목록</p>
 
       {/* 맵으로 돌려서 뽑기!!! */}
-      <div className='bg-slate-300 my-6 mx-7 p-7'>
+      <div className='bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg'>
         <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>제목</p>
           <input placeholder='제목1' type="text" className='rounded-md mx-3 flex-grow h-8 px-2' />
@@ -60,60 +60,125 @@ function TodayComment_P() {
           <p className='text-lg font-bold'>내용</p>
           <input placeholder='내용1' type="text" className='rounded-md mx-3 flex-grow h-20 p-2' />
         </div>
+        <div className='flex flex-col pb-4'>
+          <p className='text-lg font-bold pb-4'>내 댓글 모아보기</p>
+          <div className='bg-white overflow-y-auto max-h-[150px] pt-1 pb-2 px-4 rounded-md'>
+          <div className='flex flex-row h-10 border-b py-6'>
+              <p className='flex items-center w-full'>댓글~~~~~~~~~~~~~~</p>
+              <div className='flex flex-row items-center'>
+                <button
+                  type="submit"
+                  className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
+                  삭제</button>
+                <button
+                  type="submit"
+                  className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
+                  수정</button>
+              </div>
+            </div>
+            <div className='flex flex-row h-10 border-b py-6'>
+              <p className='flex items-center w-full'>댓글~~~~~~~~~~~~~~</p>
+              <div className='flex flex-row items-center'>
+                <button
+                  type="submit"
+                  className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
+                  삭제</button>
+                <button
+                  type="submit"
+                  className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
+                  수정</button>
+              </div>
+            </div>
+            <div className='flex flex-row h-10 border-b py-6'>
+              <p className='flex items-center w-full'>댓글~~~~~~~~~~~~~~</p>
+              <div className='flex flex-row items-center'>
+                <button
+                  type="submit"
+                  className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
+                  삭제</button>
+                <button
+                  type="submit"
+                  className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
+                  수정</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className='flex justify-end'>
           <button
             type="submit"
-            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024]">
             삭제</button>
           <button
             type="submit"
-            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
             수정</button>
         </div>
       </div>
 
-      <div className='bg-slate-300 my-6 mx-7 p-7'>
+      <div className='bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg'>
         <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>제목</p>
-          <input placeholder='제목2' type="text" className='rounded-md mx-3 flex-grow h-8 px-2' />
+          <input placeholder='제목1' type="text" className='rounded-md mx-3 flex-grow h-8 px-2' />
           <p className='text-lg font-bold'>사진첨부(크기/용량🚨)</p>
           <input type="file" accept="image/*" onChange={handleFileUpload} className='rounded-md mx-3 flex-grow h-8 px-2' />
         </div>
         <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>내용</p>
-          <input placeholder='내용2' type="text" className='rounded-md mx-3 flex-grow h-20 p-2' />
+          <input placeholder='내용1' type="text" className='rounded-md mx-3 flex-grow h-20 p-2' />
+        </div>
+        <div className='flex flex-col pb-4'>
+          <p className='text-lg font-bold pb-4'>내 댓글 모아보기</p>
+          <div className='bg-white overflow-y-auto max-h-[150px] pt-1 pb-2 px-4 rounded-md'>
+          <div className='flex flex-row h-10 border-b py-6'>
+              <p className='flex items-center w-full'>댓글~~~~~~~~~~~~~~</p>
+              <div className='flex flex-row items-center'>
+                <button
+                  type="submit"
+                  className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
+                  삭제</button>
+                <button
+                  type="submit"
+                  className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
+                  수정</button>
+              </div>
+            </div>
+            <div className='flex flex-row h-10 border-b py-6'>
+              <p className='flex items-center w-full'>댓글~~~~~~~~~~~~~~</p>
+              <div className='flex flex-row items-center'>
+                <button
+                  type="submit"
+                  className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
+                  삭제</button>
+                <button
+                  type="submit"
+                  className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
+                  수정</button>
+              </div>
+            </div>
+            <div className='flex flex-row h-10 border-b py-6'>
+              <p className='flex items-center w-full'>댓글~~~~~~~~~~~~~~</p>
+              <div className='flex flex-row items-center'>
+                <button
+                  type="submit"
+                  className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
+                  삭제</button>
+                <button
+                  type="submit"
+                  className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
+                  수정</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div className='flex justify-end'>
           <button
             type="submit"
-            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024]">
             삭제</button>
           <button
             type="submit"
-            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            수정</button>
-        </div>
-      </div>
-
-      <div className='bg-slate-300 my-6 mx-7 p-7'>
-        <div className='flex flex-row pb-4'>
-          <p className='text-lg font-bold'>제목</p>
-          <input placeholder='제목3' type="text" className='rounded-md mx-3 flex-grow h-8 px-2' />
-          <p className='text-lg font-bold'>사진첨부(크기/용량🚨)</p>
-          <input type="file" accept="image/*" onChange={handleFileUpload} className='rounded-md mx-3 flex-grow h-8 px-2' />
-        </div>
-        <div className='flex flex-row pb-4'>
-          <p className='text-lg font-bold'>내용</p>
-          <input placeholder='내용3' type="text" className='rounded-md mx-3 flex-grow h-20 p-2' />
-        </div>
-        <div className='flex justify-end'>
-          <button
-            type="submit"
-            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            삭제</button>
-          <button
-            type="submit"
-            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
             수정</button>
         </div>
       </div>
@@ -127,4 +192,4 @@ function TodayComment_P() {
   )
 }
 
-export default TodayComment_P
+export default Activity
