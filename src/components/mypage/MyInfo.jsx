@@ -209,7 +209,7 @@ function MyInfo() {
                                 className={({ active }) =>
                                   classNames(
                                     active
-                                      ? "bg-indigo-600 text-white"
+                                      ? "bg-[#65451F] text-white"
                                       : "text-gray-900",
                                     "relative cursor-default select-none py-2 pl-3 pr-9"
                                   )
@@ -236,7 +236,7 @@ function MyInfo() {
                                         className={classNames(
                                           active
                                             ? "text-white"
-                                            : "text-indigo-600",
+                                            : "text-[#65451F]",
                                           "absolute inset-y-0 right-0 flex items-center pr-4"
                                         )}
                                       >
@@ -293,7 +293,7 @@ function MyInfo() {
                                 className={({ active }) =>
                                   classNames(
                                     active
-                                      ? "bg-indigo-600 text-white"
+                                      ? "bg-[#65451F] text-white"
                                       : "text-gray-900",
                                     "relative cursor-default select-none py-2 pl-3 pr-9"
                                   )
@@ -320,7 +320,7 @@ function MyInfo() {
                                         className={classNames(
                                           active
                                             ? "text-white"
-                                            : "text-indigo-600",
+                                            : "text-[#65451F]",
                                           "absolute inset-y-0 right-0 flex items-center pr-4"
                                         )}
                                       >
