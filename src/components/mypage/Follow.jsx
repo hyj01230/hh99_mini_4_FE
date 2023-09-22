@@ -9,145 +9,144 @@ function Follow() {
       <p className='mt-[50px] ml-7 text-2xl font-black'>나의 팔로우 목록</p>
 
       <div className='p-7 w-[1000px] flex flex-wrap justify-start mx-auto'>
-        <div className='border w-[270px] h-[310px] my-5 mx-5'>
-          <div className='border-b w-full h-3/4 flex justify-center items-center'>
-            사진
+        <div className="w-[290px] block rounded-lg bg-white shadow-lg m-3 ">
+          <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
+          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+            <img
+              src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+              alt="Avatar 1"
+            />
           </div>
-          <div className='flex flex-row h-1/4'>
-            <div className='border-r w-3/4 h-full flex items-center px-5'>
-              0000 의원 전하영
-            </div>
-            <div className='w-1/4 h-full flex justify-center items-center'>
-              <FontAwesomeIcon icon={faStar} style={{ color: "#1e3152", }} />
-              {/* <FontAwesomeIcon icon={faStar} /> */}
-            </div>
-          </div>
-        </div>
-
-        <div className='border w-[270px] h-[310px] my-5 mx-5'>
-          <div className='border-b w-full h-3/4 flex justify-center items-center'>
-            사진
-          </div>
-          <div className='flex flex-row h-1/4'>
-            <div className='border-r w-3/4 h-full flex items-center px-5'>
-              0000 의원 전하영
-            </div>
-            <div className='w-1/4 h-full flex justify-center items-center'>
-              <FontAwesomeIcon icon={faStar} style={{ color: "#1e3152", }} />
-              {/* <FontAwesomeIcon icon={faStar} /> */}
-            </div>
+          <div className="p-6">
+            <h4 className="flex justify-center mb-4 text-2xl font-semibold">정 치인</h4>
+            <hr />
+            <p className="mt-5 flex justify-center">
+              서울
+            </p>
+            <p className="mt-5 flex justify-center">
+              당다라당당
+            </p>
+            <p className="mt-5 flex justify-center">
+              ♥
+            </p>
           </div>
         </div>
 
-        <div className='border w-[270px] h-[310px] my-5 mx-5'>
-          <div className='border-b w-full h-3/4 flex justify-center items-center'>
-            사진
+        <div className="w-[290px] block rounded-lg bg-white shadow-lg m-3 ">
+          <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
+          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+            <img
+              src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+              alt="Avatar 1"
+            />
           </div>
-          <div className='flex flex-row h-1/4'>
-            <div className='border-r w-3/4 h-full flex items-center px-5'>
-              0000 의원 전하영
-            </div>
-            <div className='w-1/4 h-full flex justify-center items-center'>
-              <FontAwesomeIcon icon={faStar} style={{ color: "#1e3152", }} />
-              {/* <FontAwesomeIcon icon={faStar} /> */}
-            </div>
-          </div>
-        </div>
-
-        <div className='border w-[270px] h-[310px] my-5 mx-5'>
-          <div className='border-b w-full h-3/4 flex justify-center items-center'>
-            사진
-          </div>
-          <div className='flex flex-row h-1/4'>
-            <div className='border-r w-3/4 h-full flex items-center px-5'>
-              0000 의원 전하영
-            </div>
-            <div className='w-1/4 h-full flex justify-center items-center'>
-              <FontAwesomeIcon icon={faStar} style={{ color: "#1e3152", }} />
-              {/* <FontAwesomeIcon icon={faStar} /> */}
-            </div>
+          <div className="p-6">
+            <h4 className="flex justify-center mb-4 text-2xl font-semibold">정 치인</h4>
+            <hr />
+            <p className="mt-5 flex justify-center">
+              서울
+            </p>
+            <p className="mt-5 flex justify-center">
+              당다라당당
+            </p>
+            <p className="mt-5 flex justify-center">
+              ♥
+            </p>
           </div>
         </div>
 
-        <div className='border w-[270px] h-[310px] my-5 mx-5'>
-          <div className='border-b w-full h-3/4 flex justify-center items-center'>
-            사진
+        <div className="w-[290px] block rounded-lg bg-white shadow-lg m-3 ">
+          <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
+          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+            <img
+              src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+              alt="Avatar 1"
+            />
           </div>
-          <div className='flex flex-row h-1/4'>
-            <div className='border-r w-3/4 h-full flex items-center px-5'>
-              0000 의원 전하영
-            </div>
-            <div className='w-1/4 h-full flex justify-center items-center'>
-              <FontAwesomeIcon icon={faStar} style={{ color: "#1e3152", }} />
-              {/* <FontAwesomeIcon icon={faStar} /> */}
-            </div>
-          </div>
-        </div>
-
-        <div className='border w-[270px] h-[310px] my-5 mx-5'>
-          <div className='border-b w-full h-3/4 flex justify-center items-center'>
-            사진
-          </div>
-          <div className='flex flex-row h-1/4'>
-            <div className='border-r w-3/4 h-full flex items-center px-5'>
-              0000 의원 전하영
-            </div>
-            <div className='w-1/4 h-full flex justify-center items-center'>
-              <FontAwesomeIcon icon={faStar} style={{ color: "#1e3152", }} />
-              {/* <FontAwesomeIcon icon={faStar} /> */}
-            </div>
+          <div className="p-6">
+            <h4 className="flex justify-center mb-4 text-2xl font-semibold">정 치인</h4>
+            <hr />
+            <p className="mt-5 flex justify-center">
+              서울
+            </p>
+            <p className="mt-5 flex justify-center">
+              당다라당당
+            </p>
+            <p className="mt-5 flex justify-center">
+              ♥
+            </p>
           </div>
         </div>
 
-        <div className='border w-[270px] h-[310px] my-5 mx-5'>
-          <div className='border-b w-full h-3/4 flex justify-center items-center'>
-            사진
+        <div className="w-[290px] block rounded-lg bg-white shadow-lg m-3 ">
+          <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
+          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+            <img
+              src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+              alt="Avatar 1"
+            />
           </div>
-          <div className='flex flex-row h-1/4'>
-            <div className='border-r w-3/4 h-full flex items-center px-5'>
-              0000 의원 전하영
-            </div>
-            <div className='w-1/4 h-full flex justify-center items-center'>
-              <FontAwesomeIcon icon={faStar} style={{ color: "#1e3152", }} />
-              {/* <FontAwesomeIcon icon={faStar} /> */}
-            </div>
-          </div>
-        </div>
-
-        <div className='border w-[270px] h-[310px] my-5 mx-5'>
-          <div className='border-b w-full h-3/4 flex justify-center items-center'>
-            사진
-          </div>
-          <div className='flex flex-row h-1/4'>
-            <div className='border-r w-3/4 h-full flex items-center px-5'>
-              0000 의원 전하영
-            </div>
-            <div className='w-1/4 h-full flex justify-center items-center'>
-              <FontAwesomeIcon icon={faStar} style={{ color: "#1e3152", }} />
-              {/* <FontAwesomeIcon icon={faStar} /> */}
-            </div>
+          <div className="p-6">
+            <h4 className="flex justify-center mb-4 text-2xl font-semibold">정 치인</h4>
+            <hr />
+            <p className="mt-5 flex justify-center">
+              서울
+            </p>
+            <p className="mt-5 flex justify-center">
+              당다라당당
+            </p>
+            <p className="mt-5 flex justify-center">
+              ♥
+            </p>
           </div>
         </div>
 
-        <div className='border w-[270px] h-[310px] my-5 mx-5'>
-          <div className='border-b w-full h-3/4 flex justify-center items-center'>
-            사진
+        <div className="w-[290px] block rounded-lg bg-white shadow-lg m-3 ">
+          <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
+          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+            <img
+              src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+              alt="Avatar 1"
+            />
           </div>
-          <div className='flex flex-row h-1/4'>
-            <div className='border-r w-3/4 h-full flex items-center px-5'>
-              0000 의원 전하영
-            </div>
-            <div className='w-1/4 h-full flex justify-center items-center'>
-              <FontAwesomeIcon icon={faStar} style={{ color: "#1e3152", }} />
-              {/* <FontAwesomeIcon icon={faStar} /> */}
-            </div>
+          <div className="p-6">
+            <h4 className="flex justify-center mb-4 text-2xl font-semibold">정 치인</h4>
+            <hr />
+            <p className="mt-5 flex justify-center">
+              서울
+            </p>
+            <p className="mt-5 flex justify-center">
+              당다라당당
+            </p>
+            <p className="mt-5 flex justify-center">
+              ♥
+            </p>
           </div>
         </div>
 
-      
+        <div className="w-[290px] block rounded-lg bg-white shadow-lg m-3 ">
+          <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
+          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+            <img
+              src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+              alt="Avatar 1"
+            />
+          </div>
+          <div className="p-6">
+            <h4 className="flex justify-center mb-4 text-2xl font-semibold">정 치인</h4>
+            <hr />
+            <p className="mt-5 flex justify-center">
+              서울
+            </p>
+            <p className="mt-5 flex justify-center">
+              당다라당당
+            </p>
+            <p className="mt-5 flex justify-center">
+              ♥
+            </p>
+          </div>
+        </div>
       </div>
-
-
     </div>
 
 

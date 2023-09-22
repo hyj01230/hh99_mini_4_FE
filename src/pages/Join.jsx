@@ -136,7 +136,7 @@ function Join() {
         password: password,
         nickname: nickname,
         email,
-        party: selected,
+        party: selected.party,
         location: locate,
       };
     } else {
