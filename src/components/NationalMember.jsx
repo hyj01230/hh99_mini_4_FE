@@ -1,31 +1,49 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { partys } from "../data/data";
+import { getTokenFromCookie } from "../auth/cookie";
+import { locations, partys } from "../data/data";
 
 function NationalMember() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [link, setLink] = useState(id);
-
+  const [link, setLink] = useState(`/${!id ? '' : id}`);
+  const [locationButton, setLocationButton] = useState(locations[0].location);
+  console.log(link);
   const serverUrl = process.env.REACT_APP_API_URL;
 
   const [resultList, setResultList] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(
-          `${serverUrl}/api/user/location?location=서울`
-        );
-        if (response.status === 200) {
-          setResultList(response.data);
+  async function fetchLocationData() {
+    const token = getTokenFromCookie();
+    try {
+      const response = await axios.get(
+        `${serverUrl}/api/user/location?location=${locationButton}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
+          },
         }
-      } catch (error) {
-        console.error(error);
+      );
+      console.log(response);
+      if (response.status === 200) {
+        setResultList(response.data.data);
+      }
+    } catch (error) {
+      console.error(error);
+      if (
+        error.response.data.msg.includes("userDetails") &&
+        error.response.data.msg.includes("is null")
+      ) {
+        alert(`로그인이 필요합니다`);
       }
     }
-    if (link === "location") fetchData();
+  }
+
+  useEffect(() => {
+    
+    if (link === "/location") fetchLocationData();
+    // if(link === "/") true
   }, [link]);
   return (
     <section className="text-neutral-700 dark:text-neutral-300 flex justify-center flex-wrap">
@@ -37,7 +55,7 @@ function NationalMember() {
               className="max-w-md"
               key={item.nickname}
               onClick={() => {
-                navigate("/detail/1");
+                navigate(`/detail/${item.nickname}`);
               }}
             >
               <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 dark:shadow-black/30">
