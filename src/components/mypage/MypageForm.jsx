@@ -5,19 +5,21 @@ import MyInfo from './MyInfo'
 import SupportComment from './SupportComment'
 import TodayComment_C from './TodayComment_C'
 import TodayComment_P from './TodayComment_P'
+import { getTokenFromCookie, setCookie } from "../../auth/cookie"
 
 
 // Mypage 틀 - 시민/정치인 별로 사이드바 버튼명, 페이지 구성 달라짐
 
 function MypageForm() {
+  const serverUrl = process.env.REACT_APP_API_URL;
 
-  const [sideTab, setSideTab] = useState(<MyInfo />);
+  const [sideTabPage, setSideTabPage] = useState(<MyInfo />);
 
   // 클릭했을때 컴퍼넌트 변경!
-  const onClickMyInfoHandler = () => { setSideTab(<MyInfo />) }
-  const onClickFollow_ActivityHandler = () => { { 1 === 1 ? setSideTab(<Follow />) : setSideTab(<Activity />) } }
-  const onClickTodayCommentHandler = () => { { 1 === 1 ? setSideTab(<TodayComment_C />) : setSideTab(<TodayComment_P />) } }
-  const onClickSupportCommentHandler = () => { setSideTab(<SupportComment />) }
+  const onClickMyInfoHandler = () => { setSideTabPage(<MyInfo />) }
+  const onClickFollow_ActivityHandler = () => { { 1 === 0 ? setSideTabPage(<Follow />) : setSideTabPage(<Activity />) } }
+  const onClickTodayCommentHandler = () => { { 1 === 0 ? setSideTabPage(<TodayComment_C />) : setSideTabPage(<TodayComment_P />) } }
+  const onClickSupportCommentHandler = () => { setSideTabPage(<SupportComment />) }
 
 
 
@@ -81,14 +83,14 @@ function MypageForm() {
             onClick={onClickFollow_ActivityHandler}
             className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
-            {1 === 1 ? '팔로우 관리' : '주요활동'}
+            {1 === 0 ? '팔로우 관리' : '주요활동'}
           </button>
           <button
             type="button"
             onClick={onClickTodayCommentHandler}
             className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
-            {1 === 1 ? '오늘의 한마디 댓글' : '오늘의 한마디'}
+            {1 === 0 ? '오늘의 한마디 댓글' : '오늘의 한마디'}
           </button>
           <button
             type="button"
@@ -99,7 +101,7 @@ function MypageForm() {
           </button>
         </div>
       </div>
-      {sideTab}
+      {sideTabPage}
     </div>
   )
 }
