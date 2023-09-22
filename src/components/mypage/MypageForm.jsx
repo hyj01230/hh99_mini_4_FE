@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import Activity from './Activity'
 import Follow from './Follow'
 import MyInfo from './MyInfo'
