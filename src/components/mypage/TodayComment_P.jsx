@@ -1,7 +1,8 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getTokenFromCookie, setCookie } from "../../auth/cookie";
 import { useNavigate } from 'react-router-dom';
+
 
 // 정치인 - 주요활동, 오늘의 한마디 양식
 
@@ -29,14 +30,20 @@ function Activity() {
   const uploadContentHandler = (e) => { setUploadContent(e.target.value) };
   // console.log(uploadContent)
 
+  // 토큰가져오기
+  const token = getTokenFromCookie();
 
-  // POST - 오늘의 한마디 업로드 ---------------------------------------------
+  // 오늘의 한마디 가져오기
+  useEffect(() => {
+    showTodayComment();
+  }, []);
+
+
+  // POST - 오늘의 한마디 업로드 저장버튼 ---------------------------------------------
   const P_todayCommentSaveHandler = async (e) => {
     e.preventDefault();  // 리프레시 막아주기
 
     try {
-      const token = getTokenFromCookie();
-
       if (!token) {
         // 토큰이 없는 경우 처리
         alert('로그인이 필요합니다.');
@@ -49,10 +56,11 @@ function Activity() {
       const response = await axios.post(`${serverUrl}/api/opinion`, {
         title: uploadTitle,
         content: uploadContent
-      }, {
-        headers: { Authorization: `Bearer ${token}` } // 토큰을 헤더에 추가
-      });
-      console.log(response)
+      },
+        {
+          headers: { Authorization: `Bearer ${token}` } // 토큰을 헤더에 추가
+        });
+      console.log('오늘의 한마디 업로드', response)
 
       alert('업로드 완료');
       setUploadTitle("");
@@ -64,6 +72,21 @@ function Activity() {
       console.error(error);
     }
   }
+
+  // GET - 나의 오늘의 한마디 가져오기 ------------------------------------
+  const showTodayComment = async () => {
+    try {
+      const response = await axios.get(`${serverUrl}/api/opinions`, {
+        headers: { Authorization: `Bearer ${token}` } // 토큰을 헤더에 추가
+      });
+      console.log('오늘의 한마디 가져오기',response.data);
+    }
+    catch (error) {
+      alert(`${error}`);
+      console.error(error);
+    }
+  }
+
 
 
   return (
