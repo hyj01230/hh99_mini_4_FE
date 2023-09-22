@@ -137,7 +137,7 @@ function Join() {
         nickname: nickname,
         email,
         party: selected.party,
-        location: locate.locate,
+        location: locate.location,
       };
     } else {
       obj = {

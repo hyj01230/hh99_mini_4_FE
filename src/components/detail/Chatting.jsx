@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 function Chatting() {
   const list = [
@@ -23,18 +23,12 @@ function Chatting() {
     { id: 16, text: "댓글16" },
   ];
 
-  const [isDrawerOpen, setDrawerOpen] = useState(true);
-
-  const toggleDrawer = () => {
-    setDrawerOpen(!isDrawerOpen);
-  };
 
   return (
     <>
       <div
-        className={`fixed top-0 right-0 h-screen p-4 overflow-y-auto transition-transform pt-20 z-10 ${
-          isDrawerOpen ? "translate-x-0" : "translate-x-full"
-        } bg-slate-200 w-80 dark:bg-gray-800`}
+        className=
+        "fixed top-0 right-0 h-screen p-4 overflow-y-auto transition-transform pt-20 -pb-20 z-10 translate-x-0 bg-slate-200 w-80"
         tabIndex="-1"
         aria-labelledby="drawer-right-label"
       >
@@ -48,6 +42,12 @@ function Chatting() {
               </div>
               <div className="flex items-center self-start rounded-xl rounded-tl bg-gray-300 py-2 px-3">
                 <p>This is a receiver message</p>
+              </div>
+              <div className="flex items-center self-start rounded-xl rounded-tl bg-gray-300 py-2 px-3">
+                <p>This is a receiver message</p>
+              </div>
+              <div className="flex items-center self-end rounded-xl rounded-tr bg-blue-500 py-2 px-3 text-white">
+                <p>This is a sender message</p>
               </div>
             </div>
           </div>
