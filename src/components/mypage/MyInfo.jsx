@@ -16,18 +16,18 @@ function MyInfo() {
   // 회원정보 state/onChange --------------------------------------------------
   const [nickname, setNickName] = useState('');  // 닉네임
   const [email, setEmail] = useState('')  // 이메일
-  const [phoneNum, setPhoneNum] = useState('')  // 전화번호
+  // const [phoneNum, setPhoneNum] = useState('')  // 전화번호
   const [locationList, setLocationList] = useState(locations[0])  // 지역 - 국회의원일때만!
   const [partyList, setPartyList] = useState(partys[0])  // 소속정당 - 국회의원일때만!
   const [profile, setProfile] = useState('');  // 약력 - 국회의원일때만!
 
   const onChangeNickNameHandler = (e) => { setNickName(e.target.value) };
   const onChangeEmailHandler = (e) => { setEmail(e.target.value) }
-  const onChangePhoneNumHandler = (e) => {
-    const inputValue = e.target.value;
-    const formattedValue = inputValue.replace(/[^0-9]/g, '').replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, ""); // 전화번호 형식 정규식!
-    setPhoneNum(formattedValue);
-  };
+  // const onChangePhoneNumHandler = (e) => {
+  //   const inputValue = e.target.value;
+  //   const formattedValue = inputValue.replace(/[^0-9]/g, '').replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, ""); // 전화번호 형식 정규식!
+  //   setPhoneNum(formattedValue);
+  // };
   const onChangeLocateHandler = (e) => {
     const locateTarget = locations.findIndex(
       (location) => location.location === e);
@@ -49,7 +49,22 @@ function MyInfo() {
   const onChangeNwePwHandler = (e) => { setNewPassword(e.target.value) }
   const onChangeCheckPwHandler = (e) => { setCheckPassword(e.target.value) }
 
-  // currentPW 유효성검사 및 안내메시지 --------------------------------------------------
+
+  // email 유효성검사 및 안내메시지 --------------------------------------------------
+  const [emailMessage, setEmailMessage] = useState("");
+
+  useEffect(() => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    if (email.length === 0) {
+      setEmailMessage("");
+    } else if (!emailRegex.test(email)) {
+      setEmailMessage("이메일 형태를 지켜주세요");
+    } else {
+      setEmailMessage(true);
+    }
+  }, [email]);
+
+  // 현재 PW 유효성검사 및 안내메시지 --------------------------------------------------
   const [pwMessage, setPwMessage] = useState("");
 
   useEffect(() => {
@@ -64,7 +79,7 @@ function MyInfo() {
     }
   }, [currentPassword])
 
-  // newPW 유효성검사 및 안내메시지 --------------------------------------------------
+  // 새 PW 유효성검사 및 안내메시지 --------------------------------------------------
   const [newPwMessage, setNewPwMessage] = useState("");
 
   useEffect(() => {
@@ -81,7 +96,7 @@ function MyInfo() {
     }
   }, [newPassword])
 
-  // checkPW 유효성검사 및 안내메시지 --------------------------------------------------
+  // 확인 PW 유효성검사 및 안내메시지 --------------------------------------------------
   const [checkPwMessage, setCheckPwMessage] = useState("");
 
   useEffect(() => {
@@ -98,7 +113,7 @@ function MyInfo() {
   const onClickInfoCancleHandler = () => {
     setNickName("")
     setEmail("")
-    setPhoneNum("")
+    // setPhoneNum("")
   }
 
   // 비밀번호 취소 > stae 비우기 --------------------------------------------------
@@ -158,14 +173,17 @@ function MyInfo() {
                 maxLength={10}
                 className='border flex items-center w-full px-3 rounded-md' />
             </div>
-            <div className='flex flex-row mb-5'>
+            <div className='flex flex-row'>
               <p className='w-[100px] flex justify-start mx-3'>이메일</p>
               <input
                 value={email}
                 onChange={onChangeEmailHandler}
                 className='border flex items-center w-full px-3 rounded-md' />
             </div>
-            <div className='flex flex-row mb-5'>
+            <div>
+              <p className="ml-[110px] my-2 text-red-600">{emailMessage}</p>
+            </div>
+            {/* <div className='flex flex-row mb-5'>
               <p className='w-[100px] flex justify-start mx-3'>전화번호</p>
               <input
                 value={phoneNum}
@@ -173,8 +191,8 @@ function MyInfo() {
                 placeholder='010-1234-5678'
                 maxLength={13}
                 className='border flex items-center w-full px-3 rounded-md' />
-            </div>
-            <div className='flex flex-row mb-5'>
+            </div> */}
+            <div className='flex flex-row mt-3 mb-5'>
               <p className='w-[100px] flex justify-start mx-3'>소속정당</p>
               <div className='w-full'>
                 <Listbox value={partyList} onChange={onChangePartyHandler}>
@@ -376,7 +394,7 @@ function MyInfo() {
             비밀번호
           </div>
           <div className='flex flex-col w-full'>
-            <div className='flex flex-row mb-3'>
+            <div className='flex flex-row pb-3'>
               <p className='w-[200px] flex justify-start ml-3'>현재 비밀번호</p>
               <input
                 type='password'
@@ -388,7 +406,7 @@ function MyInfo() {
             <div>
               <p className="ml-[170px] my-2 text-red-600">{pwMessage}</p>
             </div>
-            <div className='flex flex-row mb-3'>
+            <div className='flex flex-row pb-3'>
               <p className='w-[200px] flex justify-start ml-3'>새 비밀번호</p>
               <input
                 type='password'
@@ -400,7 +418,7 @@ function MyInfo() {
             <div>
               <p className="ml-[170px] my-2 text-red-600">{newPwMessage}</p>
             </div>
-            <div className='flex flex-row mb-3'>
+            <div className='flex flex-row pb-3'>
               <p className='w-[200px] flex justify-start ml-3'>새 비밀번호 확인</p>
               <input
                 type='password'
