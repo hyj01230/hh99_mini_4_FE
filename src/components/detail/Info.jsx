@@ -1,8 +1,15 @@
+import axios from "axios";
 import React from "react";
+import { serverUrl } from "../../common/common";
 
 function Info() {
   const profileImageUrl =
     "https://search.pstatic.net/common?type=b&size=216&expire=1&refresh=true&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202211%2F20221128155419266.jpg";
+    
+  const getUserInfo = async () => {
+    await axios.get(`${serverUrl}/api/user/userinfo`)
+  }
+
 
   return (
     <div className="bg-white p-4 shadow-md rounded-lg flex items-center">

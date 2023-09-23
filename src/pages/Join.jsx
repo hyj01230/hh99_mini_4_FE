@@ -3,15 +3,14 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { serverUrl } from "../common/common";
 import { locations, partys } from "../data/data";
 import { titleStyle } from "../styles/fonsts";
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function Join() {
-  const serverUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   // ID/PW 입력값 state
   const [id, setId] = useState("");

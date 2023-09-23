@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getTokenFromCookie } from "../auth/cookie";
+import { serverUrl } from "../common/common";
 import { locations, partys } from "../data/data";
 
 function NationalMember() {
@@ -9,7 +10,6 @@ function NationalMember() {
   const { id } = useParams();
   const [link, setLink] = useState(`/${!id ? "" : id}`);
   const [locationButton, setLocationButton] = useState(locations[0].location);
-  const serverUrl = process.env.REACT_APP_API_URL;
   const token = getTokenFromCookie();
   const [resultList, setResultList] = useState([]);
   console.log(resultList)
