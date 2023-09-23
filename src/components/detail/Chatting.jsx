@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 function Chatting() {
   const list = [
@@ -23,22 +23,45 @@ function Chatting() {
     { id: 16, text: "댓글16" },
   ];
 
-  const [isDrawerOpen, setDrawerOpen] = useState(true);
-
-  const toggleDrawer = () => {
-    setDrawerOpen(!isDrawerOpen);
-  };
 
   return (
     <>
       <div
-        className={`fixed top-0 right-0 h-screen p-4 overflow-y-auto transition-transform pt-20 z-10 ${
-          isDrawerOpen ? "translate-x-0" : "translate-x-full"
-        } bg-slate-200 w-80 dark:bg-gray-800`}
+        className=
+        "fixed top-0 right-0 h-screen p-4 overflow-y-auto transition-transform pt-20 -pb-20 z-10 translate-x-0 bg-slate-200 w-80"
         tabIndex="-1"
         aria-labelledby="drawer-right-label"
       >
-        <p>댓글 or 채팅</p>
+        {/* <p>댓글 or 채팅</p> */}
+        <div className="flex h-screen flex-col bg-gray-100">
+          <div className="flex-grow overflow-y-auto">
+            <div className="flex flex-col space-y-2 p-4">
+              {/* Individual chat message */}
+              <div className="flex items-center self-end rounded-xl rounded-tr bg-blue-500 py-2 px-3 text-white">
+                <p>This is a sender message</p>
+              </div>
+              <div className="flex items-center self-start rounded-xl rounded-tl bg-gray-300 py-2 px-3">
+                <p>This is a receiver message</p>
+              </div>
+              <div className="flex items-center self-start rounded-xl rounded-tl bg-gray-300 py-2 px-3">
+                <p>This is a receiver message</p>
+              </div>
+              <div className="flex items-center self-end rounded-xl rounded-tr bg-blue-500 py-2 px-3 text-white">
+                <p>This is a sender message</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center p-4">
+            <input
+              type="text"
+              placeholder="Type your message..."
+              className="w-full rounded-lg border border-gray-300 px-4 py-2"
+            />
+            <button className="ml-2 rounded-lg bg-blue-500 px-4 py-2 text-white">
+              Send
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );

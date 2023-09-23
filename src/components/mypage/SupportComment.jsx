@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react';
 
 // 시민 - 댓글관리 양식
 
@@ -19,7 +19,7 @@ function SupportComment() {
 
       {/* 맵으로 돌려서 뽑기!!! */}
       {Comment.map((item) => (
-        <div className='bg-[#F9F5EB] shadow-lg rounded-md my-6 mx-7 p-7' key={item.id}>
+        <div className='bg-[#F9F5EB] rounded-md my-6 mx-7 p-7 shadow-lg' key={item.id}>
           <div className='flex flex-row pb-4'>
             <p className='text-lg font-bold'>제목</p>
             <input

@@ -137,7 +137,7 @@ function Join() {
         nickname: nickname,
         email,
         party: selected.party,
-        location: locate,
+        location: locate.location,
       };
     } else {
       obj = {
@@ -147,7 +147,7 @@ function Join() {
         email,
       };
     }
-
+    console.log(obj)
     try {
       const response = await axios.post(`${serverUrl}/api/user/signup`, obj);
       console.log(response);
