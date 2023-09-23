@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Activity from './Activity'
 import Follow from './Follow'
-import MyInfo from './MyInfo'
+import MyInfo from './Myinfo';
 import SupportComment from './SupportComment'
 import TodayComment_C from './TodayComment_C'
 import TodayComment_P from './TodayComment_P'

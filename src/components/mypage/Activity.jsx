@@ -57,7 +57,7 @@ function Activity() {
       // formData.append('url', uploadUrl);
       // formData.append('image', uploadImage);
 
-      formData.append('CampaignRequestModel', {
+      formData.append('data', {
         'title': uploadTitle,
         'content': uploadContent,
         'url': uploadUrl,
