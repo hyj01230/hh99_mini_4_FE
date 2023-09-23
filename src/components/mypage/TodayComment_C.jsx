@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 // 시민 - 댓글관리 양식
 
-function SupportComment() {
+function TodayComment_C() {
 
   const Comment = [
     { id: 1, title: "제목입니다", contents: "이건 내용이에요", isDelete: false },
@@ -62,4 +62,4 @@ function SupportComment() {
   )
 }
 
-export default SupportComment
+export default TodayComment_C
