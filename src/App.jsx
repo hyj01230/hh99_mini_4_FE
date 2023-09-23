@@ -1,7 +1,12 @@
-import Router from './shared/Router';
+import Router from "./shared/Router";
 
 function App() {
-  return <Router />
+  return (
+    <>
+      {/* <Navbar /> */}
+      <Router />
+    </>
+  );
 }
 
 export default App;
