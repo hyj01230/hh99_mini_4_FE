@@ -1,7 +1,10 @@
 import { faCommentDots, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import { useParams } from "react-router";
+import { getTokenFromCookie } from "../auth/cookie";
+import { serverUrl } from "../common/common";
 import Carousel from "../components/detail/Carousel";
 import Chatting from "../components/detail/Chatting";
 import ContentsBox from "../components/detail/ContentsBox";
@@ -9,31 +12,59 @@ import Info from "../components/detail/Info";
 
 function Detail2() {
   const [follow, setFollow] = useState(false);
+  const [chat, setChat] = useState(false);
+  const { id } = useParams();
+  console.log(id)
+  const token = getTokenFromCookie();
 
   const toggleFollow = () => {
     setFollow(!follow);
   };
 
-  const [chat, setChat] = useState(false);
   const toggleChat = () => {
     setChat(!chat);
   };
-  console.log(chat);
 
-  
+  const followHandler = async () => {
+    const data = { userId: id };
+    try {
+      const response = await axios.post(
+        `${serverUrl}/api/user/follow`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 프로필 사진 및 약력 조회
+  // const getUserInfo = async () => {
+  //   const response = await axios.post(`${serverUrl}/api/user/userinfo`)
+  // }
 
   return (
-    <div>
+    <div className="">
       <div className="fixed top-0 w-full z-30">
-        <Navbar />
+        {/* <Navbar /> */}
       </div>
-      <div className="flex bg-gray-100 text-gray-900">
+      {/* 사이드바 */}
+      <div className="flex bg-gray-200 text-gray-900">
+        
         <aside className="fixed top-0 h-screen w-20 flex flex-col items-center border-r border-gray-200 bg-white pt-[50px]">
           <nav className="flex flex-1 flex-col gap-y-4 pt-10">
-            <a
-              href="#"
+            <div
               className="group relative rounded-xl bg-gray-100 p-2 text-blue-600 hover:bg-gray-50 flex items-center justify-center w-10 h-10"
-              onClick={toggleFollow}
+              onClick={() => {
+                console.log("버튼 눌림");
+                followHandler();
+                toggleFollow();
+              }}
             >
               {follow ? (
                 <>
@@ -64,13 +95,16 @@ function Detail2() {
                   </div>
                 </>
               )}
-            </a>
-            <a
-              href="#"
+            </div>
+            <div
               className="group relative rounded-xl bg-gray-100 p-2 text-blue-600 hover:bg-gray-50 flex items-center justify-center w-10 h-10"
               onClick={toggleChat}
             >
-              <FontAwesomeIcon icon={faCommentDots} className="w-full h-full" />
+              <FontAwesomeIcon
+                icon={faCommentDots}
+                className="w-full h-full"
+                style={{ color: "#65451F" }}
+              />
               <div className="absolute inset-y-0 left-12 hidden items-center group-hover:flex">
                 <div className="relative whitespace-nowrap rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-900 drop-shadow-lg">
                   <div className="absolute inset-0 -left-1 flex items-center">
@@ -79,22 +113,12 @@ function Detail2() {
                   채팅 <span className="text-gray-400">(Y)</span>
                 </div>
               </div>
-            </a>
+            </div>
           </nav>
-
-          <div className="flex flex-col items-center gap-y-4 py-10">
-            <button className="mt-2 rounded-full bg-gray-100">
-              <img
-                className="h-10 w-10 rounded-full"
-                src="https://avatars.githubusercontent.com/u/35387401?v=4"
-                alt="User Avatar"
-              />
-            </button>
-          </div>
         </aside>
       </div>
       {chat && <Chatting style={{ zIndex: 100 }} />}
-      <div className="max-w-[1200px] ml-auto mr-auto mt-20 text-black">
+      <div className="max-w-[1200px] ml-auto mr-auto mt-20 text-black pl-20">
         <div className="p-6">
           <Info />
         </div>
@@ -105,11 +129,10 @@ function Detail2() {
         </div>
 
         <div className="p-6">
-          <p>활동모음</p>
-          <ContentsBox  />
+          <p>오늘의 한마디</p>
+          <ContentsBox />
         </div>
       </div>
-
     </div>
   );
 }

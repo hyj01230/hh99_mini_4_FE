@@ -31,8 +31,8 @@ function Navbar() {
   ];
 
   return (
-    <>
-      <Disclosure as="nav" className="bg-[#F2EAD3] sticky top-0 w-full">
+    <> 
+      <Disclosure as="nav" className="fixed bg-[#F2EAD3] top-0 w-full z-30">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -51,7 +51,6 @@ function Navbar() {
                 </div>
                 <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
-
                     {/* <p
                       className="text-[white] font-[600] text-xl"
                       
@@ -59,10 +58,15 @@ function Navbar() {
                       Town Assembly
                     </p> */}
 
-                    <p style={titleStyle} className="text-2xl cursor-pointer text-[#65451F]" onClick={() => {
+                    <p
+                      style={titleStyle}
+                      className="text-2xl cursor-pointer text-[#65451F]"
+                      onClick={() => {
                         navigate("/");
-                      }}>Town Assembly</p>
-
+                      }}
+                    >
+                      Town Assembly
+                    </p>
                   </div>
                   <div className="hidden sm:ml-6 sm:block w-[500px] justify-around">
                     <div className="flex w-full items-center">
@@ -229,9 +233,7 @@ function Navbar() {
           </>
         )}
       </Disclosure>
-      <div
-        style={{ justifyContent: "space-between" }}
-      >
+      <div style={{ justifyContent: "space-between" }}>
         {currentMenuItem === "/location" &&
           locations.map((item) => (
             <button
@@ -258,6 +260,7 @@ function Navbar() {
             </button>
           ))}
       </div>
+      
     </>
   );
 }
