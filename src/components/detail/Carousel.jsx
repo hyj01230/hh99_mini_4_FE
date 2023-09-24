@@ -34,8 +34,9 @@ function Carousel() {
       >
         {list.map((item) => {
           return (
-            <a
-              href="#"
+            <div
+              key={item.id}
+              onClick={()=>{}}
               className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               <img
@@ -52,7 +53,7 @@ function Carousel() {
                   포스트맨의 아이콘은 인간이 미사일이 된 것 같습니다. ㅋㅋㅋㅋ
                 </p>
               </div>
-            </a>
+            </div>
           );
         })}
       </ItemsCarousel>
