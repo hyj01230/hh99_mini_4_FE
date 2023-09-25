@@ -1,5 +1,4 @@
 import { Listbox, Transition } from '@headlessui/react';
-import { async } from 'q';
 import React, { Fragment, useEffect, useState } from 'react'
 import { locations, partys } from '../../data/data';
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
@@ -17,12 +16,13 @@ function MyInfo() {
   const [nickname, setNickName] = useState('');  // 닉네임
   const [email, setEmail] = useState('')  // 이메일
   // const [phoneNum, setPhoneNum] = useState('')  // 전화번호
-  const [locationList, setLocationList] = useState(locations[0])  // 지역 - 국회의원일때만!
-  const [partyList, setPartyList] = useState(partys[0])  // 소속정당 - 국회의원일때만!
-  const [profile, setProfile] = useState('');  // 약력 - 국회의원일때만!
+  const [locationList, setLocationList] = useState(locations[0])  // 지역 - 정치인일때만!
+  const [partyList, setPartyList] = useState(partys[0])  // 소속정당 - 정치인일때만!
+  const [profile, setProfile] = useState('');  // 약력 - 정치인일때만!
 
   const onChangeNickNameHandler = (e) => { setNickName(e.target.value) };
   const onChangeEmailHandler = (e) => { setEmail(e.target.value) }
+  // 전화번호
   // const onChangePhoneNumHandler = (e) => {
   //   const inputValue = e.target.value;
   //   const formattedValue = inputValue.replace(/[^0-9]/g, '').replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, ""); // 전화번호 형식 정규식!
@@ -192,183 +192,189 @@ function MyInfo() {
                 maxLength={13}
                 className='border flex items-center w-full px-3 rounded-md' />
             </div> */}
-            <div className='flex flex-row mt-3 mb-5'>
-              <p className='w-[100px] flex justify-start mx-3'>소속정당</p>
-              <div className='w-full'>
-                <Listbox value={partyList} onChange={onChangePartyHandler}>
-                  {({ open }) => (
-                    <>
-                      <div className="relative">
-                        <Listbox.Button className="rounded-md relative w-full cursor-default bg-white text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2  sm:text-sm sm:leading-6">
-                          <span className="flex items-center">
-                            <span className="ml-3 block truncate">
-                              {partyList.party}
-                            </span>
-                          </span>
-                          <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
-                            <ChevronUpDownIcon
-                              className="h-5 w-5 text-gray-400"
-                              aria-hidden="true"
-                            />
-                          </span>
-                        </Listbox.Button>
 
-                        <Transition
-                          show={open}
-                          as={Fragment}
-                          leave="transition ease-in duration-100"
-                          leaveFrom="opacity-100"
-                          leaveTo="opacity-0"
-                        >
-                          <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                            {partys.map((item) => (
-                              <Listbox.Option
-                                key={item.id}
-                                className={({ active }) =>
-                                  classNames(
-                                    active
-                                      ? "bg-[#65451F] text-white"
-                                      : "text-gray-900",
-                                    "relative cursor-default select-none py-2 pl-3 pr-9"
-                                  )
-                                }
-                                value={item.party}
-                              >
-                                {({ selected, active }) => (
-                                  <>
-                                    <div className="flex items-center">
-                                      <span
-                                        className={classNames(
-                                          selected
-                                            ? "font-semibold"
-                                            : "font-normal",
-                                          "ml-3 block truncate"
-                                        )}
-                                      >
-                                        {item.party}
-                                      </span>
-                                    </div>
+            {/* 정치인 유저일때만 렌더링 */}
+            {'정치인' === '정치인' ? (
+              <>
+                <div className='flex flex-row mt-3 mb-5'>
+                  <p className='w-[100px] flex justify-start mx-3'>소속정당</p>
+                  <div className='w-full'>
+                    <Listbox value={partyList} onChange={onChangePartyHandler}>
+                      {({ open }) => (
+                        <>
+                          <div className="relative">
+                            <Listbox.Button className="rounded-md relative w-full cursor-default bg-white text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2  sm:text-sm sm:leading-6">
+                              <span className="flex items-center">
+                                <span className="ml-3 block truncate">
+                                  {partyList.party}
+                                </span>
+                              </span>
+                              <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                                <ChevronUpDownIcon
+                                  className="h-5 w-5 text-gray-400"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            </Listbox.Button>
 
-                                    {selected ? (
-                                      <span
-                                        className={classNames(
-                                          active
-                                            ? "text-white"
-                                            : "text-[#65451F]",
-                                          "absolute inset-y-0 right-0 flex items-center pr-4"
-                                        )}
-                                      >
-                                        <CheckIcon
-                                          className="h-5 w-5"
-                                          aria-hidden="true"
-                                        />
-                                      </span>
-                                    ) : null}
-                                  </>
-                                )}
-                              </Listbox.Option>
-                            ))}
-                          </Listbox.Options>
-                        </Transition>
-                      </div>
-                    </>
-                  )}
-                </Listbox>
-              </div>
-            </div>
-            <div className='flex flex-row mb-5'>
-              <p className='w-[100px] flex justify-start mx-3'>지역</p>
-              <div className='w-full'>
-                <Listbox value={locationList} onChange={onChangeLocateHandler}>
-                  {({ open }) => (
-                    <>
-                      <div className="relative">
-                        <Listbox.Button className="rounded-md relative w-full cursor-default bg-white text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2  sm:text-sm sm:leading-6">
-                          <span className="flex items-center">
-                            <span className="ml-3 block truncate">
-                              {locationList.location}
-                            </span>
-                          </span>
-                          <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
-                            <ChevronUpDownIcon
-                              className="h-5 w-5 text-gray-400"
-                              aria-hidden="true"
-                            />
-                          </span>
-                        </Listbox.Button>
+                            <Transition
+                              show={open}
+                              as={Fragment}
+                              leave="transition ease-in duration-100"
+                              leaveFrom="opacity-100"
+                              leaveTo="opacity-0"
+                            >
+                              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                {partys.map((item) => (
+                                  <Listbox.Option
+                                    key={item.id}
+                                    className={({ active }) =>
+                                      classNames(
+                                        active
+                                          ? "bg-[#65451F] text-white"
+                                          : "text-gray-900",
+                                        "relative cursor-default select-none py-2 pl-3 pr-9"
+                                      )
+                                    }
+                                    value={item.party}
+                                  >
+                                    {({ selected, active }) => (
+                                      <>
+                                        <div className="flex items-center">
+                                          <span
+                                            className={classNames(
+                                              selected
+                                                ? "font-semibold"
+                                                : "font-normal",
+                                              "ml-3 block truncate"
+                                            )}
+                                          >
+                                            {item.party}
+                                          </span>
+                                        </div>
 
-                        <Transition
-                          show={open}
-                          as={Fragment}
-                          leave="transition ease-in duration-100"
-                          leaveFrom="opacity-100"
-                          leaveTo="opacity-0"
-                        >
-                          <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                            {locations.map((item) => (
-                              <Listbox.Option
-                                key={item.id}
-                                className={({ active }) =>
-                                  classNames(
-                                    active
-                                      ? "bg-[#65451F] text-white"
-                                      : "text-gray-900",
-                                    "relative cursor-default select-none py-2 pl-3 pr-9"
-                                  )
-                                }
-                                value={item.location}
-                              >
-                                {({ selected, active }) => (
-                                  <>
-                                    <div className="flex items-center">
-                                      <span
-                                        className={classNames(
-                                          selected
-                                            ? "font-semibold"
-                                            : "font-normal",
-                                          "ml-3 block truncate"
-                                        )}
-                                      >
-                                        {item.location}
-                                      </span>
-                                    </div>
+                                        {selected ? (
+                                          <span
+                                            className={classNames(
+                                              active
+                                                ? "text-white"
+                                                : "text-[#65451F]",
+                                              "absolute inset-y-0 right-0 flex items-center pr-4"
+                                            )}
+                                          >
+                                            <CheckIcon
+                                              className="h-5 w-5"
+                                              aria-hidden="true"
+                                            />
+                                          </span>
+                                        ) : null}
+                                      </>
+                                    )}
+                                  </Listbox.Option>
+                                ))}
+                              </Listbox.Options>
+                            </Transition>
+                          </div>
+                        </>
+                      )}
+                    </Listbox>
+                  </div>
+                </div>
+                <div className='flex flex-row mb-5'>
+                  <p className='w-[100px] flex justify-start mx-3'>지역</p>
+                  <div className='w-full'>
+                    <Listbox value={locationList} onChange={onChangeLocateHandler}>
+                      {({ open }) => (
+                        <>
+                          <div className="relative">
+                            <Listbox.Button className="rounded-md relative w-full cursor-default bg-white text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2  sm:text-sm sm:leading-6">
+                              <span className="flex items-center">
+                                <span className="ml-3 block truncate">
+                                  {locationList.location}
+                                </span>
+                              </span>
+                              <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                                <ChevronUpDownIcon
+                                  className="h-5 w-5 text-gray-400"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            </Listbox.Button>
 
-                                    {selected ? (
-                                      <span
-                                        className={classNames(
-                                          active
-                                            ? "text-white"
-                                            : "text-[#65451F]",
-                                          "absolute inset-y-0 right-0 flex items-center pr-4"
-                                        )}
-                                      >
-                                        <CheckIcon
-                                          className="h-5 w-5"
-                                          aria-hidden="true"
-                                        />
-                                      </span>
-                                    ) : null}
-                                  </>
-                                )}
-                              </Listbox.Option>
-                            ))}
-                          </Listbox.Options>
-                        </Transition>
-                      </div>
-                    </>
-                  )}
-                </Listbox>
-              </div>
-            </div>
-            <div className='flex flex-row mb-5'>
-              <p className='w-[100px] flex justify-start mx-3'>약력</p>
-              <input
-                value={profile}
-                onChange={onChangeProfileHandler}
-                placeholder=""
-                maxLength={10}
-                className='border flex items-center w-full h-[200px] px-3 rounded-md' />
-            </div>
+                            <Transition
+                              show={open}
+                              as={Fragment}
+                              leave="transition ease-in duration-100"
+                              leaveFrom="opacity-100"
+                              leaveTo="opacity-0"
+                            >
+                              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                {locations.map((item) => (
+                                  <Listbox.Option
+                                    key={item.id}
+                                    className={({ active }) =>
+                                      classNames(
+                                        active
+                                          ? "bg-[#65451F] text-white"
+                                          : "text-gray-900",
+                                        "relative cursor-default select-none py-2 pl-3 pr-9"
+                                      )
+                                    }
+                                    value={item.location}
+                                  >
+                                    {({ selected, active }) => (
+                                      <>
+                                        <div className="flex items-center">
+                                          <span
+                                            className={classNames(
+                                              selected
+                                                ? "font-semibold"
+                                                : "font-normal",
+                                              "ml-3 block truncate"
+                                            )}
+                                          >
+                                            {item.location}
+                                          </span>
+                                        </div>
+
+                                        {selected ? (
+                                          <span
+                                            className={classNames(
+                                              active
+                                                ? "text-white"
+                                                : "text-[#65451F]",
+                                              "absolute inset-y-0 right-0 flex items-center pr-4"
+                                            )}
+                                          >
+                                            <CheckIcon
+                                              className="h-5 w-5"
+                                              aria-hidden="true"
+                                            />
+                                          </span>
+                                        ) : null}
+                                      </>
+                                    )}
+                                  </Listbox.Option>
+                                ))}
+                              </Listbox.Options>
+                            </Transition>
+                          </div>
+                        </>
+                      )}
+                    </Listbox>
+                  </div>
+                </div>
+                <div className='flex flex-row mb-5'>
+                  <p className='w-[100px] flex justify-start mx-3'>약력</p>
+                  <input
+                    value={profile}
+                    onChange={onChangeProfileHandler}
+                    placeholder=""
+                    maxLength={10}
+                    className='border flex items-center w-full h-[200px] px-3 rounded-md' />
+                </div>
+              </>) : (null)}
+
           </div>
         </div>
         <form className='flex flex-row justify-end' onSubmit={onSubmitInfoHandler}>
@@ -437,7 +443,7 @@ function MyInfo() {
           <button
             type="button"
             onClick={onClickPWCancleHandler}
-            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 " 
+            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
           >
             취소
           </button>
