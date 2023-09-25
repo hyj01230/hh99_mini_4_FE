@@ -18,19 +18,12 @@ function MyInfomation() {
   // 회원정보 state/onChange --------------------------------------------------
   const [nickname, setNickName] = useState('');  // 닉네임
   const [email, setEmail] = useState('')  // 이메일
-  // const [phoneNum, setPhoneNum] = useState('')  // 전화번호
   const [locationList, setLocationList] = useState(locations[0])  // 지역 - 정치인일때만!
   const [partyList, setPartyList] = useState(partys[0])  // 소속정당 - 정치인일때만!
   const [profile, setProfile] = useState('');  // 약력 - 정치인일때만!
 
   const onChangeNickNameHandler = (e) => { setNickName(e.target.value) };
   const onChangeEmailHandler = (e) => { setEmail(e.target.value) }
-  // 전화번호
-  // const onChangePhoneNumHandler = (e) => {
-  //   const inputValue = e.target.value;
-  //   const formattedValue = inputValue.replace(/[^0-9]/g, '').replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, ""); // 전화번호 형식 정규식!
-  //   setPhoneNum(formattedValue);
-  // };
   const onChangeLocateHandler = (e) => {
     const locateTarget = locations.findIndex(
       (location) => location.location === e);
@@ -186,13 +179,6 @@ function MyInfomation() {
             회원정보
           </div>
           <div className='flex flex-col w-full'>
-            <div className='flex flex-row mb-5'>
-              <p className='w-[100px] flex justify-start mx-3 '>이름</p>
-              <input
-                value={'회원 이름 가져와서 고정!'}
-                disabled
-                className='border flex items-center w-full px-3 rounded-md' />
-            </div>
             <div className='flex flex-row mb-5'>
               <p className='w-[100px] flex justify-start mx-3'>닉네임</p>
               <input

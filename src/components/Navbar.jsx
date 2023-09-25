@@ -21,7 +21,7 @@ function Navbar() {
   );
   const navigation = [
     { name: "전체조회", href: "/", current: currentMenuItem === "/" },
-    { name: "팔로워", href: "/follow", current: currentMenuItem === "/follow" },
+    { name: "팔로잉", href: "/follow", current: currentMenuItem === "/follow" },
     {
       name: "지역별",
       href: "/location",

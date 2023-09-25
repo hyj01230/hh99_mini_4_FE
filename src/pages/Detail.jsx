@@ -27,15 +27,11 @@ function Detail() {
   const followHandler = async () => {
     const data = { userId: id };
     try {
-      const response = await axios.post(
-        `${serverUrl}/api/user/follow`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
-          },
-        }
-      );
+      const response = await axios.post(`${serverUrl}/api/user/follow`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
+        },
+      });
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -49,12 +45,9 @@ function Detail() {
 
   return (
     <div className="">
-      <div className="fixed top-0 w-full z-30">
-        {/* <Navbar /> */}
-      </div>
+      <div className="fixed top-0 w-full z-30">{/* <Navbar /> */}</div>
       {/* 사이드바 */}
       <div className="flex bg-gray-200 text-gray-900">
-        
         <aside className="fixed top-0 h-screen w-20 flex flex-col items-center border-r border-gray-200 bg-white pt-[50px]">
           <nav className="flex flex-1 flex-col gap-y-4 pt-10">
             <div
