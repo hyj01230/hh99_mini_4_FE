@@ -144,8 +144,9 @@ function MyInfomation() {
       // (response.data.data);
     }
 
-    catch {
-
+    catch (error) {
+      alert(`${error}`);
+      console.error(error);
     }
   }
 
