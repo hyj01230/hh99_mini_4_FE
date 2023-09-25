@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getTokenFromCookie, setCookie } from "../auth/cookie";
 import { titleStyle } from "../styles/fonsts";
+import { serverUrl } from "../common/common";
 
 function Login() {
-  const serverUrl = process.env.REACT_APP_API_URL;
 
   // 페이지 연결 --------------------------------------------------
   const navigate = useNavigate();

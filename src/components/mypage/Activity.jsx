@@ -2,12 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { getTokenFromCookie, setCookie } from "../../auth/cookie";
 import { useNavigate } from 'react-router-dom';
-
+import { serverUrl } from '../../common/common';
 
 
 function Activity() {
-  const serverUrl = process.env.REACT_APP_API_URL;
 
+  // 페이지 이동 -------------------------------------------------------------------------
   const navigate = useNavigate();
 
   // 업로드 제목/내용/URL/이미지 state ---------------------------------------------------
@@ -16,10 +16,11 @@ function Activity() {
   const [uploadUrl, setUploadUrl] = useState("");
   const [uploadImage, setUploadImage] = useState(null);
 
+  // 업로드 제목/내용/URL/이미지 onchange ---------------------------------------------------
   const uploadTitleHandler = (e) => { setUploadTitle(e.target.value) };
   const uploadContentHandler = (e) => { setUploadContent(e.target.value) };
-  const urlHandler = (e) => { setUploadUrl(e.target.value) };
-  const imageHandler = (e) => {
+  const uploadUrlHandler = (e) => { setUploadUrl(e.target.value) };
+  const uploadImageHandler = (e) => {
     const image = e.target.files[0]; // 선택된 파일 가져오기
     console.log(`선택된 파일 이름: ${image.name}`);
     console.log(`선택된 파일 크기: ${image.size} bytes`);
@@ -27,18 +28,54 @@ function Activity() {
     setUploadImage(image)
     // console.log('파일정보', image)
   }
-  // console.log(uploadContent)
 
-  // 토큰가져오기 ---------------------------------------------
+  // 토큰가져오기 ---------------------------------------------------------------------------
   const token = getTokenFromCookie();
 
-  // 활동모음 가져오기 ---------------------------------------------
+  // 활동모음 데이터 가져오기 ---------------------------------------------------------------
   useEffect(() => {
-    showActivity();
+    getActivity();
   }, []);
 
+  // get으로 가져온 활동모음 데이터 state에 저장하기 -------------------------------------------------------
+  const [activityData, setActivityData] = useState([]); // 데이터'들' 들어올거니까 []
 
-  // POST - 활동모음 업로드 저장버튼 ---------------------------------------------
+  // GET - 활동모음 가져오기 -----------------------------------------------------------------
+  const getActivity = async () => {
+    try {
+      const response = await axios.get(`${serverUrl}/api/campaigns`, {
+        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+      });
+      console.log('활동모음 가져오기', response.data);
+      setActivityData(response.data)  // 가져온 활동모음 데이터 state에 저장하기!
+    }
+    catch (error) {
+      alert(`${error}`);
+      console.error(error);
+    }
+  }
+
+  // 가져온 data를 수정하는 state, onchange
+  const [activityDataTitle, setActivityDataTitle] = useState(activityData.data.campaignTitle);
+  const [activityDataUrl, setActivityDataUrl] = useState(activityData.data.campaignUrl);
+  const [activityDataContent, setActivityDataContent] = useState(activityData.data.campaignContent);
+  const [activityDataImage, setActivityDataImage] = useState(null);  // 사진 - 확인필요!!!
+
+  const activityDataTitleHandler = (e) => { setActivityDataTitle(e.target.value) };
+  const activityDataUrlHandler = (e) => { setActivityDataUrl(e.target.value) };
+  const activityDataContentHandler = (e) => { setActivityDataContent(e.target.value) };
+  const activityDataImageHandler = (e) => {
+    const changeImage = e.target.files[0]; // 선택된 파일 가져오기
+    console.log(`선택된 파일 이름: ${changeImage.name}`);
+    console.log(`선택된 파일 크기: ${changeImage.size} bytes`);
+
+    setActivityDataImage(changeImage)
+    // console.log('변경된 파일정보', image)
+  };
+
+
+
+  // POST - 활동모음 업로드 저장버튼 ---------------------------------------------------------
   const activitySaveHandler = async (e) => {
     e.preventDefault();  // 리프레시 막아주기
 
@@ -91,14 +128,39 @@ function Activity() {
     }
   }
 
-  // GET - 활동모음 가져오기 ------------------------------------
-  const showActivity = async () => {
-    try {
-      const response = await axios.get(`${serverUrl}/api/campaigns`, {
+
+
+  // DELETE - 기존 활동모음 삭제 --------------------------------------------------------------
+  const onclickDeleteBtnHandler = async (e) => {
+    e.preventDefault();  // 리프레시 막아주기
+
+    try {                                                         //  캠페인아디를 어케 가져올것인가...?
+      const response = await axios.delete(`${serverUrl}/api/campaign/{campaignId}`, {
         headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
       });
-      console.log('활동모음 가져오기', response.data);
+      console.log('활동모음 삭제하기', response.data);
+      setActivityData(response.data)  // 가져온 활동모음 데이터 state에 저장하기!
     }
+
+    catch (error) {
+      alert(`${error}`);
+      console.error(error);
+    }
+  }
+
+
+  // PUT - 기존 활동모음 수정 --------------------------------------------------------------
+  const onclickPutyBtnHandler = async (e) => {
+    e.preventDefault();  // 리프레시 막아주기
+
+    try {
+      const response = await axios.put(`${serverUrl}/api/campaign/{campaignId}`, {
+        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+      });
+      console.log('활동모음 수정하기', response.data);
+      setActivityData(response.data)  // 가져온 활동모음 데이터 state에 저장하기!
+    }
+
     catch (error) {
       alert(`${error}`);
       console.error(error);
@@ -123,13 +185,17 @@ function Activity() {
             className='rounded-md mx-3 flex-grow h-8 px-2' />
           <p className='text-lg font-bold'>사진첨부(크기/용량🚨)</p>
           {/* 이미지 업로드 */}
-          <input type="file" accept="image/*" onChange={imageHandler} className='rounded-md mx-3 flex-grow h-8 px-2' />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={uploadImageHandler}
+            className='rounded-md mx-3 flex-grow h-8 px-2' />
         </div>
         <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>URL</p>
           <input
             value={uploadUrl}
-            onChange={urlHandler}
+            onChange={uploadUrlHandler}
             placeholder='url을 입력해주세요'
             type="text"
             className='rounded-md mx-3 flex-grow h-8 px-2' />
@@ -155,36 +221,91 @@ function Activity() {
       <p className='mt-[50px] ml-7 text-2xl font-black'>
         활동모음 업로드 목록</p>
 
-      {/* 맵으로 돌려서 뽑기!!! */}
+      {/* 서버 연결 전! 렌더링 내용 확인용 */}
       <div className='bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg'>
         <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>제목</p>
-          <input placeholder='제목1' type="text" className='rounded-md mx-3 flex-grow h-8 px-2' />
+          <input
+            type="text"
+            className='rounded-md mx-3 flex-grow h-8 px-2' />
           <p className='text-lg font-bold'>사진첨부(크기/용량🚨)</p>
-          <input type="file" accept="image/*" className='rounded-md mx-3 flex-grow h-8 px-2' />
+          <input
+            type="file"
+            accept="image/*"
+            className='rounded-md mx-3 flex-grow h-8 px-2' />
         </div>
         <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>URL</p>
           <input
-            placeholder='url을 입력해주세요'
             type="text"
             className='rounded-md mx-3 flex-grow h-8 px-2' />
         </div>
         <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>내용</p>
-          <input placeholder='내용1' type="text" className='rounded-md mx-3 flex-grow h-20 p-2' />
+          <input
+            type="text"
+            className='rounded-md mx-3 flex-grow h-20 p-2' />
         </div>
         <div className='flex justify-end'>
           <button
-            type="submit"
+            type="button"
             className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024]">
             삭제</button>
           <button
-            type="submit"
+            type="button"
             className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
             수정</button>
         </div>
       </div>
+
+      {/* 서버에서 넘어온 activityData가 있다면 하나씩 돌면서 렌더링! */}
+      {activityData && activityData.map((item) => (
+        <div key={item.data.campaignId} className='bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg'>
+          <div className='flex flex-row pb-4'>
+            <p className='text-lg font-bold'>제목</p>
+            <input
+              value={activityDataTitle}
+              onChange={activityDataTitleHandler}
+              type="text"
+              className='rounded-md mx-3 flex-grow h-8 px-2' />
+            <p className='text-lg font-bold'>사진첨부(크기/용량🚨)</p>
+            <input
+              value={activityDataImage} // 사진 - 확인 필요!!!
+              onChange={activityDataImageHandler}
+              type="file"
+              accept="image/*"
+              className='rounded-md mx-3 flex-grow h-8 px-2' />
+          </div>
+          <div className='flex flex-row pb-4'>
+            <p className='text-lg font-bold'>URL</p>
+            <input
+              value={activityDataUrl}
+              onChange={activityDataUrlHandler}
+              type="text"
+              className='rounded-md mx-3 flex-grow h-8 px-2' />
+          </div>
+          <div className='flex flex-row pb-4'>
+            <p className='text-lg font-bold'>내용</p>
+            <input
+              value={activityDataContent}
+              onChange={activityDataContentHandler}
+              type="text"
+              className='rounded-md mx-3 flex-grow h-20 p-2' />
+          </div>
+          <div className='flex justify-end'>
+            <button
+              type="button"
+              onClick={onclickDeleteBtnHandler}
+              className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024]">
+              삭제</button>
+            <button
+              type="button"
+              onClick={onclickPutyBtnHandler}
+              className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
+              수정</button>
+          </div>
+        </div>
+      ))}
     </div>
   )
 }
