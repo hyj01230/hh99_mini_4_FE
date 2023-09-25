@@ -33,7 +33,7 @@ function MypageForm() {
   const onClickSupportCommentHandler = () => { setSideTabPage(<SupportComment />) }
 
 
-  // 파일업로드-버튼(프로필 사진 수정) 연결하기 ---------------------------------------------------
+  //프로필 사진 수정 tjsxor 연결하기 ---------------------------------------------------
   const fileInputRef = useRef(null);
   const handleUploadButtonClick = () => {
     // 파일 업로드 input 클릭
@@ -83,8 +83,8 @@ function MypageForm() {
     }
   }
 
+  
 
- 
 
 
   return (
@@ -115,6 +115,7 @@ function MypageForm() {
 
             <button
               type="button"
+              // onClick={}
               className="flex items-center w-[85px] h-[50px] text-[#65451F] bg-[#F9F5EB] hover:bg-[#F2EAD3] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm "
             >
               사진 저장
