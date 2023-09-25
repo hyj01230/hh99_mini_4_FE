@@ -70,6 +70,7 @@ function ContentsBox() {
   ];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [like, setLike] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -79,6 +80,10 @@ function ContentsBox() {
     setIsModalOpen(false);
   };
 
+  const likeHandler = () => {
+    setLike(!like);
+  }
+
   return (
     <div className="flex flex-wrap justify-between mt-4 mb-4 gap-2">
       {list.map((item) => {
@@ -86,9 +91,10 @@ function ContentsBox() {
           <div
             key={item.id}
             className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:flex-col md:w-[31%]"
-            onClick={openModal}
+            
           >
-            <img
+            <div onClick={openModal}>
+              <img
               className="rounded-t-lg"
               src="https://velog.velcdn.com/images/tosspayments/post/8f0f4014-8406-45fe-9700-02276563ba97/image.jpeg"
               alt=""
@@ -99,11 +105,14 @@ function ContentsBox() {
                 Noteworthy technology acquisitions 2021
               </h5>
 
-              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              <p className="font-normal text-gray-700 dark:text-gray-400">
                 Here are the biggest enterprise technology acquisitions of 2021
                 so far, in reverse chronological order.
               </p>
             </div>
+            </div>
+            
+            <p onClick={likeHandler} className="pb-4 px-4">{like ? '♥' : '♡'} 1</p>
           </div>
         );
       })}

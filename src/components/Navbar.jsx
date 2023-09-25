@@ -5,7 +5,6 @@ import React, { Fragment, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteCookie, getTokenFromCookie } from "../auth/cookie";
-import { locations, partys } from "../data/data";
 import { titleStyle } from "../styles/fonsts";
 
 function classNames(...classes) {
@@ -13,8 +12,9 @@ function classNames(...classes) {
 }
 
 function Navbar() {
+  const token = getTokenFromCookie();
+
   const navigate = useNavigate();
-  const token = getTokenFromCookie(); // 토큰 확인
   const { id } = useParams();
   const [currentMenuItem, setCurrentMenuItem] = useState(
     id === undefined ? "/" : id
@@ -31,36 +31,39 @@ function Navbar() {
   ];
 
   return (
-    <> 
+    <>
       <Disclosure as="nav" className="fixed bg-[#F2EAD3] top-0 w-full z-30">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
               <div className="relative flex h-16 items-center justify-between">
-                <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                <div className="left-0 flex items-center sm:hidden">
                   {/* Mobile menu button*/}
-                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                    <span className="absolute -inset-0.5" />
-                    <span className="sr-only">Open main menu</span>
+                  <Disclosure.Button className="mr-2 items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    {/* <span className="absolute -inset-0.5" /> */}
+                    {/* <span className="sr-only">Open main menu</span> */}
                     {open ? (
-                      <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                      <>
+                        <XMarkIcon
+                          className="block h-6 w-6"
+                          aria-hidden="true"
+                        />
+                      </>
                     ) : (
-                      <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                      <>
+                        <Bars3Icon
+                          className="block h-6 w-6"
+                          aria-hidden="true"
+                        />
+                      </>
                     )}
                   </Disclosure.Button>
                 </div>
                 <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
-                    {/* <p
-                      className="text-[white] font-[600] text-xl"
-                      
-                    >
-                      Town Assembly
-                    </p> */}
-
                     <p
                       style={titleStyle}
-                      className="text-2xl cursor-pointer text-[#65451F]"
+                      className="text-2xl cursor-pointer text-[#65451F] mr-2"
                       onClick={() => {
                         navigate("/");
                       }}
@@ -74,13 +77,7 @@ function Navbar() {
                         <a
                           key={item.name}
                           href={item.href}
-                          className={classNames(
-                            item.current
-                              ? "text-[#65451F] text-[16px] hover:font-bold"
-                              : "text-[#65451F] text-[16px] hover:font-bold",
-                            "rounded-md px-3 py-2 text-sm font-medium"
-                          )}
-                          aria-current={item.current ? "page" : undefined}
+                          className="text-[#65451F] text-[16px] hover:font-bold rounded-md px-3 py-2 text-sm font-medium whitespace-nowrap"
                           onClick={() => setCurrentMenuItem(item.name)}
                         >
                           {item.name}
@@ -89,8 +86,7 @@ function Navbar() {
                     </div>
                   </div>
                   {/* 검색태그 시작 */}
-
-                  <form className="flex items-center w-full">
+                  <div className="flex items-center w-full mx-2">
                     <label
                       htmlFor="search"
                       className="mb-1 text-xs font-medium text-gray-900 sr-only "
@@ -120,28 +116,22 @@ function Navbar() {
                         type="search"
                         id="search"
                         className="block w-full h-10 p-2 pl-8 text-xs text-gray-900 border border-gray-300 rounded bg-gray-50"
-                        placeholder="Search"
+                        placeholder="검색"
                         required
                       />
-                      <button
-                        type="submit"
-                        className="text-white absolute mr-2 right-1 bottom-2 bg-[#65451F] hover:bg-[#564024] focus:ring-2 focus:outline-none font-medium rounded text-xs px-3 py-1"
-                      >
-                        Search
+                      <button className="text-white absolute mr-2 right-1 bottom-2 bg-[#65451F] hover:bg-[#564024] focus:ring-2 focus:outline-none font-medium rounded text-xs px-3 py-1">
+                        검색
                       </button>
                     </div>
-                  </form>
-
+                  </div>
                   {/* 검색태그 끝 */}
                 </div>
-                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <div className=" right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
                     <div>
                       {token ? (
                         <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                          <span className="absolute -inset-1.5" />
-                          <span className="sr-only">Open user menu</span>
                           {/* 프로필이미지 */}
                           <img
                             className="h-8 w-8 rounded-full"
@@ -151,7 +141,7 @@ function Navbar() {
                         </Menu.Button>
                       ) : (
                         <button
-                          className="text-[#65451F] text-[16px] hover:font-bold"
+                          className="text-[#65451F] text-[16px] hover:font-bold whitespace-nowrap"
                           onClick={() => {
                             navigate("/login");
                           }}
@@ -220,7 +210,7 @@ function Navbar() {
                     className={classNames(
                       item.current
                         ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                        : "text-gray-900 hover:bg-gray-700 hover:text-white",
                       "block rounded-md px-3 py-2 text-base font-medium"
                     )}
                     aria-current={item.current ? "page" : undefined}
@@ -233,34 +223,6 @@ function Navbar() {
           </>
         )}
       </Disclosure>
-      <div style={{ justifyContent: "space-between" }}>
-        {currentMenuItem === "/location" &&
-          locations.map((item) => (
-            <button
-              key={item.id}
-              className="bg-slate-300 pt-[5px] pb-[5px] pl-[10px] pr-[10px] rounded-[8px]"
-            >
-              {item.location}
-            </button>
-          ))}
-        {currentMenuItem === "/party" &&
-          partys.map((item) => (
-            <button
-              key={item.id}
-              style={{
-                backgroundColor: `${item.color}`,
-                padding: "5px 20px",
-                borderRadius: "8px",
-                fontWeight: "100",
-                color: "white",
-                WebkitTextStroke: "1px #f6f4f4",
-              }}
-            >
-              {item.party}
-            </button>
-          ))}
-      </div>
-      
     </>
   );
 }
