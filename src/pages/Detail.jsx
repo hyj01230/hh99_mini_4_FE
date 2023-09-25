@@ -11,10 +11,10 @@ import ContentsBox from "../components/detail/ContentsBox";
 import Info from "../components/detail/Info";
 
 function Detail() {
+  const token = getTokenFromCookie();
   const [follow, setFollow] = useState(false);
   const [chat, setChat] = useState(false);
   const { id } = useParams();
-  const token = getTokenFromCookie();
 
   const toggleFollow = () => {
     setFollow(!follow);
