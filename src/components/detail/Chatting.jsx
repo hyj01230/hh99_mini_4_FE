@@ -1,35 +1,56 @@
-import React from "react";
+import axios from "axios";
+import React, { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getTokenFromCookie } from "../../auth/cookie";
+import { serverUrl } from "../../common/common";
 
 function Chatting() {
-  const list = [
-    { id: 1, text: "집에 있지만 집에 가고 싶다." },
-    {
-      id: 2,
-      text: "tailwindcss는 클래스형 css 라이브러리입니다. Tailwind CSS IntelliSense extention을 설치하는 것을 추천해요",
-    },
-    { id: 3, text: "댓글3" },
-    { id: 4, text: "댓글4" },
-    { id: 5, text: "댓글5" },
-    { id: 6, text: "댓글6" },
-    { id: 7, text: "댓글7" },
-    { id: 8, text: "댓글8" },
-    { id: 9, text: "댓글9" },
-    { id: 5, text: "댓글5" },
-    { id: 6, text: "댓글6" },
-    { id: 7, text: "댓글7" },
-    { id: 8, text: "댓글8" },
-    { id: 9, text: "댓글9" },
-    { id: 5, text: "댓글5" },
-    { id: 6, text: "댓글6" },
-    { id: 7, text: "댓글7" },
-    { id: 8, text: "댓글8" },
-    { id: 9, text: "댓글9" },
-    { id: 5, text: "댓글5" },
-    { id: 6, text: "댓글6" },
-    { id: 7, text: "댓글7" },
-    { id: 8, text: "댓글8" },
-    { id: 9, text: "댓글9" },
-  ];
+  const { id } = useParams();
+  const token = getTokenFromCookie();
+  const [chatList, setChatlist] = useState([]);
+  const [chatInput, setChatInput] = useState("");
+
+  const chatInputHandler = (e) => {
+    setChatInput(e.target.value);
+  };
+
+  const getComplementsHandler = useCallback(async () => {
+    try {
+      const response = await axios.get(`${serverUrl}/api/complements/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setChatlist(response.data.data ? response.data.data : []);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [id, token]);
+  
+  useEffect(() => {
+    getComplementsHandler();
+  }, [getComplementsHandler]);
+  
+  const postComplementsHandler = async () => {
+    try {
+      await axios.post(
+        `${serverUrl}/api/complement/${id}`,
+        {
+          title: chatInput,
+          content: chatInput,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setChatInput("");
+      getComplementsHandler();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -41,22 +62,22 @@ function Chatting() {
         <div className="flex flex-col overflow-y-scroll h-full scrollbar-hide">
           <div className="flex-grow">
             <div className="flex flex-col space-y-2 p-4">
-              {list.map((message) => (
+              {chatList.map((message) => (
                 <>
                   {false ? (
                     <div
-                      key={message.id}
+                      key={message.complementId}
                       className={`flex items-center rounded-xl p-2 ${
                         message.sender
                           ? "self-end bg-blue-500 text-white"
                           : "self-start bg-gray-300"
                       }`}
                     >
-                      <p>{message.text}</p>
+                      <p>{message.complementTitle}</p>
                     </div>
                   ) : (
-                    <div className="flex items-center self-end rounded-xl rounded-tr bg-[#967E76] py-2 px-3 text-white">
-                      <p>{message.text}</p>
+                    <div key={message.complementId}  className="flex items-center self-end rounded-xl rounded-tr bg-[#967E76] py-2 px-3 text-white">
+                      <p>{message.complementTitle}</p>
                     </div>
                   )}
                 </>
@@ -69,8 +90,13 @@ function Chatting() {
             type="text"
             placeholder="Type your message..."
             className="w-full rounded-lg border border-gray-300 px-4 py-2"
+            onChange={chatInputHandler}
+            value={chatInput}
           />
-          <button className="ml-2 rounded-lg bg-[#65451F] px-4 py-2 text-white">
+          <button
+            className="ml-2 rounded-lg bg-[#65451F] px-4 py-2 text-white"
+            onClick={postComplementsHandler}
+          >
             Send
           </button>
         </div>

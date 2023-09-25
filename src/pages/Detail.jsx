@@ -10,11 +10,10 @@ import Chatting from "../components/detail/Chatting";
 import ContentsBox from "../components/detail/ContentsBox";
 import Info from "../components/detail/Info";
 
-function Detail2() {
+function Detail() {
   const [follow, setFollow] = useState(false);
   const [chat, setChat] = useState(false);
   const { id } = useParams();
-  console.log(id)
   const token = getTokenFromCookie();
 
   const toggleFollow = () => {
@@ -117,7 +116,7 @@ function Detail2() {
           </nav>
         </aside>
       </div>
-      {chat && <Chatting style={{ zIndex: 100 }} />}
+      {chat && <Chatting style={{ zIndex: 100 }} id={id} />}
       <div className="max-w-[1200px] ml-auto mr-auto mt-20 text-black pl-20">
         <div className="p-6">
           <Info />
@@ -137,4 +136,4 @@ function Detail2() {
   );
 }
 
-export default Detail2;
+export default Detail;

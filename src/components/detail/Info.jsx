@@ -1,14 +1,12 @@
-import axios from "axios";
 import React from "react";
-import { serverUrl } from "../../common/common";
 
 function Info() {
   const profileImageUrl =
     "https://search.pstatic.net/common?type=b&size=216&expire=1&refresh=true&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F202211%2F20221128155419266.jpg";
     
-  const getUserInfo = async () => {
-    await axios.get(`${serverUrl}/api/user/userinfo`)
-  }
+  // const getUserInfo = async () => {
+  //   await axios.get(`${serverUrl}/api/user/userinfo`)
+  // }
 
 
   return (
@@ -21,7 +19,7 @@ function Info() {
           className="p-4 my-4 border-l-4 border-gray-300 dark:border-gray-500 dark:bg-gray-800 w-full"
           style={{ background: "inherit" }}
         >
-          <p className="text-lg font-medium leading-relaxed text-gray-900 dark:text-white">
+          <div className="text-lg font-medium leading-relaxed text-gray-900 dark:text-white">
             <ul className="list-none ml-6 mt-2">
               <li>출생: 1993. 7. 21. 울산광역시</li>
               <li>신체: 184cm, 90kg</li>
@@ -31,7 +29,7 @@ function Info() {
               </li>
               <li>경력: 2019.12 서라벌게이밍 단장</li>
             </ul>
-          </p>
+          </div>
         </blockquote>
       </div>
       <img

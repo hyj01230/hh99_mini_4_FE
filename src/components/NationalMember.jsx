@@ -9,13 +9,14 @@ function NationalMember() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [link, setLink] = useState(`/${!id ? "" : id}`);
-  const [locationButton, setLocationButton] = useState(locations[0].location);
+
   const token = getTokenFromCookie();
-  const [resultList, setResultList] = useState([]);
-  console.log(resultList)
+  const [initData, setInitData] = useState([]);
+  const [resultList, setResultList] = useState(initData);
+  
   const [locateUrlPlus, setLocalUrlPlus] = useState("");
   const [partyUrlPlus, setPartyUrlPlus] = useState("");
-  console.log(partyUrlPlus)
+  console.log(partyUrlPlus);
 
   async function fetchLocationData() {
     try {
@@ -78,7 +79,7 @@ function NationalMember() {
         setResultList(response.data.data);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
@@ -88,6 +89,7 @@ function NationalMember() {
       console.log(response);
       if (response.status === 200) {
         setResultList(response.data.data);
+        setInitData(response.data.data);
       }
     } catch (error) {
       alert(error);
@@ -119,7 +121,9 @@ function NationalMember() {
                 </li>
               );
             })}
-            {(link === "/party" && token) && partys.map((item) => {
+          {link === "/party" &&
+            token &&
+            partys.map((item) => {
               return (
                 <li className="mr-2 mb-2" key={item.id}>
                   <button
@@ -130,8 +134,8 @@ function NationalMember() {
                     {item.party}
                   </button>
                 </li>
-              )
-            }) }
+              );
+            })}
         </ul>
       </div>
       <section className="text-neutral-700 dark:text-neutral-300 flex justify-center flex-wrap">
@@ -139,7 +143,7 @@ function NationalMember() {
           {/* First Testimonial */}
           {resultList &&
             resultList.map((item) => {
-              console.log(item)
+              console.log(item);
               return (
                 <div
                   className="max-w-md"
