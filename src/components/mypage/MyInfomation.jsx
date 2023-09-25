@@ -1,4 +1,6 @@
 import { Listbox, Transition } from '@headlessui/react';
+import axios from 'axios';
+import { getTokenFromCookie } from "../../auth/cookie";
 import React, { Fragment, useEffect, useState } from 'react'
 import { locations, partys } from '../../data/data';
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
@@ -10,7 +12,8 @@ function classNames(...classes) {
 
 
 // 마이페이지_내 정보
-function MyInfo() {
+function MyInfomation() {
+  const serverUrl = process.env.REACT_APP_API_URL;
 
   // 회원정보 state/onChange --------------------------------------------------
   const [nickname, setNickName] = useState('');  // 닉네임
@@ -122,6 +125,31 @@ function MyInfo() {
     setNewPassword("")
     setCheckPassword("")
   }
+
+  // 토큰가져오기
+  const token = getTokenFromCookie();
+
+  // 내정보 가져오기
+  useEffect(() => {
+    myInfoGetHandler();
+  }, []);
+
+  // GET - 내정보 가져오기
+  const myInfoGetHandler = async () => {
+    try {
+      const response = await axios.get(`${serverUrl}/api/profile/modify`, {
+        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+      });
+      console.log('내 정보 가져오기', response.data.data);
+      // (response.data.data);
+    }
+
+    catch {
+
+    }
+  }
+
+
 
   // 회원정보 저장 > 서버로 db보내기 --------------------------------------------------
   const onSubmitInfoHandler = async () => {
@@ -454,10 +482,11 @@ function MyInfo() {
             저장
           </button>
         </form>
+
       </div>
     </div>
-
   )
 }
 
-export default MyInfo
+
+export default MyInfomation

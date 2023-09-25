@@ -46,8 +46,9 @@ function Activity() {
       const response = await axios.get(`${serverUrl}/api/campaigns`, {
         headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
       });
-      console.log('활동모음 가져오기', response.data);
-      setActivityData(response.data)  // 가져온 활동모음 데이터 state에 저장하기!
+      // console.log('활동모음 가져오기', response.data.data);
+      setActivityData(response.data.data)  // 가져온 활동모음 데이터 state에 저장하기!
+      // console.log(activityData)  // setState 함수는 비동기적으로 동작하기 때문에, 상태 업데이트가 완료되기 전에 console.log(activityData)가 실행될 수 있어서 밑에서 useEffect 사용
     }
     catch (error) {
       alert(`${error}`);
@@ -55,23 +56,27 @@ function Activity() {
     }
   }
 
-  // 가져온 data를 수정하는 state, onchange
-  const [activityDataTitle, setActivityDataTitle] = useState(activityData.data.campaignTitle);
-  const [activityDataUrl, setActivityDataUrl] = useState(activityData.data.campaignUrl);
-  const [activityDataContent, setActivityDataContent] = useState(activityData.data.campaignContent);
-  const [activityDataImage, setActivityDataImage] = useState(null);  // 사진 - 확인필요!!!
+  useEffect(() => {
+    console.log('가져온 활동모음 state', activityData); // 상태 업데이트 이후에 실행됩니다.
+  }, [activityData]);
 
-  const activityDataTitleHandler = (e) => { setActivityDataTitle(e.target.value) };
-  const activityDataUrlHandler = (e) => { setActivityDataUrl(e.target.value) };
-  const activityDataContentHandler = (e) => { setActivityDataContent(e.target.value) };
-  const activityDataImageHandler = (e) => {
-    const changeImage = e.target.files[0]; // 선택된 파일 가져오기
-    console.log(`선택된 파일 이름: ${changeImage.name}`);
-    console.log(`선택된 파일 크기: ${changeImage.size} bytes`);
+  // // 가져온 data를 수정하는 state, onchange
+  // const [activityDataTitle, setActivityDataTitle] = useState('');
+  // // const [activityDataUrl, setActivityDataUrl] = useState(activityData.data.campaignUrl);
+  // // const [activityDataContent, setActivityDataContent] = useState(activityData.data.campaignContent);
+  // // const [activityDataImage, setActivityDataImage] = useState(null);  // 사진 - 확인필요!!!
 
-    setActivityDataImage(changeImage)
-    // console.log('변경된 파일정보', image)
-  };
+  // // const activityDataTitleHandler = (e) => { setActivityDataTitle(e.target.value) };
+  // // const activityDataUrlHandler = (e) => { setActivityDataUrl(e.target.value) };
+  // // const activityDataContentHandler = (e) => { setActivityDataContent(e.target.value) };
+  // // const activityDataImageHandler = (e) => {
+  // //   const changeImage = e.target.files[0]; // 선택된 파일 가져오기
+  // //   console.log(`선택된 파일 이름: ${changeImage.name}`);
+  // //   console.log(`선택된 파일 크기: ${changeImage.size} bytes`);
+
+  // //   setActivityDataImage(changeImage)
+  // //   // console.log('변경된 파일정보', image)
+  // // };
 
 
 
@@ -222,56 +227,17 @@ function Activity() {
         활동모음 업로드 목록</p>
 
       {/* 서버 연결 전! 렌더링 내용 확인용 */}
-      <div className='bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg'>
-        <div className='flex flex-row pb-4'>
-          <p className='text-lg font-bold'>제목</p>
-          <input
-            type="text"
-            className='rounded-md mx-3 flex-grow h-8 px-2' />
-          <p className='text-lg font-bold'>사진첨부(크기/용량🚨)</p>
-          <input
-            type="file"
-            accept="image/*"
-            className='rounded-md mx-3 flex-grow h-8 px-2' />
-        </div>
-        <div className='flex flex-row pb-4'>
-          <p className='text-lg font-bold'>URL</p>
-          <input
-            type="text"
-            className='rounded-md mx-3 flex-grow h-8 px-2' />
-        </div>
-        <div className='flex flex-row pb-4'>
-          <p className='text-lg font-bold'>내용</p>
-          <input
-            type="text"
-            className='rounded-md mx-3 flex-grow h-20 p-2' />
-        </div>
-        <div className='flex justify-end'>
-          <button
-            type="button"
-            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024]">
-            삭제</button>
-          <button
-            type="button"
-            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
-            수정</button>
-        </div>
-      </div>
-
-      {/* 서버에서 넘어온 activityData가 있다면 하나씩 돌면서 렌더링! */}
       {activityData && activityData.map((item) => (
-        <div key={item.data.campaignId} className='bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg'>
+        <div key={item.campaignId} className='bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg'>
           <div className='flex flex-row pb-4'>
             <p className='text-lg font-bold'>제목</p>
             <input
-              value={activityDataTitle}
-              onChange={activityDataTitleHandler}
+              value={item.campaignTitle}
               type="text"
               className='rounded-md mx-3 flex-grow h-8 px-2' />
             <p className='text-lg font-bold'>사진첨부(크기/용량🚨)</p>
             <input
-              value={activityDataImage} // 사진 - 확인 필요!!!
-              onChange={activityDataImageHandler}
+              // value={item.campaignThumbnail} //보류!!!!!!!!!!!!!!!
               type="file"
               accept="image/*"
               className='rounded-md mx-3 flex-grow h-8 px-2' />
@@ -279,28 +245,24 @@ function Activity() {
           <div className='flex flex-row pb-4'>
             <p className='text-lg font-bold'>URL</p>
             <input
-              value={activityDataUrl}
-              onChange={activityDataUrlHandler}
+              value={item.campaignUrl}
               type="text"
               className='rounded-md mx-3 flex-grow h-8 px-2' />
           </div>
           <div className='flex flex-row pb-4'>
             <p className='text-lg font-bold'>내용</p>
             <input
-              value={activityDataContent}
-              onChange={activityDataContentHandler}
+              value={item.campaignContent}
               type="text"
               className='rounded-md mx-3 flex-grow h-20 p-2' />
           </div>
           <div className='flex justify-end'>
             <button
               type="button"
-              onClick={onclickDeleteBtnHandler}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024]">
               삭제</button>
             <button
               type="button"
-              onClick={onclickPutyBtnHandler}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
               수정</button>
           </div>

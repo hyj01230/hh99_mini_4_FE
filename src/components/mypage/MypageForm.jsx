@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Activity from './Activity'
 import Follow from './Follow'
-import MyInfo from './MyInfo';
+import MyInfomation from './MyInfomation';
 import SupportComment from './SupportComment'
 import TodayComment_C from './TodayComment_C'
 import TodayComment_P from './TodayComment_P'
@@ -14,10 +14,10 @@ import { getTokenFromCookie, setCookie } from "../../auth/cookie"
 function MypageForm() {
   const serverUrl = process.env.REACT_APP_API_URL;
 
-  const [sideTabPage, setSideTabPage] = useState(<MyInfo />);
+  const [sideTabPage, setSideTabPage] = useState(<MyInfomation />);
 
   // 클릭했을때 컴퍼넌트 변경!
-  const onClickMyInfoHandler = () => { setSideTabPage(<MyInfo />) }
+  const onClickMyInfoHandler = () => { setSideTabPage(<MyInfomation />) }
   const onClickFollow_ActivityHandler = () => { { '시민' === '시민x' ? setSideTabPage(<Follow />) : setSideTabPage(<Activity />) } }
   const onClickTodayCommentHandler = () => { { '시민' === '시민x' ? setSideTabPage(<TodayComment_C />) : setSideTabPage(<TodayComment_P />) } }
   const onClickSupportCommentHandler = () => { setSideTabPage(<SupportComment />) }
