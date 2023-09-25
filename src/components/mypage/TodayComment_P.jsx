@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { getTokenFromCookie, setCookie } from "../../auth/cookie";
+import { getTokenFromCookie } from "../../auth/cookie";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -24,6 +24,25 @@ function TodayComment_P() {
   useEffect(() => {
     TodayCommentgethandler();
   }, []);
+
+  // get으로 가져온 한마디 데이터 state에 저장 ------------------------
+  const [commentData, setCommentdata] = useState([]);
+
+  // GET - 나의 오늘의 한마디 가져오기 ------------------------------------
+  const TodayCommentgethandler = async () => {
+    try {
+      const response = await axios.get(`${serverUrl}/api/opinions`, {
+        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+      });
+      console.log('오늘의 한마디 가져오기', response.data.data);
+      setCommentdata(response.data.data); // 가져온 데이터 set에 저장
+
+    }
+    catch (error) {
+      alert(`${error}`);
+      console.error(error);
+    }
+  }
 
 
   // POST - 오늘의 한마디 업로드 저장버튼 ---------------------------------------------
@@ -60,25 +79,7 @@ function TodayComment_P() {
     }
   }
 
-  // get으로 가져온 데이터로 렌더링 해줄 state
-  const [comments, setComments] = useState([]);
 
-  // GET - 나의 오늘의 한마디 가져오기 ------------------------------------
-  const TodayCommentgethandler = async () => {
-    try {
-      const response = await axios.get(`${serverUrl}/api/opinions`, {
-        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
-      });
-
-      // 가져온 데이터 set에 저장
-      setComments(response.data);
-      console.log('오늘의 한마디 가져오기', response.data);
-    }
-    catch (error) {
-      alert(`${error}`);
-      console.error(error);
-    }
-  }
 
 
   // PUT - 나의 오늘의 한마디 수정하기 ----------------------
@@ -158,13 +159,13 @@ function TodayComment_P() {
 
 
       {/* 맵으로 돌려서 뽑기!!! */}
-      {comments.map((item)=>(
-        <div className='bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg'>
-        <div key={item.opinionId} className='flex flex-row pb-4'>
+      {commentData && commentData.map((item)=>(
+        <div key={item.opinionId} className='bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg'>
+        <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>제목</p>
           <input value={item.opinionTitle} type="text" className='rounded-md mx-3 flex-grow h-8 px-2' />
         </div>
-        <div key={item.opinionId} className='flex flex-row pb-4'>
+        <div className='flex flex-row pb-4'>
           <p className='text-lg font-bold'>내용</p>
           <input value={item.opinionContent} type="text" className='rounded-md mx-3 flex-grow h-20 p-2' />
         </div>
@@ -226,7 +227,7 @@ function TodayComment_P() {
         </div>
       </div>
       ))}
-      
+
 
 
 
