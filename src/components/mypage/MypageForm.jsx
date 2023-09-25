@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import Activity from './Activity'
 import Follow from './Follow'
@@ -6,13 +6,14 @@ import MyInfomation from './MyInfomation';
 import SupportComment from './SupportComment'
 import TodayComment_C from './TodayComment_C'
 import TodayComment_P from './TodayComment_P'
-import { getTokenFromCookie, setCookie } from "../../auth/cookie"
+import { getTokenFromCookie } from "../../auth/cookie"
+import axios from 'axios';
+import { serverUrl } from '../../common/common';
 
 
 // Mypage 틀 - 시민/정치인 별로 사이드바 버튼명, 페이지 구성 달라짐
 
 function MypageForm() {
-  const serverUrl = process.env.REACT_APP_API_URL;
 
   const [sideTabPage, setSideTabPage] = useState(<MyInfomation />);
 
@@ -23,23 +24,52 @@ function MypageForm() {
   const onClickSupportCommentHandler = () => { setSideTabPage(<SupportComment />) }
 
 
-
-  // 파일업로드
+  // 파일업로드-버튼(프로필 사진 수정) 연결하기 ---------------------------------------------------
   const fileInputRef = useRef(null);
-
   const handleUploadButtonClick = () => {
     // 파일 업로드 input 클릭
     fileInputRef.current.click();
   };
 
-  const handleFileUpload = (event) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      console.log(`선택된 파일 이름: ${selectedFile.name}`);
-      console.log(`선택된 파일 크기: ${selectedFile.size} bytes`);
-      // 파일 업로드 또는 처리 로직을 이곳에 추가
+
+  // 업로드 프로필이미지 state ---------------------------------------------------
+  const [uploadProFile, setUploadProFile] = useState(null);
+
+
+  // 업로드 프로필이미지 onchange ---------------------------------------------------
+  const uploadImageHandler = (e) => {
+    const image = e.target.files[0]; // 선택된 파일 가져오기
+    console.log(`선택된 파일 이름: ${image.name}`);
+    console.log(`선택된 파일 크기: ${image.size} bytes`);
+
+    setUploadProFile(image)
+    console.log('파일정보', image)
+  }
+
+
+  // 토큰가져오기
+  const token = getTokenFromCookie();
+
+  // 내정보 가져오기
+  useEffect(() => {
+    myInfoGetHandler();
+  }, []);
+
+  // GET - 내정보 가져오기
+  const myInfoGetHandler = async () => {
+    try {
+      const response = await axios.get(`${serverUrl}/api/profile/modify`, {
+        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+      });
+      console.log('내 정보 가져오기', response);
+      // (response.data.data);
     }
-  };
+
+    catch (error) {
+      alert(`${error}`);
+      console.error(error);
+    }
+  }
 
 
 
@@ -69,7 +99,7 @@ function MypageForm() {
             ref={fileInputRef}
             // 화면에서 안보이게!
             style={{ display: 'none' }}
-            onChange={handleFileUpload}
+            onChange={uploadImageHandler}
           />
 
           <button
