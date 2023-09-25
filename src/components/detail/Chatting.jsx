@@ -6,10 +6,9 @@ import { serverUrl } from "../../common/common";
 
 function Chatting() {
   const { id } = useParams();
-  const token = getTokenFromCookie();
   const [chatList, setChatlist] = useState([]);
   const [chatInput, setChatInput] = useState("");
-
+  const token = getTokenFromCookie();
   const chatInputHandler = (e) => {
     setChatInput(e.target.value);
   };

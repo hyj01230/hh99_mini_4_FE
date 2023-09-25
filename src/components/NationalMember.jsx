@@ -13,7 +13,7 @@ function NationalMember() {
   const token = getTokenFromCookie();
   const [initData, setInitData] = useState([]);
   const [resultList, setResultList] = useState(initData);
-  
+
   const [locateUrlPlus, setLocalUrlPlus] = useState("");
   const [partyUrlPlus, setPartyUrlPlus] = useState("");
   console.log(partyUrlPlus);
@@ -88,8 +88,8 @@ function NationalMember() {
       const response = await axios.get(`${serverUrl}/api/user/main`);
       console.log(response);
       if (response.status === 200) {
-        setResultList(response.data.data);
         setInitData(response.data.data);
+        setResultList(response.data.data);
       }
     } catch (error) {
       alert(error);
@@ -112,7 +112,7 @@ function NationalMember() {
               return (
                 <li className="mr-2 mb-2">
                   <button
-                    class="inline-block px-4 py-2 text-white bg-blue-600 rounded-lg active"
+                    class="inline-block px-4 py-2 text-white bg-slate-500 rounded-lg active font-semibold"
                     aria-current="page"
                     onClick={() => setLocalUrlPlus(item.location)}
                   >
@@ -127,7 +127,8 @@ function NationalMember() {
               return (
                 <li className="mr-2 mb-2" key={item.id}>
                   <button
-                    className="inline-block px-4 py-2 text-white bg-blue-600 rounded-lg active"
+                    className="inline-block px-4 py-2 text-slate-50 rounded-lg active font-bold"
+                    style={{ backgroundColor: `${item.color}` }}
                     aria-current="page"
                     onClick={() => setPartyUrlPlus(item.party)}
                   >
