@@ -4,16 +4,15 @@ import { getTokenFromCookie } from "../../auth/cookie";
 import React, { Fragment, useEffect, useState } from 'react'
 import { locations, partys } from '../../data/data';
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { serverUrl } from '../../common/common';
 
 // 테일윈드 Select Menus
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-
 // 마이페이지_내 정보
 function MyInfomation() {
-  const serverUrl = process.env.REACT_APP_API_URL;
 
   // 회원정보 state/onChange --------------------------------------------------
   const [nickname, setNickName] = useState('');  // 닉네임
@@ -22,11 +21,13 @@ function MyInfomation() {
   const [partyList, setPartyList] = useState(partys[0])  // 소속정당 - 정치인일때만!
   const [profile, setProfile] = useState('');  // 약력 - 정치인일때만!
 
+  // console.log('partyList', partyList)
+  // console.log('locationList', locationList)
+
   const onChangeNickNameHandler = (e) => { setNickName(e.target.value) };
   const onChangeEmailHandler = (e) => { setEmail(e.target.value) }
   const onChangeLocateHandler = (e) => {
-    const locateTarget = locations.findIndex(
-      (location) => location.location === e);
+    const locateTarget = locations.findIndex((location) => location.location === e);
     setLocationList(locations[locateTarget]);
   };
   const onChangePartyHandler = (e) => {
@@ -109,7 +110,7 @@ function MyInfomation() {
   const onClickInfoCancleHandler = () => {
     setNickName("")
     setEmail("")
-    // setPhoneNum("")
+    setProfile("")
   }
 
   // 비밀번호 취소 > stae 비우기 --------------------------------------------------
@@ -119,22 +120,47 @@ function MyInfomation() {
     setCheckPassword("")
   }
 
-  // 토큰가져오기
+  // 토큰가져오기 --------------------------------------------------------------------------
   const token = getTokenFromCookie();
 
-  // 내정보 가져오기
+  // 내정보 가져오기 --------------------------------------------------------------------------
   useEffect(() => {
     myInfoGetHandler();
   }, []);
 
-  // GET - 내정보 가져오기
+  // get으로 가져온 내 정보 데이터 state에 저장하기 -------------------------------------------------------
+  const [myInfoData, setMyInfoData] = useState([]); // 데이터'들' 들어올거니까 []
+
+  // GET - 내정보 가져오기 -------------------------------------------------------
   const myInfoGetHandler = async () => {
     try {
       const response = await axios.get(`${serverUrl}/api/profile/modify`, {
         headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
       });
+      setMyInfoData(response.data.data)
       console.log('내 정보 가져오기', response.data.data);
-      // (response.data.data);
+    }
+
+    catch (error) {
+      alert(`${error}`);
+      console.error(error);
+    }
+  }
+
+  // PUT - 회원정보 저장 > 서버로 db보내기 --------------------------------------------------
+  const onSubmitInfoPutHandler = async () => {
+    try {
+      const response = await axios.put(`${serverUrl}/api/profile/modify/save`, {
+        nickname: nickname,
+        email: email,
+        party: myInfoData.length > 0 && myInfoData[0].role !== "voterUser" ? locationList.party : null,
+        location: myInfoData.length > 0 && myInfoData[0].role !== "voterUser" ? partyList.location : null,
+        userIntro: myInfoData.length > 0 && myInfoData[0].role !== "voterUser" ? profile : null,
+      }, {
+        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+      });
+      console.log('회원정보 수정', response.data.data)
+      alert('회원정보가 수정되었습니다.')
     }
 
     catch (error) {
@@ -144,30 +170,30 @@ function MyInfomation() {
   }
 
 
-
-  // 회원정보 저장 > 서버로 db보내기 --------------------------------------------------
-  const onSubmitInfoHandler = async () => {
+  // PUT - 비밀번호 저장 > 서버로 db보내기 --------------------------------------------------
+  const onClickPWPutHandler = async () => {
     try {
-
+      const response = await axios.put(`${serverUrl}/api/profile/modify/password`, {
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      }, {
+        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+      });
+      alert(response.data.data)
+      console.log('비밀번호 수정', response.data.data)
+      setCurrentPassword("")
+      setNewPassword("")
+      setCheckPassword("")
     }
 
-    catch {
-
+    catch (error) {
+      alert(`${error.response.data.data}`);
+      console.error(error);
+      setCurrentPassword("")
+      setNewPassword("")
+      setCheckPassword("")
     }
   }
-
-
-  // 비밀번호 저장 > 서버로 db보내기 --------------------------------------------------
-  const onSubmitPwHandler = async () => {
-    try {
-
-    }
-
-    catch {
-
-    }
-  }
-
 
   return (
     <div className=' h-full w-[1000px]'>
@@ -198,18 +224,10 @@ function MyInfomation() {
             <div>
               <p className="ml-[110px] my-2 text-red-600">{emailMessage}</p>
             </div>
-            {/* <div className='flex flex-row mb-5'>
-              <p className='w-[100px] flex justify-start mx-3'>전화번호</p>
-              <input
-                value={phoneNum}
-                onChange={onChangePhoneNumHandler}
-                placeholder='010-1234-5678'
-                maxLength={13}
-                className='border flex items-center w-full px-3 rounded-md' />
-            </div> */}
+
 
             {/* 정치인 유저일때만 렌더링 */}
-            {'정치인' === '정치인' ? (
+            {myInfoData.length > 0 && myInfoData[0].role !== "voterUser" ? (
               <>
                 <div className='flex flex-row mt-3 mb-5'>
                   <p className='w-[100px] flex justify-start mx-3'>소속정당</p>
@@ -392,7 +410,7 @@ function MyInfomation() {
 
           </div>
         </div>
-        <form className='flex flex-row justify-end' onSubmit={onSubmitInfoHandler}>
+        <form className='flex flex-row justify-end'>
           <button
             type="button"
             onClick={onClickInfoCancleHandler}
@@ -401,7 +419,8 @@ function MyInfomation() {
             취소
           </button>
           <button
-            type="submit"
+            type="button"
+            onClick={onSubmitInfoPutHandler}
             className="flex items-center w-[100px] h-[40px] my-2 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
           >
             저장
@@ -454,7 +473,7 @@ function MyInfomation() {
 
           </div>
         </div>
-        <form className='flex flex-row justify-end' onSubmit={onSubmitInfoHandler}>
+        <form className='flex flex-row justify-end'>
           <button
             type="button"
             onClick={onClickPWCancleHandler}
@@ -463,7 +482,8 @@ function MyInfomation() {
             취소
           </button>
           <button
-            type="submit"
+            type="button"
+            onClick={onClickPWPutHandler}
             className="flex items-center w-[100px] h-[40px] my-2 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
           >
             저장
