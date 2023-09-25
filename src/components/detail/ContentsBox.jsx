@@ -9,6 +9,9 @@ function ContentsBox() {
   const token = getTokenFromCookie();
   const [list, setList] = useState([]);
   const { id } = useParams();
+  const [opinionId, setOpinionId] = useState(0);
+
+
   const getOpinions = async () => {
     try {
       const response = await axios.get(`${serverUrl}/api/opinions/${id}`, {
@@ -43,14 +46,14 @@ function ContentsBox() {
   };
 
   return (
-    <div className="flex flex-wrap justify-between mt-4 mb-4 gap-2">
+    <div className="flex flex-wrap justify-start mt-4 mb-4 gap-9">
       { list.length !== 0 ? list.map((item) => {
         return (
           <div
             key={item.opinionId}
             className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:flex-col md:w-[31%]"
           >
-            <div onClick={openModal}>
+            <div onClick={() => {openModal(); setOpinionId(item.opinionId)}}>
               <img
                 className="rounded-t-lg"
                 src="https://velog.velcdn.com/images/tosspayments/post/8f0f4014-8406-45fe-9700-02276563ba97/image.jpeg"
@@ -77,7 +80,7 @@ function ContentsBox() {
       <p>작성된 글이 없습니다.</p>
       }
 
-      {isModalOpen && <Modal onCloseModal={closeModal} />}
+      {isModalOpen && <Modal onCloseModal={closeModal} opinionId={opinionId} id={id} />}
     </div>
   );
 }
