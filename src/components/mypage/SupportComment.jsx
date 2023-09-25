@@ -15,7 +15,7 @@ function SupportComment() {
 
   return (
     <div className=' h-full w-[1000px]'>
-      <p className='mt-[50px] ml-7 text-2xl font-black'>오늘의 한마디 댓글</p>
+      <p className='mt-[50px] ml-7 text-2xl font-black'>응원 댓글</p>
 
       {/* 맵으로 돌려서 뽑기!!! */}
       {Comment.map((item) => (
