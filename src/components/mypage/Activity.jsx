@@ -1,14 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { getTokenFromCookie, setCookie } from "../../auth/cookie";
+import { getTokenFromCookie } from "../../auth/cookie";
 import { useNavigate } from 'react-router-dom';
 import { serverUrl } from '../../common/common';
+import { useParams } from "react-router-dom";
 
 
 function Activity() {
 
   // 페이지 이동 -------------------------------------------------------------------------
   const navigate = useNavigate();
+
+  const { id } = useParams();
 
   // 업로드 제목/내용/URL/이미지 state ---------------------------------------------------
   const [uploadTitle, setUploadTitle] = useState("");
@@ -46,9 +49,9 @@ function Activity() {
       const response = await axios.get(`${serverUrl}/api/campaigns`, {
         headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
       });
-      // console.log('활동모음 가져오기', response.data.data);
+      console.log('활동모음 가져오기', response.data.data);
       setActivityData(response.data.data)  // 가져온 활동모음 데이터 state에 저장하기!
-      // console.log(activityData)  // setState 함수는 비동기적으로 동작하기 때문에, 상태 업데이트가 완료되기 전에 console.log(activityData)가 실행될 수 있어서 밑에서 useEffect 사용
+      // console.log(activityData)  // setState 함수는 비동기적으로 동작하기 때문에, 상태 업데이트가 완료되기 전에 console.log(activityData)가 실행될 수 있어서 밑에서 useEffect 사용해 출력해야함!
     }
     catch (error) {
       alert(`${error}`);
@@ -56,18 +59,17 @@ function Activity() {
     }
   }
 
-
   // POST - 활동모음 업로드 저장버튼 ---------------------------------------------------------
   const activitySaveHandler = async (e) => {
     e.preventDefault();  // 리프레시 막아주기
 
     try {
-      // 토큰이 없는 경우 처리
-      if (!token) {
-        alert('로그인이 필요합니다.');
-        navigate(-1) // 뒤로가기
-        return;
-      }
+      // // 토큰이 없는 경우 처리
+      // if (!token) {
+      //   alert('로그인이 필요합니다.');
+      //   navigate(-1) // 뒤로가기
+      //   return;
+      // }
 
       // 사진 업로드는 폼데이터로!!!!!!!!!
       const formData = new FormData();
@@ -90,44 +92,25 @@ function Activity() {
       setUploadContent("");
       setUploadUrl("");
       setUploadImage(null);
+      getActivity();
     }
     catch (error) {
       alert(`${error}`);
       console.error(error);
     }
   }
-
 
 
   // DELETE - 기존 활동모음 삭제 --------------------------------------------------------------
-  const onclickDeleteBtnHandler = async (e) => {
-    e.preventDefault();  // 리프레시 막아주기
-
-    try {                                                         //  캠페인아디를 어케 가져올것인가...?
-      const response = await axios.delete(`${serverUrl}/api/campaign/{campaignId}`, {
-        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
-      });
-      console.log('활동모음 삭제하기', response.data);
-      setActivityData(response.data)  // 가져온 활동모음 데이터 state에 저장하기!
-    }
-
-    catch (error) {
-      alert(`${error}`);
-      console.error(error);
-    }
-  }
-
-
-  // PUT - 기존 활동모음 수정 --------------------------------------------------------------
-  const onclickPutyBtnHandler = async (e) => {
-    e.preventDefault();  // 리프레시 막아주기
+  const onclickDeleteBtnHandler = async (campaignId) => {
 
     try {
-      const response = await axios.put(`${serverUrl}/api/campaign/{campaignId}`, {
+      const response = await axios.delete(`${serverUrl}/api/campaign/${campaignId}`, {
         headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
       });
-      console.log('활동모음 수정하기', response.data);
-      setActivityData(response.data)  // 가져온 활동모음 데이터 state에 저장하기!
+      console.log(campaignId)
+      getActivity();
+      alert('삭제가 완료되었습니다.')
     }
 
     catch (error) {
@@ -135,6 +118,41 @@ function Activity() {
       console.error(error);
     }
   }
+
+  // // PUT - 기존 활동모음 수정 --------------------------------------------------------------
+  // const onclickPutBtnHandler = async (campaignId) => {
+
+  //   try {
+
+  //     const formData = new FormData();
+  //     formData.append('title', uploadTitle);
+  //     formData.append('content', uploadContent);
+  //     formData.append('url', uploadUrl);
+  //     formData.append('image', uploadImage);
+
+  //     const response = await axios.put(`${serverUrl}/api/campaign/${campaignId}`, formData, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`, // 로그인 여부 확인(토큰을 헤더에 추가)
+  //         'Content-Type': 'multipart/form-data', // 필수: FormData를 보낼 때 content type 설정
+  //       },
+  //     });
+  //     console.log('활동모음 수정하기', response.data);
+  //     setActivityData(response.data)  // 가져온 활동모음 데이터 state에 저장하기!
+  //   }
+
+  //   catch (error) {
+  //     alert(`${error}`);
+  //     console.error(error);
+  //   }
+  // }
+
+
+
+
+
+
+
+
 
 
 
@@ -152,7 +170,7 @@ function Activity() {
             type="text"
             maxLength={10}
             className='rounded-md mx-3 flex-grow h-8 px-2' />
-          <p className='text-lg font-bold'>사진첨부(크기/용량🚨)</p>
+          <p className='text-lg font-bold'>사진첨부</p>
           {/* 이미지 업로드 */}
           <input
             type="file"
@@ -199,7 +217,7 @@ function Activity() {
               value={item.campaignTitle}
               type="text"
               className='rounded-md mx-3 flex-grow h-8 px-2' />
-            <p className='text-lg font-bold'>사진첨부(크기/용량🚨)</p>
+            <p className='text-lg font-bold'>사진변경</p>
             <input
               // value={item.campaignThumbnail} //보류!!!!!!!!!!!!!!!
               type="file"
@@ -220,13 +238,25 @@ function Activity() {
               type="text"
               className='rounded-md mx-3 flex-grow h-20 p-2' />
           </div>
+          <div className='flex flex-row pb-4'>
+            <p className='text-lg font-bold'>업로드된 사진</p>
+            {item.campaignThumbnail && (
+              <img
+                src={item.campaignThumbnail}
+                alt="Uploaded Thumbnail"
+                className="rounded-md mx-3 flex-grow h-[300px] px-2"
+              />
+            )}
+          </div>
           <div className='flex justify-end'>
             <button
               type="button"
+              onClick={() => onclickDeleteBtnHandler(item.campaignId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024]">
               삭제</button>
             <button
               type="button"
+              // onClick={() => onclickPutBtnHandler(item.campaignId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
               수정</button>
           </div>
