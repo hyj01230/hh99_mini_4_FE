@@ -56,29 +56,6 @@ function Activity() {
     }
   }
 
-  useEffect(() => {
-    console.log('가져온 활동모음 state', activityData); // 상태 업데이트 이후에 실행됩니다.
-  }, [activityData]);
-
-  // // 가져온 data를 수정하는 state, onchange
-  // const [activityDataTitle, setActivityDataTitle] = useState('');
-  // // const [activityDataUrl, setActivityDataUrl] = useState(activityData.data.campaignUrl);
-  // // const [activityDataContent, setActivityDataContent] = useState(activityData.data.campaignContent);
-  // // const [activityDataImage, setActivityDataImage] = useState(null);  // 사진 - 확인필요!!!
-
-  // // const activityDataTitleHandler = (e) => { setActivityDataTitle(e.target.value) };
-  // // const activityDataUrlHandler = (e) => { setActivityDataUrl(e.target.value) };
-  // // const activityDataContentHandler = (e) => { setActivityDataContent(e.target.value) };
-  // // const activityDataImageHandler = (e) => {
-  // //   const changeImage = e.target.files[0]; // 선택된 파일 가져오기
-  // //   console.log(`선택된 파일 이름: ${changeImage.name}`);
-  // //   console.log(`선택된 파일 크기: ${changeImage.size} bytes`);
-
-  // //   setActivityDataImage(changeImage)
-  // //   // console.log('변경된 파일정보', image)
-  // // };
-
-
 
   // POST - 활동모음 업로드 저장버튼 ---------------------------------------------------------
   const activitySaveHandler = async (e) => {
@@ -94,25 +71,13 @@ function Activity() {
 
       // 사진 업로드는 폼데이터로!!!!!!!!!
       const formData = new FormData();
-      // formData.append('title', uploadTitle);
-      // formData.append('content', uploadContent);
-      // formData.append('url', uploadUrl);
-      // formData.append('image', uploadImage);
-
-      formData.append('CampaignRequestModel', {
-        'title': uploadTitle,
-        'content': uploadContent,
-        'url': uploadUrl,
-      });
+      formData.append('title', uploadTitle);
+      formData.append('content', uploadContent);
+      formData.append('url', uploadUrl);
       formData.append('image', uploadImage);
-      console.log('폼데이터 확인', uploadImage);
-
-      // formData.append('data', {title: '', ...};
-      // formData.append('image', uploadImage);
 
       // 서버로 폼데이터 보냄
       const response = await axios.post(`${serverUrl}/api/campaign`, formData, {
-      }, {
         headers: {
           Authorization: `Bearer ${token}`, // 로그인 여부 확인(토큰을 헤더에 추가)
           'Content-Type': 'multipart/form-data', // 필수: FormData를 보낼 때 content type 설정
