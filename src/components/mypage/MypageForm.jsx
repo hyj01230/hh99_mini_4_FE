@@ -11,16 +11,25 @@ import axios from 'axios';
 import { serverUrl } from '../../common/common';
 
 
-// Mypage 틀 - 시민/정치인 별로 사이드바 버튼명, 페이지 구성 달라짐
-
 function MypageForm() {
 
+  // 사이드바 state
   const [sideTabPage, setSideTabPage] = useState(<MyInfomation />);
 
   // 클릭했을때 컴퍼넌트 변경!
   const onClickMyInfoHandler = () => { setSideTabPage(<MyInfomation />) }
-  const onClickFollow_ActivityHandler = () => { { '시민' === '시민x' ? setSideTabPage(<Follow />) : setSideTabPage(<Activity />) } }
-  const onClickTodayCommentHandler = () => { { '시민' === '시민x' ? setSideTabPage(<TodayComment_C />) : setSideTabPage(<TodayComment_P />) } }
+  const onClickFollow_ActivityHandler = () => {
+    if (myInfoData.length > 0) {
+      const role = myInfoData[0].role;
+      setSideTabPage(role === "voterUser" ? <Follow /> : <Activity />);
+    }
+  };
+  const onClickTodayCommentHandler = () => {
+    if (myInfoData.length > 0) {
+      const role = myInfoData[0].role;
+      setSideTabPage(role === "voterUser" ? <TodayComment_C /> : <TodayComment_P />);
+    }
+  };
   const onClickSupportCommentHandler = () => { setSideTabPage(<SupportComment />) }
 
 
@@ -55,14 +64,17 @@ function MypageForm() {
     myInfoGetHandler();
   }, []);
 
+  // get으로 가져온 활동모음 데이터 state에 저장하기 -------------------------------------------------------
+  const [myInfoData, setMyInfoData] = useState([]); // 데이터'들' 들어올거니까 []
+
   // GET - 내정보 가져오기
   const myInfoGetHandler = async () => {
     try {
       const response = await axios.get(`${serverUrl}/api/profile/modify`, {
         headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
       });
-      console.log('내 정보 가져오기', response);
-      // (response.data.data);
+      setMyInfoData(response.data.data)
+      console.log('내정보', response.data.data[0].role);
     }
 
     catch (error) {
@@ -72,7 +84,7 @@ function MypageForm() {
   }
 
 
-
+ 
 
 
   return (
@@ -84,23 +96,30 @@ function MypageForm() {
             src="https://i.namu.wiki/i/HfPaXJ6qhoBdHtpSh_ivra2eGF8z04V9kmd93toYyzhxaQoKvBfXF6VZ5-zcTLRYFpcT8aS_IjhBtdntFeHP-eHdcWYJQHIUQxCB3fzTvokwitrLW9Y4P2jWWRc4P9mMjvkoZFJno3slsPX8cZMCvg.webp"
             alt=""
           />
+          <div className='w-[180px] flex flex-row justify-between'>
+            <button
+              type="button"
+              onClick={handleUploadButtonClick}
+              className="flex items-center w-[85px] h-[50px] text-[#65451F] bg-[#F9F5EB] hover:bg-[#F2EAD3] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm "
+            >
+              사진 선택
+            </button>
 
-          <button
-            type="button"
-            onClick={handleUploadButtonClick}
-            className="flex items-center w-[180px] h-[50px] text-[#65451F] bg-[#F9F5EB] hover:bg-[#F2EAD3] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm "
-          >
-            프로필 사진 수정
-          </button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              // 화면에서 안보이게!
+              style={{ display: 'none' }}
+              onChange={uploadImageHandler}
+            />
 
-          <input
-            type="file"
-            // 
-            ref={fileInputRef}
-            // 화면에서 안보이게!
-            style={{ display: 'none' }}
-            onChange={uploadImageHandler}
-          />
+            <button
+              type="button"
+              className="flex items-center w-[85px] h-[50px] text-[#65451F] bg-[#F9F5EB] hover:bg-[#F2EAD3] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm "
+            >
+              사진 저장
+            </button>
+          </div>
 
           <button
             type="button"
@@ -114,14 +133,14 @@ function MypageForm() {
             onClick={onClickFollow_ActivityHandler}
             className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
-            {'시민' === '시민x' ? '팔로우 관리' : '활동모음'}
+            {myInfoData.length > 0 && myInfoData[0].role === "voterUser" ? '팔로우 관리' : '활동모음'}
           </button>
           <button
             type="button"
             onClick={onClickTodayCommentHandler}
             className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
-            {'시민' === '시민x' ? '오늘의 한마디 댓글' : '오늘의 한마디'}
+            {myInfoData.length > 0 && myInfoData[0].role === "voterUser" ? '오늘의 한마디 댓글' : '오늘의 한마디'}
           </button>
           <button
             type="button"

@@ -99,13 +99,12 @@ function Activity() {
       // formData.append('url', uploadUrl);
       // formData.append('image', uploadImage);
 
-      formData.append('data', {
+      formData.append('CampaignRequestModel', {
         'title': uploadTitle,
         'content': uploadContent,
         'url': uploadUrl,
       });
       formData.append('image', uploadImage);
-
       console.log('폼데이터 확인', uploadImage);
 
       // formData.append('data', {title: '', ...};
