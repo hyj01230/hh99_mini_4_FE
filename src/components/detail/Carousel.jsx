@@ -55,9 +55,9 @@ function Carousel() {
                 target="_blank"
                 className=" flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
               >
-                <div className="h-32 w-32 flex items-center justify-center">
+                <div className="h-32 w-auto flex items-center justify-center">
                   <img
-                    className="object-center object-cover w-full h-full rounded-lg"
+                    className="object-center object-fill w-full h-full rounded-lg"
                     src={`${item.campaignThumbnail}`}
                     alt=""
                   />
