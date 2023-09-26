@@ -138,7 +138,7 @@ function MyInfomation() {
         headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
       });
       setMyInfoData(response.data.data)
-      console.log('내 정보 가져오기', response.data.data);
+      // console.log('내 정보 가져오기', response.data.data);
     }
 
     catch (error) {
@@ -222,8 +222,8 @@ function MyInfomation() {
           'Content-Type': 'multipart/form-data', // 필수: FormData를 보낼 때 content type 설정
         },
       });
-      console.log('사진 업로드', response)
-      setUploadProfile(null)
+      console.log('사진 업로드', response.data)
+      setUploadProfile(null);
       myInfoGetHandler();
     }
 
@@ -242,21 +242,23 @@ function MyInfomation() {
           <div className='mr-auto text-xl font-bold flex justify-start items-center'>
             프로필 사진 변경하기
           </div>
-          <input
-            type="file"
-            // 화면에서 안보이게!
-            // style={{ display: 'none' }}
-            onChange={uploadImageHandler}
-            className="flex flex-row justify-center items-center"
-          />
+          <div className='flex flex-row items-center'>
+            <input
+              type="file"
+              // 화면에서 안보이게!
+              // style={{ display: 'none' }}
+              onChange={uploadImageHandler}
+              className='flex items-center'
+            />
 
-          <button
-            type="button"
-            onClick={onClickProfileImage}
-            className="flex items-center w-[100px] h-[40px] my-2 ml-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
-          >
-            사진 저장
-          </button>
+            <button
+              type="button"
+              onClick={onClickProfileImage}
+              className="flex items-center w-[100px] h-[40px] my-2 ml-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
+            >
+              사진 저장
+            </button>
+          </div>
         </div>
       </div>
 
@@ -481,13 +483,6 @@ function MyInfomation() {
           </button>
           <button
             type="button"
-            onClick={onClickInfoCancleHandler}
-            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] 0"
-          >
-            수정
-          </button>
-          <button
-            type="button"
             onClick={onSubmitInfoPutHandler}
             className="flex items-center w-[100px] h-[40px] my-2 ml-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
           >
@@ -548,12 +543,6 @@ function MyInfomation() {
             className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
           >
             취소
-          </button>
-          <button
-            type="button"
-            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
-          >
-            수정
           </button>
           <button
             type="button"

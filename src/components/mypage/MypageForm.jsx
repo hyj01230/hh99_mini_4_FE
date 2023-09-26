@@ -8,6 +8,7 @@ import MyInfomation from "./MyInfomation";
 import SupportComment from "./SupportComment";
 import TodayComment_C from "./TodayComment_C";
 import TodayComment_P from "./TodayComment_P";
+import profileImage from "../../img/기본프로필사진.png"
 
 function MypageForm() {
   // 사이드바 state
@@ -49,14 +50,16 @@ function MypageForm() {
   // GET - 내정보 가져오기
   const myInfoGetHandler = async () => {
     try {
-      const response = await axios.get(`${serverUrl}/api/profile/modify`, {
-        headers: { Authorization: `Bearer ${token}` }, // 로그인 여부 확인(토큰을 헤더에 추가)
+      const token = getTokenFromCookie();
+      const response = await axios.get(`${serverUrl}/api/user/userInfo`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
+        },
       });
-      setMyInfoData(response.data.data);
-      console.log("내정보", response.data.data[0].role);
+
+      setMyInfoData(response.data.data[0]);
     } catch (error) {
-      alert(`${error}`);
-      console.error(error);
+      console.log(error);
     }
   };
 
@@ -66,7 +69,7 @@ function MypageForm() {
         <div className="flex flex-col justify-center items-center fixed w-[300px]">
           <img
             className="inline-block h-[200px] w-[200px] rounded-full mt-[50px] border border-gray-200"
-            src="https://i.namu.wiki/i/HfPaXJ6qhoBdHtpSh_ivra2eGF8z04V9kmd93toYyzhxaQoKvBfXF6VZ5-zcTLRYFpcT8aS_IjhBtdntFeHP-eHdcWYJQHIUQxCB3fzTvokwitrLW9Y4P2jWWRc4P9mMjvkoZFJno3slsPX8cZMCvg.webp"
+            src={`${!myInfoData.imageUrl ? profileImage : myInfoData.imageUrl}`}
             alt=""
           />
 
