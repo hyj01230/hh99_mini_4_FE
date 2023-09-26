@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getTokenFromCookie } from "../../auth/cookie";
 import { serverUrl } from "../../common/common";
-import { fetchUserInfo } from "../../redux/config/userInfoSlice";
+// import { fetchUserInfo } from "../../redux/config/userInfoSlice";
 
 function Chatting() {
   const { id } = useParams();
@@ -54,12 +54,12 @@ function Chatting() {
   };
 
   const userInfo = useSelector((state) => state.userInfo);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    // fetchUserInfo 액션을 디스패치하여 userInfo 상태를 업데이트합니다.
-    dispatch(fetchUserInfo());
-  }, [dispatch]); // dispatch가 의존성으로 들어갑니다.
+  // useEffect(() => {
+  //   // fetchUserInfo 액션을 디스패치하여 userInfo 상태를 업데이트합니다.
+  //   dispatch(fetchUserInfo());
+  // }, [dispatch]); // dispatch가 의존성으로 들어갑니다.
 
   return (
     <>

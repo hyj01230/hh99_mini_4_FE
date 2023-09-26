@@ -49,4 +49,5 @@ export const locations = [
     id: 8,
     location: "제주",
   },
+  
 ];

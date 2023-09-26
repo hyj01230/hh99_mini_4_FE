@@ -111,13 +111,6 @@ function SupportComment() {
             </button>
             <button
               type="button"
-              // onClick={() => putComplement(item.complementId)}
-              className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
-            >
-              수정
-            </button>
-            <button
-              type="button"
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
             >
               저장
