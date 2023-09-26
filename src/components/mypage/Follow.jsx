@@ -16,6 +16,7 @@ function Follow() {
 
   // get으로 가져온 한마디 데이터 state에 저장 --------------------------------------
   const [followingData, setFollowingData] = useState([]);
+  const [liked, setLiked] = useState({});
 
   // GET - 팔로잉 내역 ------------------------------------
   const followingList = async () => {
@@ -32,13 +33,21 @@ function Follow() {
     }
   }
 
+  const toggleLike = (userId) => {
+    // 아이콘 상태를 토글하는 함수
+    setLiked(prevLiked => ({
+      ...prevLiked,
+      [userId]: !prevLiked[userId]
+    }));
+  }
+
   return (
     <div className=' h-screen w-[1000px]'>
       <p className='mt-[50px] ml-7 text-2xl font-black'>나의 팔로잉 목록</p>
       <div className='p-7 w-[1000px] flex flex-wrap justify-start mx-auto'>
 
         {followingData && followingData.map((item) => (
-          <div className="w-[290px] block rounded-lg bg-white shadow-lg m-3 ">
+          <div key={item.userId} className="w-[290px] block rounded-lg bg-white shadow-lg m-3 ">
             <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
             <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
               <img
@@ -55,9 +64,9 @@ function Follow() {
               <p className="mt-5 flex justify-center">
                 {item.party}
               </p>
-              <p className="mt-5 flex justify-center">
-                ♥
-              </p>
+              <button onClick={() => toggleLike(item.userId)} className="mt-5 flex justify-center mx-auto">
+                {liked[item.userId] ? '♡' : '♥'}
+              </button>
             </div>
           </div>
         ))}
