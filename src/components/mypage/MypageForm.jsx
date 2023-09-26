@@ -1,14 +1,13 @@
-import React, { useRef, useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
-import Activity from './Activity'
-import Follow from './Follow'
-import MyInfomation from './MyInfomation';
-import SupportComment from './SupportComment'
-import TodayComment_C from './TodayComment_C'
-import TodayComment_P from './TodayComment_P'
-import { getTokenFromCookie } from "../../auth/cookie"
 import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
+import { getTokenFromCookie } from "../../auth/cookie";
 import { serverUrl } from '../../common/common';
+import Activity from './Activity';
+import Follow from './Follow';
+import MyInfomation from './MyInfomation';
+import SupportComment from './SupportComment';
+import TodayComment_C from './TodayComment_C';
+import TodayComment_P from './TodayComment_P';
 
 
 function MypageForm() {
@@ -33,7 +32,7 @@ function MypageForm() {
   const onClickSupportCommentHandler = () => { setSideTabPage(<SupportComment />) }
 
 
-  // 파일업로드-버튼(프로필 사진 수정) 연결하기 ---------------------------------------------------
+  //프로필 사진 수정 tjsxor 연결하기 ---------------------------------------------------
   const fileInputRef = useRef(null);
   const handleUploadButtonClick = () => {
     // 파일 업로드 input 클릭
@@ -83,8 +82,7 @@ function MypageForm() {
     }
   }
 
-
- 
+  // POST - 내정보 가져오기
 
 
   return (

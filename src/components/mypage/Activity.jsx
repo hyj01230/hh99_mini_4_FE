@@ -1,7 +1,7 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { getTokenFromCookie, setCookie } from "../../auth/cookie";
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getTokenFromCookie } from "../../auth/cookie";
 import { serverUrl } from '../../common/common';
 
 
@@ -9,6 +9,8 @@ function Activity() {
 
   // 페이지 이동 -------------------------------------------------------------------------
   const navigate = useNavigate();
+
+  const { id } = useParams();
 
   // 업로드 제목/내용/URL/이미지 state ---------------------------------------------------
   const [uploadTitle, setUploadTitle] = useState("");
@@ -46,9 +48,9 @@ function Activity() {
       const response = await axios.get(`${serverUrl}/api/campaigns`, {
         headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
       });
-      // console.log('활동모음 가져오기', response.data.data);
+      console.log('활동모음 가져오기', response.data.data);
       setActivityData(response.data.data)  // 가져온 활동모음 데이터 state에 저장하기!
-      // console.log(activityData)  // setState 함수는 비동기적으로 동작하기 때문에, 상태 업데이트가 완료되기 전에 console.log(activityData)가 실행될 수 있어서 밑에서 useEffect 사용
+      // console.log(activityData)  // setState 함수는 비동기적으로 동작하기 때문에, 상태 업데이트가 완료되기 전에 console.log(activityData)가 실행될 수 있어서 밑에서 useEffect 사용해 출력해야함!
     }
     catch (error) {
       alert(`${error}`);
@@ -56,63 +58,27 @@ function Activity() {
     }
   }
 
-  useEffect(() => {
-    console.log('가져온 활동모음 state', activityData); // 상태 업데이트 이후에 실행됩니다.
-  }, [activityData]);
-
-  // // 가져온 data를 수정하는 state, onchange
-  // const [activityDataTitle, setActivityDataTitle] = useState('');
-  // // const [activityDataUrl, setActivityDataUrl] = useState(activityData.data.campaignUrl);
-  // // const [activityDataContent, setActivityDataContent] = useState(activityData.data.campaignContent);
-  // // const [activityDataImage, setActivityDataImage] = useState(null);  // 사진 - 확인필요!!!
-
-  // // const activityDataTitleHandler = (e) => { setActivityDataTitle(e.target.value) };
-  // // const activityDataUrlHandler = (e) => { setActivityDataUrl(e.target.value) };
-  // // const activityDataContentHandler = (e) => { setActivityDataContent(e.target.value) };
-  // // const activityDataImageHandler = (e) => {
-  // //   const changeImage = e.target.files[0]; // 선택된 파일 가져오기
-  // //   console.log(`선택된 파일 이름: ${changeImage.name}`);
-  // //   console.log(`선택된 파일 크기: ${changeImage.size} bytes`);
-
-  // //   setActivityDataImage(changeImage)
-  // //   // console.log('변경된 파일정보', image)
-  // // };
-
-
-
   // POST - 활동모음 업로드 저장버튼 ---------------------------------------------------------
   const activitySaveHandler = async (e) => {
     e.preventDefault();  // 리프레시 막아주기
 
     try {
-      // 토큰이 없는 경우 처리
-      if (!token) {
-        alert('로그인이 필요합니다.');
-        navigate(-1) // 뒤로가기
-        return;
-      }
+      // // 토큰이 없는 경우 처리
+      // if (!token) {
+      //   alert('로그인이 필요합니다.');
+      //   navigate(-1) // 뒤로가기
+      //   return;
+      // }
 
       // 사진 업로드는 폼데이터로!!!!!!!!!
       const formData = new FormData();
-      // formData.append('title', uploadTitle);
-      // formData.append('content', uploadContent);
-      // formData.append('url', uploadUrl);
-      // formData.append('image', uploadImage);
-
-      formData.append('CampaignRequestModel', {
-        'title': uploadTitle,
-        'content': uploadContent,
-        'url': uploadUrl,
-      });
+      formData.append('title', uploadTitle);
+      formData.append('content', uploadContent);
+      formData.append('url', uploadUrl);
       formData.append('image', uploadImage);
-      console.log('폼데이터 확인', uploadImage);
-
-      // formData.append('data', {title: '', ...};
-      // formData.append('image', uploadImage);
 
       // 서버로 폼데이터 보냄
       const response = await axios.post(`${serverUrl}/api/campaign`, formData, {
-      }, {
         headers: {
           Authorization: `Bearer ${token}`, // 로그인 여부 확인(토큰을 헤더에 추가)
           'Content-Type': 'multipart/form-data', // 필수: FormData를 보낼 때 content type 설정
@@ -125,44 +91,25 @@ function Activity() {
       setUploadContent("");
       setUploadUrl("");
       setUploadImage(null);
+      getActivity();
     }
     catch (error) {
       alert(`${error}`);
       console.error(error);
     }
   }
-
 
 
   // DELETE - 기존 활동모음 삭제 --------------------------------------------------------------
-  const onclickDeleteBtnHandler = async (e) => {
-    e.preventDefault();  // 리프레시 막아주기
-
-    try {                                                         //  캠페인아디를 어케 가져올것인가...?
-      const response = await axios.delete(`${serverUrl}/api/campaign/{campaignId}`, {
-        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
-      });
-      console.log('활동모음 삭제하기', response.data);
-      setActivityData(response.data)  // 가져온 활동모음 데이터 state에 저장하기!
-    }
-
-    catch (error) {
-      alert(`${error}`);
-      console.error(error);
-    }
-  }
-
-
-  // PUT - 기존 활동모음 수정 --------------------------------------------------------------
-  const onclickPutyBtnHandler = async (e) => {
-    e.preventDefault();  // 리프레시 막아주기
+  const onclickDeleteBtnHandler = async (campaignId) => {
 
     try {
-      const response = await axios.put(`${serverUrl}/api/campaign/{campaignId}`, {
+      const response = await axios.delete(`${serverUrl}/api/campaign/${campaignId}`, {
         headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
       });
-      console.log('활동모음 수정하기', response.data);
-      setActivityData(response.data)  // 가져온 활동모음 데이터 state에 저장하기!
+      console.log(response.data.data.msg)
+      getActivity();
+      alert(response.data.data.msg)
     }
 
     catch (error) {
@@ -171,6 +118,53 @@ function Activity() {
     }
   }
 
+  // // PUT - 기존 활동모음 수정 --------------------------------------------------------------
+  // const onclickPutBtnHandler = async (campaignId) => {
+
+  //   try {
+
+  //     const putFormData = new FormData();
+  //     putFormData.append('title', putTitle === "" ? uploadTitle : putTitle);
+  //     putFormData.append('content', putContent === "" ? uploadContent : putContent);
+  //     putFormData.append('url', putUrl === "" ? uploadUrl : putUrl);
+  //     putFormData.append('image', putImage === "" ? uploadImage : putImage);
+
+  //     console.log(putFormData)
+
+  //     const response = await axios.put(`${serverUrl}/api/campaign/${campaignId}`, putFormData, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`, // 로그인 여부 확인(토큰을 헤더에 추가)
+  //         'Content-Type': 'multipart/form-data', // 필수: FormData를 보낼 때 content type 설정
+  //       },
+  //     });
+  //     console.log('활동모음 수정하기', response.data);
+  //     setActivityData([...response.data.data]);
+  //     getActivity();
+  //   }
+
+  //   catch (error) {
+  //     alert(`${error}`);
+  //     console.error(error);
+  //   }
+  // }
+
+  // 수정할 제목/내용/URL/이미지 state ---------------------------------------------------
+  const [putTitle, setPutTitle] = useState("");
+  const [putContent, setPutContent] = useState("");
+  const [putUrl, setPutUrl] = useState("");
+  const [putImage, setPutImage] = useState(null);
+
+  const onchangePutTitleHandler = (e) => { setPutTitle(e.target.value) };
+  const onchangePutUrlHandler = (e) => { setPutUrl(e.target.value) };
+  const onchangePutContentHandler = (e) => { setPutContent(e.target.value) };
+  const onchangePutImageHandler = (e) => {
+    const image = e.target.files[0]; // 선택된 파일 가져오기
+    console.log(`선택된 파일 이름: ${image.name}`);
+    console.log(`선택된 파일 크기: ${image.size} bytes`);
+
+    setPutImage(image)
+    // console.log('파일정보', image)
+  }
 
 
   return (
@@ -183,11 +177,9 @@ function Activity() {
           <input
             value={uploadTitle}
             onChange={uploadTitleHandler}
-            placeholder='10자 내외'
             type="text"
-            maxLength={10}
             className='rounded-md mx-3 flex-grow h-8 px-2' />
-          <p className='text-lg font-bold'>사진첨부(크기/용량🚨)</p>
+          <p className='text-lg font-bold'>사진첨부</p>
           {/* 이미지 업로드 */}
           <input
             type="file"
@@ -209,9 +201,7 @@ function Activity() {
           <input
             value={uploadContent}
             onChange={uploadContentHandler}
-            placeholder='30자 내외'
             type="text"
-            maxLength={30}
             className='rounded-md mx-3 flex-grow h-20 p-2' />
         </div>
         <div className='flex justify-end'>
@@ -225,43 +215,58 @@ function Activity() {
       <p className='mt-[50px] ml-7 text-2xl font-black'>
         활동모음 업로드 목록</p>
 
-      {/* 서버 연결 전! 렌더링 내용 확인용 */}
+
       {activityData && activityData.map((item) => (
         <div key={item.campaignId} className='bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg'>
           <div className='flex flex-row pb-4'>
             <p className='text-lg font-bold'>제목</p>
             <input
-              value={item.campaignTitle}
+              defaultValue={item.campaignTitle}
+              onChange={onchangePutTitleHandler}
               type="text"
               className='rounded-md mx-3 flex-grow h-8 px-2' />
-            <p className='text-lg font-bold'>사진첨부(크기/용량🚨)</p>
+            <p className='text-lg font-bold'>사진변경</p>
             <input
-              // value={item.campaignThumbnail} //보류!!!!!!!!!!!!!!!
               type="file"
               accept="image/*"
+              onChange={onchangePutImageHandler}
               className='rounded-md mx-3 flex-grow h-8 px-2' />
           </div>
           <div className='flex flex-row pb-4'>
             <p className='text-lg font-bold'>URL</p>
             <input
-              value={item.campaignUrl}
+              defaultValue={item.campaignUrl}
+              onChange={onchangePutUrlHandler}
               type="text"
               className='rounded-md mx-3 flex-grow h-8 px-2' />
           </div>
           <div className='flex flex-row pb-4'>
             <p className='text-lg font-bold'>내용</p>
             <input
-              value={item.campaignContent}
+              defaultValue={item.campaignContent}
+              onChange={onchangePutContentHandler}
               type="text"
               className='rounded-md mx-3 flex-grow h-20 p-2' />
+          </div>
+          <div className='flex flex-row pb-4'>
+            <p className='text-lg font-bold'>업로드된 사진</p>
+            {item.campaignThumbnail && (
+              <img
+                src={item.campaignThumbnail}
+                alt="Uploaded Thumbnail"
+                className="rounded-md mx-3 flex-grow h-[300px] px-2"
+              />
+            )}
           </div>
           <div className='flex justify-end'>
             <button
               type="button"
+              onClick={() => onclickDeleteBtnHandler(item.campaignId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024]">
               삭제</button>
             <button
               type="button"
+              // onClick={() => onclickPutBtnHandler(item.campaignId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
               수정</button>
           </div>

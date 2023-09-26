@@ -282,7 +282,6 @@ function Join() {
                   type="email"
                   value={email}
                   onChange={onChangeEmailHandler}
-                  maxLength={20}
                   className="mb-[25px] pl-3 block w-full h-[35px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#65451F] sm:text-sm sm:leading-6"
                 />
               </div>
@@ -495,7 +494,10 @@ function Join() {
 
             <div className="mt-4 flex justify-center gap-[20px]">
               <button
-                type="submit"
+                type="button"
+                onClick={() => {
+                  navigate("/login");
+                }}
                 className="text-[15px] flex w-[150px] justify-center rounded-md bg-[#F2EAD3] px-3 py-2 font-semibold leading-6 text-black shadow-sm hover:bg-[#F2EAD3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2EAD3]"
               >
                 로그인
