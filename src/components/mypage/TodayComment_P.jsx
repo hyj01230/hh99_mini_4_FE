@@ -85,7 +85,7 @@ function TodayComment_P() {
       alert('업로드 완료');
       setUploadTitle("");
       setUploadContent("");
-      setUploadImage(null);
+      setUploadImage(null); // 이미지 초기화
       TodayCommentgethandler();
       console.log('uploadImage', uploadImage)
     }

@@ -60,8 +60,6 @@ function MypageForm() {
     }
   };
 
-  // POST - 내정보 가져오기
-
   return (
     <div className="w-full mx-auto flex justify-center">
       <div className="w-[300px] h-screen ">
