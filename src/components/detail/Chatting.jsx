@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getTokenFromCookie } from "../../auth/cookie";
 import { serverUrl } from "../../common/common";
+import { fetchUserInfo } from "../../redux/config/userInfoSlice";
 
 function Chatting() {
   const { id } = useParams();
@@ -25,11 +27,11 @@ function Chatting() {
       console.error(error);
     }
   }, [id, token]);
-  
+
   useEffect(() => {
     getComplementsHandler();
   }, [getComplementsHandler]);
-  
+
   const postComplementsHandler = async () => {
     try {
       await axios.post(
@@ -51,6 +53,14 @@ function Chatting() {
     }
   };
 
+  const userInfo = useSelector((state) => state.userInfo);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // fetchUserInfo 액션을 디스패치하여 userInfo 상태를 업데이트합니다.
+    dispatch(fetchUserInfo());
+  }, [dispatch]); // dispatch가 의존성으로 들어갑니다.
+
   return (
     <>
       <div
@@ -62,24 +72,22 @@ function Chatting() {
           <div className="flex-grow">
             <div className="flex flex-col space-y-2 p-4">
               {chatList.map((message) => (
-                <>
-                  {false ? (
+                <div
+                  key={message.complementId}
+                  className="clear-both inline-block whitespace-nowrap px-2 py-1 "
+                >
+                  {message.complementNickname !== userInfo.nickname ? (
                     <div
-                      key={message.complementId}
-                      className={`flex items-center rounded-xl p-2 ${
-                        message.sender
-                          ? "self-end bg-blue-500 text-white"
-                          : "self-start bg-gray-300"
-                      }`}
+                      className={`float-left rounded-xl p-2 self-start bg-gray-300`}
                     >
                       <p>{message.complementTitle}</p>
                     </div>
                   ) : (
-                    <div key={message.complementId}  className="flex items-center self-end rounded-xl rounded-tr bg-[#967E76] py-2 px-3 text-white">
+                    <div className="float-right rounded-xl rounded-tr bg-[#967E76] py-2 px-3 text-white">
                       <p>{message.complementTitle}</p>
                     </div>
                   )}
-                </>
+                </div>
               ))}
             </div>
           </div>

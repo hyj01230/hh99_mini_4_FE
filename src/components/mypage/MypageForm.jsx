@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
-import Activity from './Activity'
-import Follow from './Follow'
-import MyInfomation from './MyInfomation';
-import SupportComment from './SupportComment'
-import TodayComment_C from './TodayComment_C'
-import TodayComment_P from './TodayComment_P'
-import { getTokenFromCookie } from "../../auth/cookie"
-import axios from 'axios';
-import { serverUrl } from '../../common/common';
-
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { getTokenFromCookie } from "../../auth/cookie";
+import { serverUrl } from "../../common/common";
+import Activity from "./Activity";
+import Follow from "./Follow";
+import MyInfomation from "./MyInfomation";
+import SupportComment from "./SupportComment";
+import TodayComment_C from "./TodayComment_C";
+import TodayComment_P from "./TodayComment_P";
 
 function MypageForm() {
-
   // 사이드바 state
   const [sideTabPage, setSideTabPage] = useState(<MyInfomation />);
 
   // 클릭했을때 컴퍼넌트 변경!
-  const onClickMyInfoHandler = () => { setSideTabPage(<MyInfomation />) }
+  const onClickMyInfoHandler = () => {
+    setSideTabPage(<MyInfomation />);
+  };
   const onClickFollow_ActivityHandler = () => {
     if (myInfoData.length > 0) {
       const role = myInfoData[0].role;
@@ -27,14 +26,14 @@ function MypageForm() {
   const onClickTodayCommentHandler = () => {
     if (myInfoData.length > 0) {
       const role = myInfoData[0].role;
-      setSideTabPage(role === "voterUser" ? <TodayComment_C /> : <TodayComment_P />);
+      setSideTabPage(
+        role === "voterUser" ? <TodayComment_C /> : <TodayComment_P />
+      );
     }
   };
-  const onClickSupportCommentHandler = () => { setSideTabPage(<SupportComment />) }
-
-
-
-
+  const onClickSupportCommentHandler = () => {
+    setSideTabPage(<SupportComment />);
+  };
 
   // 토큰가져오기
   const token = getTokenFromCookie();
@@ -51,21 +50,17 @@ function MypageForm() {
   const myInfoGetHandler = async () => {
     try {
       const response = await axios.get(`${serverUrl}/api/profile/modify`, {
-        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+        headers: { Authorization: `Bearer ${token}` }, // 로그인 여부 확인(토큰을 헤더에 추가)
       });
-      setMyInfoData(response.data.data)
-      console.log('내정보', response.data.data[0].role);
-    }
-
-    catch (error) {
+      setMyInfoData(response.data.data);
+      console.log("내정보", response.data.data[0].role);
+    } catch (error) {
       alert(`${error}`);
       console.error(error);
     }
-  }
+  };
 
   // POST - 내정보 가져오기
-
-
 
   return (
     <div className="w-full mx-auto flex justify-center">
@@ -89,14 +84,18 @@ function MypageForm() {
             onClick={onClickFollow_ActivityHandler}
             className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
-            {myInfoData.length > 0 && myInfoData[0].role === "voterUser" ? '팔로우 관리' : '활동모음'}
+            {myInfoData.length > 0 && myInfoData[0].role === "voterUser"
+              ? "팔로우 관리"
+              : "활동모음"}
           </button>
           <button
             type="button"
             onClick={onClickTodayCommentHandler}
             className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
-            {myInfoData.length > 0 && myInfoData[0].role === "voterUser" ? '오늘의 한마디 댓글' : '오늘의 한마디'}
+            {myInfoData.length > 0 && myInfoData[0].role === "voterUser"
+              ? "오늘의 한마디 댓글"
+              : "오늘의 한마디"}
           </button>
           <button
             type="button"
@@ -109,7 +108,7 @@ function MypageForm() {
       </div>
       {sideTabPage}
     </div>
-  )
+  );
 }
 
-export default MypageForm
+export default MypageForm;

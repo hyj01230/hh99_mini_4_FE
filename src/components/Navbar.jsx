@@ -1,10 +1,13 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // Navbar.jsx 파일 상단에 아래 코드 추가
 
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteCookie, getTokenFromCookie } from "../auth/cookie";
+import { serverUrl } from "../common/common";
+import profileImage from "../img/기본프로필사진.png";
 import { titleStyle } from "../styles/fonsts";
 
 function classNames(...classes) {
@@ -29,6 +32,32 @@ function Navbar() {
     },
     { name: "정당별", href: "/party", current: currentMenuItem === "/party" },
   ];
+  const [userInfo, setUserInfo] = useState({
+    userIntro: "",
+    nickname: "",
+    imageUrl: "",
+  });
+
+  const getLoginUserInfo = async () => {
+    try {
+      const token = getTokenFromCookie();
+      const response = await axios.get(`${serverUrl}/api/user/userInfo`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
+        },
+      });
+
+      setUserInfo(response.data.data[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log("내정보", userInfo);
+
+  useEffect(() => {
+    getLoginUserInfo();
+  }, []);
 
   return (
     <>
@@ -131,11 +160,15 @@ function Navbar() {
                   <Menu as="div" className="relative ml-3">
                     <div>
                       {token ? (
-                        <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <Menu.Button className="relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                           {/* 프로필이미지 */}
                           <img
                             className="h-8 w-8 rounded-full"
-                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            src={`${
+                              !userInfo.imageUrl
+                                ? profileImage
+                                : userInfo.imageUrl
+                            }`}
                             alt=""
                           />
                         </Menu.Button>
