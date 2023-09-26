@@ -42,6 +42,48 @@ function SupportComment() {
     }
   }
 
+  // DELETE - 기존 응원댓글 삭제 --------------------------------------------------------------
+  const deleteComplement = async (complementId) => {
+
+    try {
+      const response = await axios.delete(`${serverUrl}/api/complement/${complementId}`, {
+        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+      });
+      console.log(response.data.data.msg);
+      getComplement();
+      alert(response.data.data.msg);
+    }
+
+    catch (error) {
+      alert(`${error}`);
+      console.error(error);
+    }
+  }
+
+  const [editTitle, setEditTitle] = useState("");
+
+
+  // put - 기존 응원댓글 수정 --------------------------------------------------------------
+  // const putComplement = async (complementId) => {
+
+  //   try {
+  //     const response = await axios.put(`${serverUrl}/api/complement/${complementId}`, {
+  //       title : ,
+  //       content : null,
+  //     }, {
+  //       headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+  //     });
+  //     console.log(response.data.data.msg);
+  //     getComplement();
+  //     alert(response.data.data.msg);
+  //   }
+
+  //   catch (error) {
+  //     alert(`${error}`);
+  //     console.error(error);
+  //   }
+  // }
+
 
   return (
     <div className=' h-full w-[1000px]'>
@@ -51,7 +93,7 @@ function SupportComment() {
       {complementData && complementData.map((item) => (
         <div key={item.complementId} className='bg-[#F9F5EB] rounded-md my-6 mx-7 p-7 shadow-lg'>
           <div className='flex flex-row pb-4'>
-            <p className='text-lg font-bold'>제목</p>
+            <p className='text-lg font-bold'>내용</p>
             <input
               value={item.complementTitle}
               placeholder='제목'
@@ -59,30 +101,23 @@ function SupportComment() {
               className='rounded-md mx-3 flex-grow h-8 px-2'
             />
           </div>
-          <div className='flex flex-row pb-4'>
-            <p className='text-lg font-bold'>내용</p>
-            <input
-              value={item.complementContent}
-              placeholder='내용'
-              type="text"
-              className='rounded-md mx-3 flex-grow h-20 p-2'
-            />
-          </div>
           <div className='flex justify-end'>
             <button
-              type="submit"
+              type="button"
+              onClick={() => deleteComplement(item.complementId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
             >
               삭제
             </button>
             <button
-              type="submit"
+              type="button"
+              // onClick={() => putComplement(item.complementId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
             >
               수정
             </button>
             <button
-              type="submit"
+              type="button"
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
             >
               저장
