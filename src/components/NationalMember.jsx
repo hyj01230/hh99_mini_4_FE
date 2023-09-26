@@ -34,12 +34,9 @@ function NationalMember() {
       }
     } catch (error) {
       console.error(error);
-      if (
-        error.response.data.msg.includes("userDetails") &&
-        error.response.data.msg.includes("is null")
-      ) {
-        alert(`로그인이 필요합니다`);
-      }
+      
+      alert(error);
+      
     }
   }
 
@@ -55,12 +52,7 @@ function NationalMember() {
         setResultList(response.data.data);
       }
     } catch (error) {
-      if (
-        error.response.data.msg.includes("userDetails") &&
-        error.response.data.msg.includes("is null")
-      ) {
-        alert(`로그인이 필요합니다`);
-      }
+      alert(error)
     }
   };
 
@@ -180,7 +172,7 @@ function NationalMember() {
                       <div className="p-6">
                         <h4 className="mb-4 text-2xl font-semibold">{`${item.nickname} / ${item.location}`}</h4>
                         <hr />
-                        <p className="mt-4">
+                        <p className="mt-4 text-lg">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill={partys.find((x) => {
@@ -188,12 +180,12 @@ function NationalMember() {
                                 ? x.color
                                 : undefined;
                             })}
-                            className="inline-block h-7 w-7 pr-2"
+                            className="inline-block h-5 w-5 pr-2"
                             viewBox="0 0 24 24"
                           >
                             <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
                           </svg>
-                          {item.opinionTitle === null
+                          {item.opinionTitle === "" || item.opinionTitle === null
                             ? `안녕하세요`
                             : item.opinionTitle}
                         </p>
@@ -229,7 +221,7 @@ function NationalMember() {
                       <div className="p-6">
                         <h4 className="mb-4 text-2xl font-semibold">{`${item.nickname} / ${item.location}`}</h4>
                         <hr />
-                        <p className="mt-4">
+                        <p className="mt-4 text-lg">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill={partys.find((x) => {
@@ -237,12 +229,12 @@ function NationalMember() {
                                 ? x.color
                                 : undefined;
                             })}
-                            className="inline-block h-7 w-7 pr-2"
+                            className="inline-block h-5 w-5 pr-2"
                             viewBox="0 0 24 24"
                           >
                             <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
                           </svg>
-                          {item.opinionTitle === null
+                          {item.opinionTitle === "" || item.opinionTitle === null
                             ? `안녕하세요`
                             : item.opinionTitle}
                         </p>
