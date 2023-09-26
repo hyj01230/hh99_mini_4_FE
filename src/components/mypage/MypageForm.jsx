@@ -68,7 +68,7 @@ function MypageForm() {
       <div className="w-[300px] h-screen ">
         <div className="flex flex-col justify-center items-center fixed w-[300px]">
           <img
-            className="inline-block h-[200px] w-[200px] rounded-full mt-[50px] border border-gray-200"
+            className="inline-block h-[200px] w-[200px] rounded-full mt-[60px] border border-gray-200"
             src={`${!myInfoData.imageUrl ? profileImage : myInfoData.imageUrl}`}
             alt=""
           />
