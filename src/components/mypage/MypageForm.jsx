@@ -2,35 +2,41 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { getTokenFromCookie } from "../../auth/cookie";
 import { serverUrl } from "../../common/common";
+import profileImage from "../../img/기본프로필사진.png";
 import Activity from "./Activity";
 import Follow from "./Follow";
 import MyInfomation from "./MyInfomation";
 import SupportComment from "./SupportComment";
 import TodayComment_C from "./TodayComment_C";
 import TodayComment_P from "./TodayComment_P";
-import profileImage from "../../img/기본프로필사진.png"
 
 function MypageForm() {
   // 사이드바 state
   const [sideTabPage, setSideTabPage] = useState(<MyInfomation />);
-
+  const [myInfoData, setMyInfoData] = useState({
+    email: "",
+    imageUrl: "",
+    location: "",
+    nickname: "",
+    party: "",
+    role: "",
+    userId: 0,
+    userIntro: "",
+    username: "",
+  }); // 데이터'들' 들어올거니까 []
   // 클릭했을때 컴퍼넌트 변경!
   const onClickMyInfoHandler = () => {
     setSideTabPage(<MyInfomation />);
   };
   const onClickFollow_ActivityHandler = () => {
-    if (myInfoData.length > 0) {
-      const role = myInfoData[0].role;
-      setSideTabPage(role === "voterUser" ? <Follow /> : <Activity />);
-    }
+    const role = myInfoData.role;
+    setSideTabPage(role === "voterUser" ? <Follow /> : <Activity />);
   };
   const onClickTodayCommentHandler = () => {
-    if (myInfoData.length > 0) {
-      const role = myInfoData[0].role;
-      setSideTabPage(
-        role === "voterUser" ? <TodayComment_C /> : <TodayComment_P />
-      );
-    }
+    const role = myInfoData.role;
+    setSideTabPage(
+      role === "voterUser" ? <TodayComment_C /> : <TodayComment_P />
+    );
   };
   const onClickSupportCommentHandler = () => {
     setSideTabPage(<SupportComment />);
@@ -45,7 +51,6 @@ function MypageForm() {
   }, []);
 
   // get으로 가져온 활동모음 데이터 state에 저장하기 -------------------------------------------------------
-  const [myInfoData, setMyInfoData] = useState([]); // 데이터'들' 들어올거니까 []
 
   // GET - 내정보 가져오기
   const myInfoGetHandler = async () => {
@@ -56,9 +61,7 @@ function MypageForm() {
           Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
         },
       });
-
-      setMyInfoData(response.data.data);
-      console.log('get', response.data.data)
+      setMyInfoData(response.data.data[0]);
     } catch (error) {
       console.log(error);
     }
