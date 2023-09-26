@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getTokenFromCookie } from "../auth/cookie";
 import { serverUrl } from "../common/common";
 import { locations, partys } from "../data/data";
+import baseImg from "../img/기본프로필사진.png";
 
 function NationalMember() {
   const navigate = useNavigate();
@@ -165,7 +166,7 @@ function NationalMember() {
                       ></div>
                       <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
                         <img
-                          src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+                          src={item.imageUrl ? item.imageUrl : baseImg}
                           alt="Avatar 1"
                         />
                       </div>
@@ -212,9 +213,9 @@ function NationalMember() {
                           }`,
                         }}
                       ></div>
-                      <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+                      <div className="mx-auto -mt-12 w-24 h-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
                         <img
-                          src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+                          src={item.imageUrl ? item.imageUrl : baseImg}
                           alt="Avatar 1"
                         />
                       </div>
