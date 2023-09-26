@@ -420,8 +420,15 @@ function MyInfomation() {
           </button>
           <button
             type="button"
+            onClick={onClickInfoCancleHandler}
+            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] 0"
+          >
+            수정
+          </button>
+          <button
+            type="button"
             onClick={onSubmitInfoPutHandler}
-            className="flex items-center w-[100px] h-[40px] my-2 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
+            className="flex items-center w-[100px] h-[40px] my-2 ml-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
           >
             저장
           </button>
@@ -483,11 +490,18 @@ function MyInfomation() {
           </button>
           <button
             type="button"
+            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
+          >
+            수정
+          </button>
+          <button
+            type="button"
             onClick={onClickPWPutHandler}
-            className="flex items-center w-[100px] h-[40px] my-2 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
+            className="flex items-center w-[100px] h-[40px] my-2 ml-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
           >
             저장
           </button>
+          
         </form>
 
       </div>
