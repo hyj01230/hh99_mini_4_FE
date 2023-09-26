@@ -1,9 +1,8 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getTokenFromCookie } from "../../auth/cookie";
-import { useNavigate } from 'react-router-dom';
 import { serverUrl } from '../../common/common';
-import { useParams } from "react-router-dom";
 
 
 function Activity() {

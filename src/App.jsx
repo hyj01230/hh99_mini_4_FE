@@ -1,11 +1,13 @@
+import React from "react";
+import { Provider } from "react-redux";
+import store from "./redux/config/store";
 import Router from "./shared/Router";
 
 function App() {
   return (
-    <>
-      {/* <Navbar /> */}
+    <Provider store={store}>
       <Router />
-    </>
+    </Provider>
   );
 }
 

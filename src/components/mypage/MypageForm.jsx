@@ -1,14 +1,13 @@
-import React, { useRef, useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
-import Activity from './Activity'
-import Follow from './Follow'
-import MyInfomation from './MyInfomation';
-import SupportComment from './SupportComment'
-import TodayComment_C from './TodayComment_C'
-import TodayComment_P from './TodayComment_P'
-import { getTokenFromCookie } from "../../auth/cookie"
 import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
+import { getTokenFromCookie } from "../../auth/cookie";
 import { serverUrl } from '../../common/common';
+import Activity from './Activity';
+import Follow from './Follow';
+import MyInfomation from './MyInfomation';
+import SupportComment from './SupportComment';
+import TodayComment_C from './TodayComment_C';
+import TodayComment_P from './TodayComment_P';
 
 
 function MypageForm() {
@@ -86,7 +85,6 @@ function MypageForm() {
   // POST - 내정보 가져오기
 
 
-
   return (
     <div className="w-full mx-auto flex justify-center">
       <div className="w-[300px] h-screen ">
@@ -115,7 +113,6 @@ function MypageForm() {
 
             <button
               type="button"
-              // onClick={}
               className="flex items-center w-[85px] h-[50px] text-[#65451F] bg-[#F9F5EB] hover:bg-[#F2EAD3] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm "
             >
               사진 저장
