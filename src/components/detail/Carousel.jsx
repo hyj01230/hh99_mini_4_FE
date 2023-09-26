@@ -53,17 +53,11 @@ function Carousel() {
                 href={item.campaignUrl}
                 key={item.campaignId}
                 target="_blank"
-                className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                className=" flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
               >
-                <div
-                  className="h-32 overflow-hidden flex items-center justify-center"
-                  style={{
-                    borderTopLeftRadius: "8px",
-                    borderBottomLeftRadius: "8px",
-                  }}
-                >
+                <div className="h-32 w-32 flex items-center justify-center">
                   <img
-                    className="object-cover object-center mx-auto h-full rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                    className="object-center object-cover w-full h-full rounded-lg"
                     src={`${item.campaignThumbnail}`}
                     alt=""
                   />

@@ -60,7 +60,7 @@ function Modal({ onCloseModal, opinionId, id }) {
 
   const commetLike = async (id) => {
     try {
-      await axios.post(`${serverUrl}/api/comment/like/${id}`, {
+      await axios.post(`${serverUrl}/api/comment/like/${id}`,{} ,{
         headers: {
           Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
         },
@@ -110,9 +110,9 @@ function Modal({ onCloseModal, opinionId, id }) {
         <div className="overflow-y-auto max-h-[200px]">
           {commentData.map((item) => (
             <div className="flex justify-between my-1" key={item.commentId}>
-              <p>{item.title}</p>{" "}
+              <p>{item.commentContent}</p>{" "}
               <p onClick={() => { console.log(item.commentId); commetLike(item.commentId)}}>
-                {item.likeState ? "♥" : "♡"} {item.likeCount}
+                {item.likeStat ? "♥" : "♡"} {item.likeCount}
               </p>
             </div>
           ))}
