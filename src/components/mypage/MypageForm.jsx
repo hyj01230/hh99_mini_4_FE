@@ -51,13 +51,14 @@ function MypageForm() {
   const myInfoGetHandler = async () => {
     try {
       const token = getTokenFromCookie();
-      const response = await axios.get(`${serverUrl}/api/user/userInfo`, {
+      const response = await axios.get(`${serverUrl}/api/profile/modify`, {
         headers: {
           Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
         },
       });
 
-      setMyInfoData(response.data.data[0]);
+      setMyInfoData(response.data.data);
+      console.log('get', response.data.data)
     } catch (error) {
       console.log(error);
     }
@@ -86,7 +87,7 @@ function MypageForm() {
             className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
             {myInfoData.length > 0 && myInfoData[0].role === "voterUser"
-              ? "팔로우 관리"
+              ? "팔로잉 관리"
               : "활동모음"}
           </button>
           <button
