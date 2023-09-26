@@ -120,28 +120,6 @@ function MyInfomation() {
     setCheckPassword("")
   }
 
-  //프로필 사진 수정  연결하기 ---------------------------------------------------
-  const fileInputRef = useRef(null);
-  const handleUploadButtonClick = () => {
-    // 파일 업로드 input 클릭
-    fileInputRef.current.click();
-  };
-
-
-  // 업로드 프로필이미지 state ---------------------------------------------------
-  const [uploadProFile, setUploadProFile] = useState(null);
-
-
-  // 업로드 프로필이미지 onchange ---------------------------------------------------
-  const uploadImageHandler = (e) => {
-    const image = e.target.files[0]; // 선택된 파일 가져오기
-    console.log(`선택된 파일 이름: ${image.name}`);
-    console.log(`선택된 파일 크기: ${image.size} bytes`);
-
-    setUploadProFile(image)
-    console.log('파일정보', image)
-  }
-
   // 토큰가져오기 --------------------------------------------------------------------------
   const token = getTokenFromCookie();
 
@@ -169,7 +147,7 @@ function MyInfomation() {
     }
   }
 
-  // PUT - 회원정보 저장 > 서버로 db보내기 --------------------------------------------------
+  // PUT -??????? 회원정보 저장 > 서버로 db보내기 --------------------------------------------------
   const onSubmitInfoPutHandler = async () => {
     try {
       const response = await axios.put(`${serverUrl}/api/profile/modify/save`, {
@@ -217,6 +195,44 @@ function MyInfomation() {
     }
   }
 
+
+  // 업로드 프로필이미지 state ---------------------------------------------------
+  const [uploadProfile, setUploadProfile] = useState(null);
+
+  // 업로드 프로필이미지 onchange ---------------------------------------------------
+  const uploadImageHandler = (e) => {
+    const image = e.target.files[0]; // 선택된 파일 가져오기
+    console.log(`선택된 파일 이름: ${image.name}`);
+    console.log(`선택된 파일 크기: ${image.size} bytes`);
+
+    setUploadProfile(image)
+    console.log('파일정보', image)
+  }
+
+  // PUT - 프로필 사진 저장
+  const onClickProfileImage = async () => {
+
+    const formData = new FormData();
+    formData.append('image', uploadProfile);
+
+    try {
+      const response = await axios.put(`${serverUrl}/api/profile/updateImage`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`, // 로그인 여부 확인(토큰을 헤더에 추가)
+          'Content-Type': 'multipart/form-data', // 필수: FormData를 보낼 때 content type 설정
+        },
+      });
+      console.log('사진 업로드', response)
+      setUploadProfile(null)
+      myInfoGetHandler();
+    }
+
+    catch (error) {
+      alert(`${error}`);
+      console.error(error);
+    }
+  }
+
   return (
     <div className=' h-full w-[1000px]'>
       <p className='mt-[50px] ml-7 text-2xl font-black'>내 정보 수정</p>
@@ -226,25 +242,17 @@ function MyInfomation() {
           <div className='mr-auto text-xl font-bold flex justify-start items-center'>
             프로필 사진 변경하기
           </div>
-          <button
-            type="button"
-            onClick={handleUploadButtonClick}
-            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
-          >
-            사진 선택
-          </button>
-
           <input
             type="file"
-            ref={fileInputRef}
             // 화면에서 안보이게!
-            style={{ display: 'none' }}
+            // style={{ display: 'none' }}
             onChange={uploadImageHandler}
+            className="flex flex-row justify-center items-center"
           />
 
           <button
             type="button"
-            onClick={onClickPWPutHandler}
+            onClick={onClickProfileImage}
             className="flex items-center w-[100px] h-[40px] my-2 ml-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
           >
             사진 저장
