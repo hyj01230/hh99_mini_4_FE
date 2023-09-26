@@ -4,7 +4,6 @@ import { getTokenFromCookie } from "../../auth/cookie";
 import { useNavigate } from 'react-router-dom';
 import { serverUrl } from '../../common/common';
 
-// 시민 - 댓글관리 양식
 
 function TodayComment_C() {
 
