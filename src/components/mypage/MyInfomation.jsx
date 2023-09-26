@@ -261,6 +261,8 @@ function MyInfomation() {
     }
   };
 
+  console.log(uploadProfile)
+
   return (
     <div className=" h-full w-[1000px]">
       <p className="mt-[50px] ml-7 text-2xl font-black">내 정보 수정</p>
