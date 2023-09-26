@@ -85,9 +85,9 @@ function TodayComment_P() {
       alert('업로드 완료');
       setUploadTitle("");
       setUploadContent("");
-      setUploadImage(null);
+      setUploadImage(null); // 이미지 초기화
       TodayCommentgethandler();
-      console.log('uploadImage',uploadImage)
+      console.log('uploadImage', uploadImage)
     }
     catch (error) {
       alert(`${error}`);
@@ -189,13 +189,13 @@ function TodayComment_P() {
           </div>
           <div className='flex flex-col pb-4'>
             <p className='text-lg font-bold pb-4'>업로드된 사진</p>
-            {/* {item.opinionThumbnail && (
+            {item.opinionImageUrl && (
               <img
-                src={item.opinionThumbnail}
+                src={item.opinionImageUrl}
                 alt="Uploaded Thumbnail"
-                className="rounded-md mx-3 flex-grow h-[300px] px-2"
+                className="rounded-md mx-3 flex-grow h-[500px] px-2"
               />
-            )} */}
+            )}
           </div>
           <div className='flex flex-col pb-4'>
             <p className='text-lg font-bold pb-4'>내 댓글 모아보기</p>
