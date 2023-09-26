@@ -36,7 +36,6 @@ function TodayComment_P() {
       });
       console.log('오늘의 한마디 가져오기', response.data.data);
       setCommentdata(response.data.data); // 가져온 데이터 set에 저장
-
     }
     catch (error) {
       alert(`${error}`);
@@ -71,7 +70,7 @@ function TodayComment_P() {
       alert('업로드 완료');
       setUploadTitle("");
       setUploadContent("");
-
+      TodayCommentgethandler();
     }
     catch (error) {
       alert(`${error}`);
@@ -85,8 +84,8 @@ function TodayComment_P() {
 
   // 가져온 데이터를 업데이트 하는 state
   const [updateData, setUpdateData] = useState(commentData)
-  console.log('타이틀', updateData)
-  console.log('commentData', commentData)
+  // console.log('타이틀', updateData)
+  // console.log('commentData', commentData)
 
   // const updateDateHandler = (e) => { setUpdateData(e.target.value) }
 

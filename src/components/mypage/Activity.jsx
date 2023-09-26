@@ -108,9 +108,9 @@ function Activity() {
       const response = await axios.delete(`${serverUrl}/api/campaign/${campaignId}`, {
         headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
       });
-      console.log(campaignId)
+      console.log(response.data.data.msg)
       getActivity();
-      alert('삭제가 완료되었습니다.')
+      alert(response.data.data.msg)
     }
 
     catch (error) {
@@ -124,20 +124,23 @@ function Activity() {
 
   //   try {
 
-  //     const formData = new FormData();
-  //     formData.append('title', uploadTitle);
-  //     formData.append('content', uploadContent);
-  //     formData.append('url', uploadUrl);
-  //     formData.append('image', uploadImage);
+  //     const putFormData = new FormData();
+  //     putFormData.append('title', putTitle === "" ? uploadTitle : putTitle);
+  //     putFormData.append('content', putContent === "" ? uploadContent : putContent);
+  //     putFormData.append('url', putUrl === "" ? uploadUrl : putUrl);
+  //     putFormData.append('image', putImage === "" ? uploadImage : putImage);
 
-  //     const response = await axios.put(`${serverUrl}/api/campaign/${campaignId}`, formData, {
+  //     console.log(putFormData)
+
+  //     const response = await axios.put(`${serverUrl}/api/campaign/${campaignId}`, putFormData, {
   //       headers: {
   //         Authorization: `Bearer ${token}`, // 로그인 여부 확인(토큰을 헤더에 추가)
   //         'Content-Type': 'multipart/form-data', // 필수: FormData를 보낼 때 content type 설정
   //       },
   //     });
   //     console.log('활동모음 수정하기', response.data);
-  //     setActivityData(response.data)  // 가져온 활동모음 데이터 state에 저장하기!
+  //     setActivityData([...response.data.data]);
+  //     getActivity();
   //   }
 
   //   catch (error) {
@@ -146,14 +149,23 @@ function Activity() {
   //   }
   // }
 
+  // 수정할 제목/내용/URL/이미지 state ---------------------------------------------------
+  const [putTitle, setPutTitle] = useState("");
+  const [putContent, setPutContent] = useState("");
+  const [putUrl, setPutUrl] = useState("");
+  const [putImage, setPutImage] = useState(null);
 
+  const onchangePutTitleHandler = (e) => { setPutTitle(e.target.value) };
+  const onchangePutUrlHandler = (e) => { setPutUrl(e.target.value) };
+  const onchangePutContentHandler = (e) => { setPutContent(e.target.value) };
+  const onchangePutImageHandler = (e) => {
+    const image = e.target.files[0]; // 선택된 파일 가져오기
+    console.log(`선택된 파일 이름: ${image.name}`);
+    console.log(`선택된 파일 크기: ${image.size} bytes`);
 
-
-
-
-
-
-
+    setPutImage(image)
+    // console.log('파일정보', image)
+  }
 
 
   return (
@@ -166,9 +178,7 @@ function Activity() {
           <input
             value={uploadTitle}
             onChange={uploadTitleHandler}
-            placeholder='10자 내외'
             type="text"
-            maxLength={10}
             className='rounded-md mx-3 flex-grow h-8 px-2' />
           <p className='text-lg font-bold'>사진첨부</p>
           {/* 이미지 업로드 */}
@@ -192,9 +202,7 @@ function Activity() {
           <input
             value={uploadContent}
             onChange={uploadContentHandler}
-            placeholder='30자 내외'
             type="text"
-            maxLength={30}
             className='rounded-md mx-3 flex-grow h-20 p-2' />
         </div>
         <div className='flex justify-end'>
@@ -208,33 +216,36 @@ function Activity() {
       <p className='mt-[50px] ml-7 text-2xl font-black'>
         활동모음 업로드 목록</p>
 
-      {/* 서버 연결 전! 렌더링 내용 확인용 */}
+
       {activityData && activityData.map((item) => (
         <div key={item.campaignId} className='bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg'>
           <div className='flex flex-row pb-4'>
             <p className='text-lg font-bold'>제목</p>
             <input
-              value={item.campaignTitle}
+              defaultValue={item.campaignTitle}
+              onChange={onchangePutTitleHandler}
               type="text"
               className='rounded-md mx-3 flex-grow h-8 px-2' />
             <p className='text-lg font-bold'>사진변경</p>
             <input
-              // value={item.campaignThumbnail} //보류!!!!!!!!!!!!!!!
               type="file"
               accept="image/*"
+              onChange={onchangePutImageHandler}
               className='rounded-md mx-3 flex-grow h-8 px-2' />
           </div>
           <div className='flex flex-row pb-4'>
             <p className='text-lg font-bold'>URL</p>
             <input
-              value={item.campaignUrl}
+              defaultValue={item.campaignUrl}
+              onChange={onchangePutUrlHandler}
               type="text"
               className='rounded-md mx-3 flex-grow h-8 px-2' />
           </div>
           <div className='flex flex-row pb-4'>
             <p className='text-lg font-bold'>내용</p>
             <input
-              value={item.campaignContent}
+              defaultValue={item.campaignContent}
+              onChange={onchangePutContentHandler}
               type="text"
               className='rounded-md mx-3 flex-grow h-20 p-2' />
           </div>
