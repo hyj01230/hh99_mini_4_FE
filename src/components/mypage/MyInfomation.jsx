@@ -1,58 +1,75 @@
-import { Listbox, Transition } from '@headlessui/react';
-import axios from 'axios';
-import { getTokenFromCookie } from "../../auth/cookie";
-import React, { useRef, Fragment, useEffect, useState } from 'react'
-import { locations, partys } from '../../data/data';
+import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { serverUrl } from '../../common/common';
+import axios from "axios";
+import React, { Fragment, useEffect, useState } from "react";
+import { getTokenFromCookie } from "../../auth/cookie";
+import { serverUrl } from "../../common/common";
+import { locations, partys } from "../../data/data";
 
 // 테일윈드 Select Menus
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 // 마이페이지_내 정보
 function MyInfomation() {
-
+  const [myInfoData, setMyInfoData] = useState({
+    nickname: "",
+    email: "",
+    party: "",
+    location: "",
+    userIntro: "",
+    nickname: "",
+    imageUrl: "",
+  });
   // 회원정보 state/onChange --------------------------------------------------
-  const [nickname, setNickName] = useState('');  // 닉네임
-  const [email, setEmail] = useState('')  // 이메일
-  const [locationList, setLocationList] = useState(locations[0])  // 지역 - 정치인일때만!
-  const [partyList, setPartyList] = useState(partys[0])  // 소속정당 - 정치인일때만!
-  const [profile, setProfile] = useState('');  // 약력 - 정치인일때만!
+  const [nickname, setNickName] = useState(""); // 닉네임
+  const [email, setEmail] = useState(""); // 이메일
+  const [locationList, setLocationList] = useState(locations[0]); // 지역 - 정치인일때만!
+  const [partyList, setPartyList] = useState(partys[0]); // 소속정당 - 정치인일때만!
+  const [profile, setProfile] = useState(""); // 약력 - 정치인일때만!
 
-  // console.log('partyList', partyList)
-  // console.log('locationList', locationList)
-
-  const onChangeNickNameHandler = (e) => { setNickName(e.target.value) };
-  const onChangeEmailHandler = (e) => { setEmail(e.target.value) }
+  const onChangeNickNameHandler = (e) => {
+    setNickName(e.target.value);
+  };
+  const onChangeEmailHandler = (e) => {
+    setEmail(e.target.value);
+  };
   const onChangeLocateHandler = (e) => {
-    const locateTarget = locations.findIndex((location) => location.location === e);
+    const locateTarget = locations.findIndex(
+      (location) => location.location === e
+    );
     setLocationList(locations[locateTarget]);
   };
   const onChangePartyHandler = (e) => {
     const partyTarget = partys.findIndex((party) => party.party === e);
     setPartyList(partys[partyTarget]);
   };
-  const onChangeProfileHandler = (e) => { setProfile(e.target.value) };
-
+  const onChangeProfileHandler = (e) => {
+    setProfile(e.target.value);
+  };
 
   // PW state/onChange --------------------------------------------------
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
 
-  const onChangeCurrentPwHandler = (e) => { setCurrentPassword(e.target.value) }
-  const onChangeNwePwHandler = (e) => { setNewPassword(e.target.value) }
-  const onChangeCheckPwHandler = (e) => { setCheckPassword(e.target.value) }
-
+  const onChangeCurrentPwHandler = (e) => {
+    setCurrentPassword(e.target.value);
+  };
+  const onChangeNwePwHandler = (e) => {
+    setNewPassword(e.target.value);
+  };
+  const onChangeCheckPwHandler = (e) => {
+    setCheckPassword(e.target.value);
+  };
 
   // email 유효성검사 및 안내메시지 --------------------------------------------------
   const [emailMessage, setEmailMessage] = useState("");
 
   useEffect(() => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    if (email.length === 0) {
+    if (email === 0) {
       setEmailMessage("");
     } else if (!emailRegex.test(email)) {
       setEmailMessage("이메일 형태를 지켜주세요");
@@ -69,12 +86,14 @@ function MyInfomation() {
       setPwMessage("");
     } else if (currentPassword < 8) {
       setPwMessage("비밀번호는 8글자 이상이어야 합니다.");
-    } else if (!/^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])/.test(currentPassword)) {
+    } else if (
+      !/^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])/.test(currentPassword)
+    ) {
       setPwMessage("영어 소문자, 숫자, 특수문자를 모두 포함해야 합니다.");
     } else {
       setPwMessage(true);
     }
-  }, [currentPassword])
+  }, [currentPassword]);
 
   // 새 PW 유효성검사 및 안내메시지 --------------------------------------------------
   const [newPwMessage, setNewPwMessage] = useState("");
@@ -87,11 +106,11 @@ function MyInfomation() {
     } else if (!/^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])/.test(newPassword)) {
       setNewPwMessage("영어 소문자, 숫자, 특수문자를 모두 포함해야 합니다.");
     } else if (newPassword === currentPassword) {
-      setNewPwMessage("기존 비밀번호와 동일합니다.")
+      setNewPwMessage("기존 비밀번호와 동일합니다.");
     } else {
       setNewPwMessage(true);
     }
-  }, [newPassword])
+  }, [newPassword]);
 
   // 확인 PW 유효성검사 및 안내메시지 --------------------------------------------------
   const [checkPwMessage, setCheckPwMessage] = useState("");
@@ -104,21 +123,21 @@ function MyInfomation() {
     } else if (checkPassword === newPassword) {
       setCheckPwMessage(true);
     }
-  }, [checkPassword])
+  }, [checkPassword]);
 
   // 회원정보 취소 > stae 비우기 --------------------------------------------------
   const onClickInfoCancleHandler = () => {
-    setNickName("")
-    setEmail("")
-    setProfile("")
-  }
+    setNickName("");
+    setEmail("");
+    setProfile("");
+  };
 
   // 비밀번호 취소 > stae 비우기 --------------------------------------------------
   const onClickPWCancleHandler = () => {
-    setCurrentPassword("")
-    setNewPassword("")
-    setCheckPassword("")
-  }
+    setCurrentPassword("");
+    setNewPassword("");
+    setCheckPassword("");
+  };
 
   // 토큰가져오기 --------------------------------------------------------------------------
   const token = getTokenFromCookie();
@@ -129,72 +148,80 @@ function MyInfomation() {
   }, []);
 
   // get으로 가져온 내 정보 데이터 state에 저장하기 -------------------------------------------------------
-  const [myInfoData, setMyInfoData] = useState([]); // 데이터'들' 들어올거니까 []
+  // 데이터'들' 들어올거니까 []
 
   // GET - 내정보 가져오기 -------------------------------------------------------
   const myInfoGetHandler = async () => {
     try {
       const response = await axios.get(`${serverUrl}/api/profile/modify`, {
-        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+        headers: { Authorization: `Bearer ${token}` }, // 로그인 여부 확인(토큰을 헤더에 추가)
       });
-      setMyInfoData(response.data.data)
-      // console.log('내 정보 가져오기', response.data.data);
-    }
-
-    catch (error) {
+      setMyInfoData(response.data.data[0]);
+      setNickName(response.data.data[0].nickname);
+      setEmail(response.data.data[0].email);
+      setLocationList(
+        locations.find((x) => x.location === response.data.data[0].location)
+      );
+      setPartyList(partys.find((x) => x.party === response.data.data[0].party));
+      setProfile(
+        response.data.data[0].userIntro ? response.data.data[0].userIntro : ""
+      );
+    } catch (error) {
       alert(`${error}`);
       console.error(error);
     }
-  }
-
+  };
+  console.log(myInfoData);
   // PUT -??????? 회원정보 저장 > 서버로 db보내기 --------------------------------------------------
   const onSubmitInfoPutHandler = async () => {
     try {
-      const response = await axios.put(`${serverUrl}/api/profile/modify/save`, {
-        nickname: nickname,
-        email: email,
-        party: myInfoData.length > 0 && myInfoData[0].role !== "voterUser" ? locationList.party : null,
-        location: myInfoData.length > 0 && myInfoData[0].role !== "voterUser" ? partyList.location : null,
-        userIntro: myInfoData.length > 0 && myInfoData[0].role !== "voterUser" ? profile : null,
-      }, {
-        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
-      });
-      console.log('회원정보 수정', response.data.data)
-      alert('회원정보가 수정되었습니다.')
-    }
-
-    catch (error) {
+      const response = await axios.put(
+        `${serverUrl}/api/profile/modify/save`,
+        {
+          nickname: nickname,
+          email: email,
+          party: myInfoData.role !== "voterUser" ? locationList.party : null,
+          location: myInfoData.role !== "voterUser" ? partyList.location : null,
+          userIntro: myInfoData.role !== "voterUser" ? profile : null,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` }, // 로그인 여부 확인(토큰을 헤더에 추가)
+        }
+      );
+      console.log("회원정보 수정", response.data.data);
+      alert("회원정보가 수정되었습니다.");
+    } catch (error) {
       alert(`${error}`);
       console.error(error);
     }
-  }
-
+  };
 
   // PUT - 비밀번호 저장 > 서버로 db보내기 --------------------------------------------------
   const onClickPWPutHandler = async () => {
     try {
-      const response = await axios.put(`${serverUrl}/api/profile/modify/password`, {
-        currentPassword: currentPassword,
-        newPassword: newPassword,
-      }, {
-        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
-      });
-      alert(response.data.data)
-      console.log('비밀번호 수정', response.data.data)
-      setCurrentPassword("")
-      setNewPassword("")
-      setCheckPassword("")
-    }
-
-    catch (error) {
+      const response = await axios.put(
+        `${serverUrl}/api/profile/modify/password`,
+        {
+          currentPassword: currentPassword,
+          newPassword: newPassword,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` }, // 로그인 여부 확인(토큰을 헤더에 추가)
+        }
+      );
+      alert(response.data.data);
+      console.log("비밀번호 수정", response.data.data);
+      setCurrentPassword("");
+      setNewPassword("");
+      setCheckPassword("");
+    } catch (error) {
       alert(`${error.response.data.data}`);
       console.error(error);
-      setCurrentPassword("")
-      setNewPassword("")
-      setCheckPassword("")
+      setCurrentPassword("");
+      setNewPassword("");
+      setCheckPassword("");
     }
-  }
-
+  };
 
   // 업로드 프로필이미지 state ---------------------------------------------------
   const [uploadProfile, setUploadProfile] = useState(null);
@@ -205,50 +232,51 @@ function MyInfomation() {
     console.log(`선택된 파일 이름: ${image.name}`);
     console.log(`선택된 파일 크기: ${image.size} bytes`);
 
-    setUploadProfile(image)
-    console.log('파일정보', image)
-  }
+    setUploadProfile(image);
+    console.log("파일정보", image);
+  };
 
   // PUT - 프로필 사진 저장
   const onClickProfileImage = async () => {
-
     const formData = new FormData();
-    formData.append('image', uploadProfile);
+    formData.append("image", uploadProfile);
 
     try {
-      const response = await axios.put(`${serverUrl}/api/profile/updateImage`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`, // 로그인 여부 확인(토큰을 헤더에 추가)
-          'Content-Type': 'multipart/form-data', // 필수: FormData를 보낼 때 content type 설정
-        },
-      });
-      console.log('사진 업로드', response.data)
+      const response = await axios.put(
+        `${serverUrl}/api/profile/updateImage`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // 로그인 여부 확인(토큰을 헤더에 추가)
+            "Content-Type": "multipart/form-data", // 필수: FormData를 보낼 때 content type 설정
+          },
+        }
+      );
+      console.log("사진 업로드", response.data);
       setUploadProfile(null);
       myInfoGetHandler();
-    }
-
-    catch (error) {
+    } catch (error) {
       alert(`${error}`);
       console.error(error);
     }
-  }
+  };
 
   return (
-    <div className=' h-full w-[1000px]'>
-      <p className='mt-[50px] ml-7 text-2xl font-black'>내 정보 수정</p>
+    <div className=" h-full w-[1000px]">
+      <p className="mt-[50px] ml-7 text-2xl font-black">내 정보 수정</p>
 
-      <div className='my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB] shadow-lg'>
-        <div className='flex flex-row'>
-          <div className='mr-auto text-xl font-bold flex justify-start items-center'>
+      <div className="my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB] shadow-lg">
+        <div className="flex flex-row">
+          <div className="mr-auto text-xl font-bold flex justify-start items-center">
             프로필 사진 변경하기
           </div>
-          <div className='flex flex-row items-center'>
+          <div className="flex flex-row items-center">
             <input
               type="file"
               // 화면에서 안보이게!
               // style={{ display: 'none' }}
               onChange={uploadImageHandler}
-              className='flex items-center'
+              className="flex items-center"
             />
 
             <button
@@ -262,39 +290,40 @@ function MyInfomation() {
         </div>
       </div>
 
-      <div className='my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB] shadow-lg'>
-        <div className='flex flex-row'>
-          <div className='w-[150px] text-xl font-bold flex justify-center'>
+      <div className="my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB] shadow-lg">
+        <div className="flex flex-row">
+          <div className="w-[150px] text-xl font-bold flex justify-center">
             회원정보
           </div>
-          <div className='flex flex-col w-full'>
-            <div className='flex flex-row mb-5'>
-              <p className='w-[100px] flex justify-start mx-3'>닉네임</p>
+          <div className="flex flex-col w-full">
+            <div className="flex flex-row mb-5">
+              <p className="w-[100px] flex justify-start mx-3">닉네임</p>
               <input
                 value={nickname}
                 onChange={onChangeNickNameHandler}
                 placeholder="닉네임 입력(2~10자)"
                 maxLength={10}
-                className='border flex items-center w-full px-3 rounded-md' />
+                className="border flex items-center w-full px-3 rounded-md"
+              />
             </div>
-            <div className='flex flex-row'>
-              <p className='w-[100px] flex justify-start mx-3'>이메일</p>
+            <div className="flex flex-row">
+              <p className="w-[100px] flex justify-start mx-3">이메일</p>
               <input
                 value={email}
                 onChange={onChangeEmailHandler}
-                className='border flex items-center w-full px-3 rounded-md' />
+                className="border flex items-center w-full px-3 rounded-md"
+              />
             </div>
             <div>
               <p className="ml-[110px] my-2 text-red-600">{emailMessage}</p>
             </div>
 
-
             {/* 정치인 유저일때만 렌더링 */}
-            {myInfoData.length > 0 && myInfoData[0].role !== "voterUser" ? (
+            {myInfoData.role !== "voterUser" ? (
               <>
-                <div className='flex flex-row mt-3 mb-5'>
-                  <p className='w-[100px] flex justify-start mx-3'>소속정당</p>
-                  <div className='w-full'>
+                <div className="flex flex-row mt-3 mb-5">
+                  <p className="w-[100px] flex justify-start mx-3">소속정당</p>
+                  <div className="w-full">
                     <Listbox value={partyList} onChange={onChangePartyHandler}>
                       {({ open }) => (
                         <>
@@ -376,10 +405,13 @@ function MyInfomation() {
                     </Listbox>
                   </div>
                 </div>
-                <div className='flex flex-row mb-5'>
-                  <p className='w-[100px] flex justify-start mx-3'>지역</p>
-                  <div className='w-full'>
-                    <Listbox value={locationList} onChange={onChangeLocateHandler}>
+                <div className="flex flex-row mb-5">
+                  <p className="w-[100px] flex justify-start mx-3">지역</p>
+                  <div className="w-full">
+                    <Listbox
+                      value={locationList}
+                      onChange={onChangeLocateHandler}
+                    >
                       {({ open }) => (
                         <>
                           <div className="relative">
@@ -460,20 +492,21 @@ function MyInfomation() {
                     </Listbox>
                   </div>
                 </div>
-                <div className='flex flex-row mb-5'>
-                  <p className='w-[100px] flex justify-start mx-3'>약력</p>
+                <div className="flex flex-row mb-5">
+                  <p className="w-[100px] flex justify-start mx-3">약력</p>
                   <input
                     value={profile}
                     onChange={onChangeProfileHandler}
                     placeholder=""
                     maxLength={10}
-                    className='border flex items-center w-full h-[200px] px-3 rounded-md' />
+                    className="border flex items-center w-full h-[200px] px-3 rounded-md"
+                  />
                 </div>
-              </>) : (null)}
-
+              </>
+            ) : null}
           </div>
         </div>
-        <form className='flex flex-row justify-end'>
+        <form className="flex flex-row justify-end">
           <button
             type="button"
             onClick={onClickInfoCancleHandler}
@@ -491,52 +524,56 @@ function MyInfomation() {
         </form>
       </div>
 
-      <div className='my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB] shadow-lg'>
-        <div className='flex flex-row'>
-          <div className='w-[150px] text-xl font-bold flex justify-center'>
+      <div className="my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB] shadow-lg">
+        <div className="flex flex-row">
+          <div className="w-[150px] text-xl font-bold flex justify-center">
             비밀번호
           </div>
-          <div className='flex flex-col w-full'>
-            <div className='flex flex-row pb-3'>
-              <p className='w-[200px] flex justify-start ml-3'>현재 비밀번호</p>
+          <div className="flex flex-col w-full">
+            <div className="flex flex-row pb-3">
+              <p className="w-[200px] flex justify-start ml-3">현재 비밀번호</p>
               <input
-                type='password'
+                type="password"
                 value={currentPassword}
                 onChange={onChangeCurrentPwHandler}
                 maxLength={20}
-                className='rounded-md border flex items-center w-full px-3' />
+                className="rounded-md border flex items-center w-full px-3"
+              />
             </div>
             <div>
               <p className="ml-[170px] my-2 text-red-600">{pwMessage}</p>
             </div>
-            <div className='flex flex-row pb-3'>
-              <p className='w-[200px] flex justify-start ml-3'>새 비밀번호</p>
+            <div className="flex flex-row pb-3">
+              <p className="w-[200px] flex justify-start ml-3">새 비밀번호</p>
               <input
-                type='password'
+                type="password"
                 value={newPassword}
                 onChange={onChangeNwePwHandler}
                 maxLength={20}
-                className='rounded-md border flex items-center w-full px-3' />
+                className="rounded-md border flex items-center w-full px-3"
+              />
             </div>
             <div>
               <p className="ml-[170px] my-2 text-red-600">{newPwMessage}</p>
             </div>
-            <div className='flex flex-row pb-3'>
-              <p className='w-[200px] flex justify-start ml-3'>새 비밀번호 확인</p>
+            <div className="flex flex-row pb-3">
+              <p className="w-[200px] flex justify-start ml-3">
+                새 비밀번호 확인
+              </p>
               <input
-                type='password'
+                type="password"
                 value={checkPassword}
                 onChange={onChangeCheckPwHandler}
                 maxLength={20}
-                className='rounded-md border flex items-center w-full px-3' />
+                className="rounded-md border flex items-center w-full px-3"
+              />
             </div>
             <div>
               <p className="ml-[170px] my-2 text-red-600">{checkPwMessage}</p>
             </div>
-
           </div>
         </div>
-        <form className='flex flex-row justify-end'>
+        <form className="flex flex-row justify-end">
           <button
             type="button"
             onClick={onClickPWCancleHandler}
@@ -551,13 +588,10 @@ function MyInfomation() {
           >
             저장
           </button>
-
         </form>
-
       </div>
     </div>
-  )
+  );
 }
 
-
-export default MyInfomation
+export default MyInfomation;
