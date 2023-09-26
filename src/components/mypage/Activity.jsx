@@ -248,8 +248,8 @@ function Activity() {
               type="text"
               className='rounded-md mx-3 flex-grow h-20 p-2' />
           </div>
-          <div className='flex flex-row pb-4'>
-            <p className='text-lg font-bold'>업로드된 사진</p>
+          <div className='flex flex-col pb-4'>
+            <p className='text-lg font-bold pb-4'>업로드된 사진</p>
             {item.campaignThumbnail && (
               <img
                 src={item.campaignThumbnail}
@@ -269,6 +269,10 @@ function Activity() {
               // onClick={() => onclickPutBtnHandler(item.campaignId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
               수정</button>
+            <button
+              type="button"
+              className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
+              저장</button>
           </div>
         </div>
       ))}

@@ -1,7 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react';
 import axios from 'axios';
 import { getTokenFromCookie } from "../../auth/cookie";
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useRef, Fragment, useEffect, useState } from 'react'
 import { locations, partys } from '../../data/data';
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { serverUrl } from '../../common/common';
@@ -120,6 +120,28 @@ function MyInfomation() {
     setCheckPassword("")
   }
 
+  //프로필 사진 수정  연결하기 ---------------------------------------------------
+  const fileInputRef = useRef(null);
+  const handleUploadButtonClick = () => {
+    // 파일 업로드 input 클릭
+    fileInputRef.current.click();
+  };
+
+
+  // 업로드 프로필이미지 state ---------------------------------------------------
+  const [uploadProFile, setUploadProFile] = useState(null);
+
+
+  // 업로드 프로필이미지 onchange ---------------------------------------------------
+  const uploadImageHandler = (e) => {
+    const image = e.target.files[0]; // 선택된 파일 가져오기
+    console.log(`선택된 파일 이름: ${image.name}`);
+    console.log(`선택된 파일 크기: ${image.size} bytes`);
+
+    setUploadProFile(image)
+    console.log('파일정보', image)
+  }
+
   // 토큰가져오기 --------------------------------------------------------------------------
   const token = getTokenFromCookie();
 
@@ -198,6 +220,37 @@ function MyInfomation() {
   return (
     <div className=' h-full w-[1000px]'>
       <p className='mt-[50px] ml-7 text-2xl font-black'>내 정보 수정</p>
+
+      <div className='my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB] shadow-lg'>
+        <div className='flex flex-row'>
+          <div className='mr-auto text-xl font-bold flex justify-start items-center'>
+            프로필 사진 변경하기
+          </div>
+          <button
+            type="button"
+            onClick={handleUploadButtonClick}
+            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
+          >
+            사진 선택
+          </button>
+
+          <input
+            type="file"
+            ref={fileInputRef}
+            // 화면에서 안보이게!
+            style={{ display: 'none' }}
+            onChange={uploadImageHandler}
+          />
+
+          <button
+            type="button"
+            onClick={onClickPWPutHandler}
+            className="flex items-center w-[100px] h-[40px] my-2 ml-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
+          >
+            사진 저장
+          </button>
+        </div>
+      </div>
 
       <div className='my-6 mx-7 py-7 pl-7 pr-16 flex flex-col rounded-md bg-[#F9F5EB] shadow-lg'>
         <div className='flex flex-row'>
@@ -420,8 +473,15 @@ function MyInfomation() {
           </button>
           <button
             type="button"
+            onClick={onClickInfoCancleHandler}
+            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] 0"
+          >
+            수정
+          </button>
+          <button
+            type="button"
             onClick={onSubmitInfoPutHandler}
-            className="flex items-center w-[100px] h-[40px] my-2 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
+            className="flex items-center w-[100px] h-[40px] my-2 ml-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
           >
             저장
           </button>
@@ -483,11 +543,18 @@ function MyInfomation() {
           </button>
           <button
             type="button"
+            className="flex items-center w-[100px] h-[40px] my-2 mx-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
+          >
+            수정
+          </button>
+          <button
+            type="button"
             onClick={onClickPWPutHandler}
-            className="flex items-center w-[100px] h-[40px] my-2 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
+            className="flex items-center w-[100px] h-[40px] my-2 ml-3 justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] focus-visible:outline focus-visible:outline-2 "
           >
             저장
           </button>
+
         </form>
 
       </div>
