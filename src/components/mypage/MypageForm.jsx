@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import Activity from './Activity'
 import Follow from './Follow'
@@ -33,27 +33,7 @@ function MypageForm() {
   const onClickSupportCommentHandler = () => { setSideTabPage(<SupportComment />) }
 
 
-  //프로필 사진 수정 tjsxor 연결하기 ---------------------------------------------------
-  const fileInputRef = useRef(null);
-  const handleUploadButtonClick = () => {
-    // 파일 업로드 input 클릭
-    fileInputRef.current.click();
-  };
 
-
-  // 업로드 프로필이미지 state ---------------------------------------------------
-  const [uploadProFile, setUploadProFile] = useState(null);
-
-
-  // 업로드 프로필이미지 onchange ---------------------------------------------------
-  const uploadImageHandler = (e) => {
-    const image = e.target.files[0]; // 선택된 파일 가져오기
-    console.log(`선택된 파일 이름: ${image.name}`);
-    console.log(`선택된 파일 크기: ${image.size} bytes`);
-
-    setUploadProFile(image)
-    console.log('파일정보', image)
-  }
 
 
   // 토큰가져오기
@@ -96,31 +76,6 @@ function MypageForm() {
             src="https://i.namu.wiki/i/HfPaXJ6qhoBdHtpSh_ivra2eGF8z04V9kmd93toYyzhxaQoKvBfXF6VZ5-zcTLRYFpcT8aS_IjhBtdntFeHP-eHdcWYJQHIUQxCB3fzTvokwitrLW9Y4P2jWWRc4P9mMjvkoZFJno3slsPX8cZMCvg.webp"
             alt=""
           />
-          <div className='w-[180px] flex flex-row justify-between'>
-            <button
-              type="button"
-              onClick={handleUploadButtonClick}
-              className="flex items-center w-[85px] h-[50px] text-[#65451F] bg-[#F9F5EB] hover:bg-[#F2EAD3] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm "
-            >
-              사진 선택
-            </button>
-
-            <input
-              type="file"
-              ref={fileInputRef}
-              // 화면에서 안보이게!
-              style={{ display: 'none' }}
-              onChange={uploadImageHandler}
-            />
-
-            <button
-              type="button"
-              // onClick={}
-              className="flex items-center w-[85px] h-[50px] text-[#65451F] bg-[#F9F5EB] hover:bg-[#F2EAD3] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm "
-            >
-              사진 저장
-            </button>
-          </div>
 
           <button
             type="button"

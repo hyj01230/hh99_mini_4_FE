@@ -9,11 +9,12 @@ function TodayComment_P() {
 
   const navigate = useNavigate();
 
-  // 업로드 제목/내용 state ---------------------------------------------------
+  // 업로드 제목/내용/URL/이미지 state ---------------------------------------------------
   const [uploadTitle, setUploadTitle] = useState("");
   const [uploadContent, setUploadContent] = useState("");
   const [uploadImage, setUploadImage] = useState(null);
 
+  // 업로드 제목/내용/URL/이미지 onchange ---------------------------------------------------
   const uploadTitleHandler = (e) => { setUploadTitle(e.target.value) };
   const uploadContentHandler = (e) => { setUploadContent(e.target.value) };
   const uploadImageHandler = (e) => {
@@ -86,6 +87,7 @@ function TodayComment_P() {
       setUploadContent("");
       setUploadImage(null);
       TodayCommentgethandler();
+      console.log('uploadImage',uploadImage)
     }
     catch (error) {
       alert(`${error}`);
@@ -93,12 +95,12 @@ function TodayComment_P() {
     }
   }
 
-  useEffect(() => {
-    setUpdateData(commentData)
-  }, [commentData]);
+  // useEffect(() => {
+  //   setUpdateData(commentData)
+  // }, [commentData]);
 
   // 가져온 데이터를 업데이트 하는 state
-  const [updateData, setUpdateData] = useState(commentData)
+  // const [updateData, setUpdateData] = useState(commentData)
   // console.log('타이틀', updateData)
   // console.log('commentData', commentData)
 
@@ -135,16 +137,14 @@ function TodayComment_P() {
             <input
               value={uploadTitle}
               onChange={uploadTitleHandler}
-              placeholder='20자 내외'
               type="text"
-              maxLength={20}
               className='rounded-md mx-3 flex-grow h-8 px-2' />
             <p className='text-lg font-bold'>사진첨부</p>
             {/* 이미지 업로드 */}
             <input
               type="file"
               accept="image/*"
-              // onChange={uploadImageHandler}
+              onChange={uploadImageHandler}
               className='rounded-md mx-3 flex-grow h-8 px-2' />
           </div>
           <div className='flex flex-row pb-4'>
@@ -152,9 +152,7 @@ function TodayComment_P() {
             <input
               value={uploadContent}
               onChange={uploadContentHandler}
-              placeholder='40자 내외'
               type="text"
-              maxLength={40}
               className='rounded-md mx-3 flex-grow h-20 p-2' />
           </div>
           <div className='flex justify-end'>
@@ -253,7 +251,7 @@ function TodayComment_P() {
               type='button'
               // onClick={onClickTodayCommentPutBtn}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
-              수정</button> 
+              수정</button>
             <button
               type='button'
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] ">
