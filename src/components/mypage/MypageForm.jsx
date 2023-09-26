@@ -1,5 +1,5 @@
 import axios from "axios";
-import { default as React, default as React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getTokenFromCookie } from "../../auth/cookie";
 import { serverUrl } from "../../common/common";
 import Activity from "./Activity";
@@ -71,30 +71,7 @@ function MypageForm() {
             src="https://i.namu.wiki/i/HfPaXJ6qhoBdHtpSh_ivra2eGF8z04V9kmd93toYyzhxaQoKvBfXF6VZ5-zcTLRYFpcT8aS_IjhBtdntFeHP-eHdcWYJQHIUQxCB3fzTvokwitrLW9Y4P2jWWRc4P9mMjvkoZFJno3slsPX8cZMCvg.webp"
             alt=""
           />
-          <div className="w-[180px] flex flex-row justify-between">
-            <button
-              type="button"
-              onClick={handleUploadButtonClick}
-              className="flex items-center w-[85px] h-[50px] text-[#65451F] bg-[#F9F5EB] hover:bg-[#F2EAD3] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm "
-            >
-              사진 선택
-            </button>
 
-            <input
-              type="file"
-              ref={fileInputRef}
-              // 화면에서 안보이게!
-              style={{ display: "none" }}
-              onChange={uploadImageHandler}
-            />
-
-            <button
-              type="button"
-              className="flex items-center w-[85px] h-[50px] text-[#65451F] bg-[#F9F5EB] hover:bg-[#F2EAD3] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm "
-            >
-              사진 저장
-            </button>
-          </div>
           <button
             type="button"
             onClick={onClickMyInfoHandler}
