@@ -15,7 +15,7 @@ const Router = () => {
           <Route path="/" element={<Main />} />
           <Route path="/:id" element={<Main />} />
           <Route path="/detail/:id" element={<Detail />} />
-          <Route path="/mypage/:id" element={<MyPage />} />
+          <Route path="/mypage" element={<MyPage />} />
         </Route>
 
         <Route path="/join" element={<Join />} />

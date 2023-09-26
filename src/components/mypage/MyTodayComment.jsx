@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { serverUrl } from '../../common/common';
 
 
-function TodayComment_P() {
+function MyTodayComment() {
 
   const navigate = useNavigate();
 
@@ -179,6 +179,12 @@ function TodayComment_P() {
               value={item.opinionTitle}
               type="text"
               className='rounded-md mx-3 flex-grow h-8 px-2' />
+            <p className="text-lg font-bold">사진변경</p>
+            <input
+              type="file"
+              accept="image/*"
+              className="rounded-md mx-3 flex-grow h-8 px-2"
+            />
           </div>
           <div className='flex flex-row pb-4'>
             <p className='text-lg font-bold'>내용</p>
@@ -196,50 +202,6 @@ function TodayComment_P() {
                 className="rounded-md mx-3 flex-grow h-[500px] px-2"
               />
             )}
-          </div>
-          <div className='flex flex-col pb-4'>
-            <p className='text-lg font-bold pb-4'>내 댓글 모아보기</p>
-            <div className='bg-white overflow-y-auto max-h-[150px] pt-1 pb-2 px-4 rounded-md'>
-              <div className='flex flex-row h-10 border-b py-6'>
-                <p className='flex items-center w-full'>댓글~~~~~~~~~~~~~~</p>
-                <div className='flex flex-row items-center'>
-                  <button
-                    type="submit"
-                    className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
-                    삭제</button>
-                  <button
-                    type="submit"
-                    className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
-                    수정</button>
-                </div>
-              </div>
-              <div className='flex flex-row h-10 border-b py-6'>
-                <p className='flex items-center w-full'>댓글~~~~~~~~~~~~~~</p>
-                <div className='flex flex-row items-center'>
-                  <button
-                    type="submit"
-                    className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
-                    삭제</button>
-                  <button
-                    type="submit"
-                    className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
-                    수정</button>
-                </div>
-              </div>
-              <div className='flex flex-row h-10 border-b py-6'>
-                <p className='flex items-center w-full'>댓글~~~~~~~~~~~~~~</p>
-                <div className='flex flex-row items-center'>
-                  <button
-                    type="submit"
-                    className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
-                    삭제</button>
-                  <button
-                    type="submit"
-                    className="mr-3 flex items-center w-[80px] h-[20px] justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-300">
-                    수정</button>
-                </div>
-              </div>
-            </div>
           </div>
           <div className='flex justify-end'>
             <button
@@ -267,4 +229,4 @@ function TodayComment_P() {
   )
 }
 
-export default TodayComment_P
+export default MyTodayComment
