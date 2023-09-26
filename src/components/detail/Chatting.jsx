@@ -15,7 +15,7 @@ function Chatting() {
     setChatInput(e.target.value);
   };
 
-  const getComplementsHandler = useCallback(async () => {ha
+  const getComplementsHandler = useCallback(async () => {
     try {
       const response = await axios.get(`${serverUrl}/api/complements/${id}`, {
         headers: {
