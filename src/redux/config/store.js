@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
-import userInfoReducer from './userInfoSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import searchPerson from "../modules/searchPerson";
 
 const store = configureStore({
   reducer: {
-    userInfo: userInfoReducer,
+    searchPerson: searchPerson
   },
 });
 

@@ -18,34 +18,34 @@ function TodayComment_C() {
   const uploadTitleHandler = (e) => { setOpinionReplyTitle(e.target.value) };
   const uploadContentHandler = (e) => { setOpinionReplyContent(e.target.value) };
   // console.log('파일정보', image)
-}
+
 
 // 토큰가져오기
 const token = getTokenFromCookie();
 
 // 오늘의 한마디 가져오기
-useEffect(() => {
-  TodayCommentgethandler();
-}, []);
+// useEffect(() => {
+//   // TodayCommentgethandler();
+// }, []);
 
 
-  // get으로 가져온 한마디 댓글 데이터 state에 저장 --------------------------------------
-  const [opinionReplyData, setOpinionReplyData] = useState([]);
+// get으로 가져온 한마디 댓글 데이터 state에 저장 --------------------------------------
+const [opinionReplyData, setOpinionReplyData] = useState([]);
 
-  // GET - 한마디 댓글 가져오기 ------------------------------------
-  const getOpinionReply = async () => {
-    try {
-      const response = await axios.get(`${serverUrl}/api/comments`, {
-        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
-      });
-      console.log('오늘의 한마디 댓글 가져오기', response.data.data);
-      setOpinionReplyData(response.data.data); // 가져온 데이터 set에 저장
-    }
-    catch (error) {
-      alert(`${error}`);
-      console.error(error);
-    }
+// GET - 한마디 댓글 가져오기 ------------------------------------
+const getOpinionReply = async () => {
+  try {
+    const response = await axios.get(`${serverUrl}/api/comments`, {
+      headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+    });
+    console.log('오늘의 한마디 댓글 가져오기', response.data.data);
+    setOpinionReplyData(response.data.data); // 가져온 데이터 set에 저장
   }
+  catch (error) {
+    alert(`${error}`);
+    console.error(error);
+  }
+}
 
 
 return (
@@ -82,12 +82,6 @@ return (
             type="submit"
             className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
           >
-            수정
-          </button>
-          <button
-            type="submit"
-            className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
-          >
             저장
           </button>
         </div>
@@ -95,5 +89,6 @@ return (
     ))}
   </div>
 )
+}
 
 export default TodayComment_C
