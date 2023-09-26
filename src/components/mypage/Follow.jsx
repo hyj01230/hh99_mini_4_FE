@@ -20,7 +20,7 @@ function Follow() {
   // GET - 팔로잉 내역 ------------------------------------
   const followingList = async () => {
     try {
-      const response = await axios.get(`${serverUrl}/api/user/following`, {
+      const response = await axios.get(`${serverUrl}/api/user/main`, {
         headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
       });
       console.log('팔로잉 내역', response.data.data);
@@ -34,34 +34,33 @@ function Follow() {
 
   return (
     <div className=' h-screen w-[1000px]'>
-      <p className='mt-[50px] ml-7 text-2xl font-black'>나의 팔로우 목록</p>
-
-      
+      <p className='mt-[50px] ml-7 text-2xl font-black'>나의 팔로잉 목록</p>
       <div className='p-7 w-[1000px] flex flex-wrap justify-start mx-auto'>
-        <div className="w-[290px] block rounded-lg bg-white shadow-lg m-3 ">
-          <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
-          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
-            <img
-              src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
-              alt="Avatar 1"
-            />
-          </div>
-          <div className="p-6">
-            <h4 className="flex justify-center mb-4 text-2xl font-semibold">정 치인</h4>
-            <hr />
-            <p className="mt-5 flex justify-center">
-              서울
-            </p>
-            <p className="mt-5 flex justify-center">
-              당다라당당
-            </p>
-            <p className="mt-5 flex justify-center">
-              ♥
-            </p>
-          </div>
-        </div>
 
-
+        {followingData && followingData.map((item) => (
+          <div className="w-[290px] block rounded-lg bg-white shadow-lg m-3 ">
+            <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]"></div>
+            <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+              <img
+                src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+                alt="Avatar 1"
+              />
+            </div>
+            <div className="p-6">
+              <h4 className="flex justify-center mb-4 text-2xl font-semibold">{item.nickname}</h4>
+              <hr />
+              <p className="mt-5 flex justify-center">
+                {item.location}
+              </p>
+              <p className="mt-5 flex justify-center">
+                {item.party}
+              </p>
+              <p className="mt-5 flex justify-center">
+                ♥
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
 
