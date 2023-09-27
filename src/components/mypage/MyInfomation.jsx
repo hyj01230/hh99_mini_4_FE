@@ -500,7 +500,6 @@ function MyInfomation() {
                     value={profile}
                     onChange={onChangeProfileHandler}
                     placeholder=""
-                    maxLength={10}
                     className="border flex items-center w-full h-[200px] px-3 rounded-md"
                   />
                 </div>
