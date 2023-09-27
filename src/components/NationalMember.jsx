@@ -164,7 +164,7 @@ function NationalMember() {
                           }`,
                         }}
                       ></div>
-                      <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+                      <div className="mx-auto -mt-12 w-24 h-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800  flex justify-center items-center">
                         <img
                           src={item.imageUrl ? item.imageUrl : baseImg}
                           alt="Avatar 1"
@@ -213,7 +213,7 @@ function NationalMember() {
                           }`,
                         }}
                       ></div>
-                      <div className="mx-auto -mt-12 w-24 h-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+                      <div className="mx-auto -mt-12 w-24 h-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800 flex justify-center items-center">
                         <img
                           src={item.imageUrl ? item.imageUrl : baseImg}
                           alt="Avatar 1"
