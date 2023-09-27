@@ -12,22 +12,22 @@ function MyReply() {
   // console.log('commentData',commentData)
 
   // 한마디댓글/응원댓글 수정 state ---------------------------------------------------------------------------
-  const [commentTitle, setCommentTitle] = useState("");
-  const [complementTitle, setComplementTitle] = useState("");
+  // const [commentTitle, setCommentTitle] = useState("");
+  // const [complementTitle, setComplementTitle] = useState("");
 
   // console.log(commentTitle)
 
-  const updateCommentTitle = (e, index) => {
-    const updateCommentData = [...commentData];
-    // commentData를 풀어서 새로 담고,
-    updateCommentData[index].commentTitle = e.target.value;
-    // 배열의 인덱스로 들어가서 해당 인덱스의 commentTitle을 입력값(e.target.value;)으로 바꿔준다
-    setCommentData(updateCommentData);
-    // 변경된 updateCommentData을 setCommentData에 넣어 commentData를 변경!
-  };
-  console.log('commentData', commentData)
+  // const updateCommentTitle = (e, index) => {
+  //   const updateCommentData = [...commentData];
+  //   // commentData를 풀어서 새로 담고,
+  //   updateCommentData[index].commentTitle = e.target.value;
+  //   // 배열의 인덱스로 들어가서 해당 인덱스의 commentTitle을 입력값(e.target.value;)으로 바꿔준다
+  //   setCommentData(updateCommentData);
+  //   // 변경된 updateCommentData을 setCommentData에 넣어 commentData를 변경!
+  // };
+  // console.log('commentData', commentData)
 
-  const updateComplementTitle = (e) => { setComplementTitle(e.target.value) };
+  // const updateComplementTitle = (e) => { setComplementTitle(e.target.value) };
 
 
   // 토큰가져오기 ---------------------------------------------------------------------------
@@ -77,31 +77,31 @@ function MyReply() {
   // console.log('commentTitle', commentTitle)
 
   // put - 한마디 댓글 수정
-  const putComment = async (commentId, index) => {
-    const find_data = commentData.find((a) => a.commentId === commentId)
-    const find_dataTitle = find_data.commentTitle
-    console.log('find_data.commentTitle', find_data.commentTitle)
+  // const putComment = async (commentId, index) => {
+  //   const find_data = commentData.find((a) => a.commentId === commentId)
+  //   const find_dataTitle = find_data.commentTitle
+  //   console.log('find_data.commentTitle', find_data.commentTitle)
 
-    try {
-      const response = await axios.put(`${serverUrl}/api/comment/${commentId}`, {
-        // commentData[index].commentTitle을 뽑아야 하는데......
-        title: find_dataTitle,
-        content: null,
-      }, {
-        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
-      });
+  //   try {
+  //     const response = await axios.put(`${serverUrl}/api/comment/${commentId}`, {
+  //       // commentData[index].commentTitle을 뽑아야 하는데......
+  //       title: find_dataTitle,
+  //       content: null,
+  //     }, {
+  //       headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+  //     });
 
-      console.log(response.data.data.msg);
-      getComment();
-      alert(response.data.data.msg);
-    }
+  //     console.log(response.data.data.msg);
+  //     getComment();
+  //     alert(response.data.data.msg);
+  //   }
 
-    catch (error) {
-      alert(`${error}`);
-      console.error(error);
-    }
-    console.log(commentData[index].commentTitle)
-  }
+  //   catch (error) {
+  //     alert(`${error}`);
+  //     console.error(error);
+  //   }
+  //   console.log(commentData[index].commentTitle)
+  // }
 
   // get으로 가져온 응원댓글 데이터 state에 저장 --------------------------------------
   const [complementData, setComplementData] = useState([]);
@@ -140,27 +140,27 @@ function MyReply() {
     }
   }
 
-  // put - 응원 댓글 수정
-  const putComplement = async (complementId) => {
+  // // put - 응원 댓글 수정
+  // const putComplement = async (complementId) => {
 
-    try {
-      const response = await axios.put(`${serverUrl}/api/complement/${complementId}`, {
-        title: complementTitle,
-        content: null,
-      }, {
-        headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
-      });
+  //   try {
+  //     const response = await axios.put(`${serverUrl}/api/complement/${complementId}`, {
+  //       title: complementTitle,
+  //       content: null,
+  //     }, {
+  //       headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
+  //     });
 
-      console.log(response.data.data.msg);
-      getComment();
-      alert(response.data.data.msg);
-    }
+  //     console.log(response.data.data.msg);
+  //     getComment();
+  //     alert(response.data.data.msg);
+  //   }
 
-    catch (error) {
-      alert(`${error}`);
-      console.error(error);
-    }
-  }
+  //   catch (error) {
+  //     alert(`${error}`);
+  //     console.error(error);
+  //   }
+  // }
 
   return (
 
@@ -177,7 +177,7 @@ function MyReply() {
               // value={commentTitle}
               // defaultValue={item.commentTitle}
               // 인덱스 정보가 온클릭으로 같이 넘어감
-              onChange={(e) => updateCommentTitle(e, index)}
+              // onChange={(e) => updateCommentTitle(e, index)}
               type="text"
               className='rounded-md mx-3 flex-grow h-8 px-2'
             />
@@ -185,14 +185,14 @@ function MyReply() {
           <div className='flex justify-end'>
             <button
               type="button"
-              onClick={() => deleteComment(item.commentId)}
+              // onClick={() => deleteComment(item.commentId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
             >
               삭제
             </button>
             <button
               type="button"
-              onClick={() => putComment(item.commentId)}
+              // onClick={() => putComment(item.commentId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
             >
               수정
@@ -212,7 +212,7 @@ function MyReply() {
               value={item.complementTitle}
               // value={complementTitle}
               // defaultValue={item.complementTitle}
-              onChange={updateComplementTitle}
+              // onChange={updateComplementTitle}
               placeholder='제목'
               type="text"
               className='rounded-md mx-3 flex-grow h-8 px-2'
@@ -221,14 +221,14 @@ function MyReply() {
           <div className='flex justify-end'>
             <button
               type="button"
-              onClick={() => deleteComplement(item.complementId)}
+              // onClick={() => deleteComplement(item.complementId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
             >
               삭제
             </button>
             <button
               type="button"
-              onClick={() => putComplement(item.complementId)}
+              // onClick={() => putComplement(item.complementId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
             >
               수정
