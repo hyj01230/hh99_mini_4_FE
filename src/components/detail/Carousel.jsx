@@ -53,21 +53,21 @@ function Carousel() {
                 href={item.campaignUrl}
                 key={item.campaignId}
                 target="_blank"
-                className=" flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                className=" flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100"
               >
                 <div className="h-32 w-auto flex items-center justify-center">
                   <img
-                    className="object-center object-fill w-full h-full rounded-lg"
+                    className="object-center object-cover w-32 h-32 rounded-lg"
                     src={`${item.campaignThumbnail}`}
                     alt=""
                   />
                 </div>
 
                 <div className="flex flex-col justify-between p-4 leading-normal min-w-[100px] w-full md:w-80">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white truncate md:text-lg">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 truncate md:text-lg">
                     {item.campaignTitle}
                   </h5>
-                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 truncate md:text-sm">
+                  <p className="mb-3 font-normal text-gray-700 truncate md:text-sm">
                     {item.campaignContent}
                   </p>
                 </div>
