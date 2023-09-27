@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getTokenFromCookie } from "../../auth/cookie";
 import { serverUrl } from "../../common/common";
 
-function Activity() {
+function MyActivity() {
   // 페이지 이동 -------------------------------------------------------------------------
   const navigate = useNavigate();
 
@@ -300,4 +300,4 @@ function Activity() {
   );
 }
 
-export default Activity;
+export default MyActivity;

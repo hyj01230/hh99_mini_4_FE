@@ -2,45 +2,22 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { getTokenFromCookie } from "../../auth/cookie";
 import { serverUrl } from "../../common/common";
-import profileImage from "../../img/기본프로필사진.png";
-import Activity from "./Activity";
-import Follow from "./Follow";
+import MyActivity from "./MyActivity";
 import MyInfomation from "./MyInfomation";
-import SupportComment from "./SupportComment";
-import TodayComment_C from "./TodayComment_C";
-import TodayComment_P from "./TodayComment_P";
+import MyReply from "./MyReply";
+import MyTodayComment from "./MyTodayComment";
+import profileImage from "../../img/기본프로필사진.png"
 
 function MypageForm() {
   // 사이드바 state
   const [sideTabPage, setSideTabPage] = useState(<MyInfomation />);
-  const [myInfoData, setMyInfoData] = useState({
-    email: "",
-    imageUrl: "",
-    location: "",
-    nickname: "",
-    party: "",
-    role: "",
-    userId: 0,
-    userIntro: "",
-    username: "",
-  }); // 데이터'들' 들어올거니까 []
+
   // 클릭했을때 컴퍼넌트 변경!
-  const onClickMyInfoHandler = () => {
-    setSideTabPage(<MyInfomation />);
-  };
-  const onClickFollow_ActivityHandler = () => {
-    const role = myInfoData.role;
-    setSideTabPage(role === "voterUser" ? <Follow /> : <Activity />);
-  };
-  const onClickTodayCommentHandler = () => {
-    const role = myInfoData.role;
-    setSideTabPage(
-      role === "voterUser" ? <TodayComment_C /> : <TodayComment_P />
-    );
-  };
-  const onClickSupportCommentHandler = () => {
-    setSideTabPage(<SupportComment />);
-  };
+  const onClickMyInfoHandler = () => { setSideTabPage(<MyInfomation />) };
+  const onClickMyReplyHandler = () => { setSideTabPage(<MyReply />) };
+  const onClickActivityHandler = () => { setSideTabPage(<MyActivity />) };
+  const onClickTodayCommentHandler = () => { setSideTabPage(<MyTodayComment />) };
+
 
   // 토큰가져오기
   const token = getTokenFromCookie();
@@ -51,6 +28,8 @@ function MypageForm() {
   }, []);
 
   // get으로 가져온 활동모음 데이터 state에 저장하기 -------------------------------------------------------
+  const [myInfoData, setMyInfoData] = useState({}); // 데이터'들' 들어올거니까 []
+  console.log('myInfoData', myInfoData)
 
   // GET - 내정보 가져오기
   const myInfoGetHandler = async () => {
@@ -61,6 +40,7 @@ function MypageForm() {
           Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
         },
       });
+
       setMyInfoData(response.data.data[0]);
     } catch (error) {
       console.log(error);
@@ -80,35 +60,37 @@ function MypageForm() {
           <button
             type="button"
             onClick={onClickMyInfoHandler}
-            className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
+            className="flex items-center w-[180px] h-[60px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
             내 정보
           </button>
           <button
             type="button"
-            onClick={onClickFollow_ActivityHandler}
-            className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
+            onClick={onClickMyReplyHandler}
+            className="flex items-center w-[180px] h-[60px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
           >
-            {myInfoData.length > 0 && myInfoData[0].role === "voterUser"
-              ? "팔로잉 관리"
-              : "활동모음"}
+            내 댓글 관리
           </button>
-          <button
-            type="button"
-            onClick={onClickTodayCommentHandler}
-            className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
-          >
-            {myInfoData.length > 0 && myInfoData[0].role === "voterUser"
-              ? "오늘의 한마디 댓글"
-              : "오늘의 한마디"}
-          </button>
-          <button
-            type="button"
-            onClick={onClickSupportCommentHandler}
-            className="flex items-center w-[180px] h-[50px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
-          >
-            응원 댓글
-          </button>
+          {myInfoData.role === "USER" ? (
+            <div>
+              <button
+                type="button"
+                onClick={onClickActivityHandler}
+                className="flex items-center w-[180px] h-[60px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
+              >
+                활동모음
+              </button>
+              <button
+                type="button"
+                onClick={onClickTodayCommentHandler}
+                className="flex items-center w-[180px] h-[60px] bg-[#65451F] hover:bg-[#564024] mt-8 justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm "
+              >
+                오늘의 한마디
+              </button>
+            </div>
+          ) : null}
+
+
         </div>
       </div>
       {sideTabPage}
