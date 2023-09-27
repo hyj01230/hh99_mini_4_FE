@@ -185,7 +185,7 @@ function MyReply() {
           <div className='flex justify-end'>
             <button
               type="button"
-              // onClick={() => deleteComment(item.commentId)}
+              onClick={() => deleteComment(item.commentId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
             >
               삭제
@@ -221,7 +221,7 @@ function MyReply() {
           <div className='flex justify-end'>
             <button
               type="button"
-              // onClick={() => deleteComplement(item.complementId)}
+              onClick={() => deleteComplement(item.complementId)}
               className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
             >
               삭제
