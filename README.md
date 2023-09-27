@@ -17,17 +17,9 @@
 <img src="/src/img/프로젝트 소개.png">
 
 ### Skill
-<div style="display: flex; align-items: center; gap: 10px;">
 
-![react](https://img.shields.io/badge/React-grey?style=for-the-badge&logo=react)
+![react](https://img.shields.io/badge/React-grey?style=for-the-badge&logo=react) ![tailwind](https://img.shields.io/badge/Tailwind%20CSS-grey?style=for-the-badge&logo=tailwindcss) ![axios](https://img.shields.io/badge/Axios-grey?style=for-the-badge) ![vercel](https://img.shields.io/badge/vercel-grey?style=for-the-badge&logo=vercel)
 
-![tailwind](https://img.shields.io/badge/Tailwind%20CSS-grey?style=for-the-badge&logo=tailwindcss)
-
-![axios](https://img.shields.io/badge/Axios-grey?style=for-the-badge)
-
-![vercel](https://img.shields.io/badge/vercel-grey?style=for-the-badge&logo=vercel)
-
-</div>
 
 ### 주요기능
 
