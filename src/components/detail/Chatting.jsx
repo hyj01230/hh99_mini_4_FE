@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getTokenFromCookie } from "../../auth/cookie";
 import { serverUrl } from "../../common/common";
-// import { fetchUserInfo } from "../../redux/config/userInfoSlice";
 
 function Chatting() {
   const { id } = useParams();
@@ -53,6 +52,31 @@ function Chatting() {
   };
   console.log(chatList);
 
+  const [userInfo, setUserInfo] = useState({
+    userIntro: "",
+    nickname: "",
+    imageUrl: "",
+  });
+
+  const getLoginUserInfo = async () => {
+    try {
+      const token = getTokenFromCookie();
+      const response = await axios.get(`${serverUrl}/api/user/userInfo`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
+        },
+      });
+
+      setUserInfo(response.data.data[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getLoginUserInfo();
+  }, []);
+
   return (
     <>
       <div
@@ -68,17 +92,17 @@ function Chatting() {
                   key={message.complementId}
                   className="clear-both inline-block whitespace-nowrap px-2 py-1 "
                 >
-                  {/* {message.complementNickname !== userInfo.nickname ? ( */}
-                  {/* <div
+                  {message.complementNickname !== userInfo.nickname ? (
+                    <div
                       className={`float-left rounded-xl p-2 self-start bg-gray-300`}
                     >
                       <p>{message.complementTitle}</p>
-                    </div> */}
-                  {/* ) : ( */}
-                  <div className="float-right rounded-xl rounded-tr bg-[#967E76] py-2 px-3 text-white">
-                    <p>{message.complementTitle}</p>
-                  </div>
-                  {/* )} */}
+                    </div>
+                  ) : (
+                    <div className="float-right rounded-xl rounded-tr bg-[#967E76] py-2 px-3 text-white">
+                      <p>{message.complementTitle}</p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

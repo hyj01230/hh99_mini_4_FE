@@ -1,7 +1,7 @@
 import { faCommentDots, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getTokenFromCookie } from "../auth/cookie";
 import { serverUrl } from "../common/common";
@@ -12,13 +12,8 @@ import Info from "../components/detail/Info";
 
 function Detail() {
   const token = getTokenFromCookie();
-  const [follow, setFollow] = useState(false);
   const [chat, setChat] = useState(false);
   const { id } = useParams();
-
-  const toggleFollow = () => {
-    setFollow(!follow);
-  };
 
   const toggleChat = () => {
     setChat(!chat);
@@ -33,15 +28,36 @@ function Detail() {
         },
       });
       console.log(response);
+      getUserInfo();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const [userInfo, setUserInfo] = useState({
+    followStat: false,
+    selectedUserIntro: null,
+    selectedUserNickname: "",
+    selectedUserProfile: "",
+  });
+
+  // 프로필 사진 및 약력 조회
+  const getUserInfo = async () => {
+    try {
+      const response = await axios.get(`${serverUrl}/api/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
+        },
+      });
+      console.log(response);
+      setUserInfo(response.data.data)
     } catch (error) {
       console.error(error);
     }
   };
 
-  // 프로필 사진 및 약력 조회
-  // const getUserInfo = async () => {
-  //   const response = await axios.post(`${serverUrl}/api/user/userinfo`)
-  // }
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   return (
     <div className="">
@@ -55,10 +71,9 @@ function Detail() {
               onClick={() => {
                 console.log("버튼 눌림");
                 followHandler();
-                toggleFollow();
               }}
             >
-              {follow ? (
+              {userInfo.followStat ? (
                 <>
                   <FontAwesomeIcon icon={faStar} style={{ color: "#FFC436" }} />
                   <div className="absolute inset-y-0 left-12 hidden items-center group-hover:flex">
@@ -112,7 +127,7 @@ function Detail() {
       {chat && <Chatting style={{ zIndex: 100 }} id={id} />}
       <div className="max-w-[1200px] ml-auto mr-auto mt-20 text-black pl-20">
         <div className="p-6">
-          <Info />
+          <Info userInfo={userInfo} />
         </div>
 
         <div className="p-6">
