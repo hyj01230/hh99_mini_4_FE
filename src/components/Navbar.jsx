@@ -113,7 +113,7 @@ function Navbar() {
                     </div>
                   </div>
                   {/* 검색태그 시작 */}
-                  <div className="flex items-center w-full mx-2">
+                  {/* <div className="flex items-center w-full mx-2">
                     <label
                       htmlFor="search"
                       className="mb-1 text-xs font-medium text-gray-900 sr-only "
@@ -121,9 +121,9 @@ function Navbar() {
                       Search
                     </label>
                     <div className="relative w-full">
-                      <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
+                      <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none"> */}
                         {/* 돋보기 */}
-                        <svg
+                        {/* <svg
                           className="w-3 h-3 text-gray-500"
                           aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +150,7 @@ function Navbar() {
                         검색
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                   {/* 검색태그 끝 */}
                 </div>
                 <div className=" right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
