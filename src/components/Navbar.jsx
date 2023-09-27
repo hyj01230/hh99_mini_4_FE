@@ -53,8 +53,6 @@ function Navbar() {
     }
   };
 
-  console.log("내정보", userInfo);
-
   useEffect(() => {
     getLoginUserInfo();
   }, []);

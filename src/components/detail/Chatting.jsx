@@ -1,10 +1,8 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getTokenFromCookie } from "../../auth/cookie";
 import { serverUrl } from "../../common/common";
-// import { fetchUserInfo } from "../../redux/config/userInfoSlice";
 
 function Chatting() {
   const { id } = useParams();
@@ -52,14 +50,32 @@ function Chatting() {
       console.error(error);
     }
   };
+  console.log(chatList);
 
-  const userInfo = useSelector((state) => state.userInfo);
-  // const dispatch = useDispatch();
+  const [userInfo, setUserInfo] = useState({
+    userIntro: "",
+    nickname: "",
+    imageUrl: "",
+  });
 
-  // useEffect(() => {
-  //   // fetchUserInfo 액션을 디스패치하여 userInfo 상태를 업데이트합니다.
-  //   dispatch(fetchUserInfo());
-  // }, [dispatch]); // dispatch가 의존성으로 들어갑니다.
+  const getLoginUserInfo = async () => {
+    try {
+      const token = getTokenFromCookie();
+      const response = await axios.get(`${serverUrl}/api/user/userInfo`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Bearer 토큰 방식 사용
+        },
+      });
+
+      setUserInfo(response.data.data[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getLoginUserInfo();
+  }, []);
 
   return (
     <>

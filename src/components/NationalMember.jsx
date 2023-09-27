@@ -35,9 +35,8 @@ function NationalMember() {
       }
     } catch (error) {
       console.error(error);
-      
+
       alert(error);
-      
     }
   }
 
@@ -53,7 +52,7 @@ function NationalMember() {
         setResultList(response.data.data);
       }
     } catch (error) {
-      alert(error)
+      alert(error);
     }
   };
 
@@ -82,7 +81,6 @@ function NationalMember() {
       console.log(response);
       if (response.status === 200) {
         setInitData(response.data.data);
-        // setResultList(response.data.data);
       }
     } catch (error) {
       alert(error);
@@ -109,6 +107,16 @@ function NationalMember() {
     <>
       <div className="mx-auto max-w-7xl px-10 sm:px-8 lg:px-[19rem] mb-10">
         <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+          { (link !== "/" && link !== "/follow") && <li className="mr-2 mb-2">
+            <button
+              class="inline-block px-4 py-2 text-white bg-slate-500 rounded-lg active font-semibold"
+              aria-current="page"
+              onClick={() => {setResultList([])}}
+            >
+              전체
+            </button>
+          </li>
+          }
           {link === "/location" &&
             token &&
             locations.map((item) => {
@@ -128,16 +136,18 @@ function NationalMember() {
             token &&
             partys.map((item) => {
               return (
-                <li className="mr-2 mb-2" key={item.id}>
-                  <button
-                    className="inline-block px-4 py-2 text-slate-50 rounded-lg active font-bold"
-                    style={{ backgroundColor: `${item.color}` }}
-                    aria-current="page"
-                    onClick={() => setPartyUrlPlus(item.party)}
-                  >
-                    {item.party}
-                  </button>
-                </li>
+                <>
+                  <li className="mr-2 mb-2" key={item.id}>
+                    <button
+                      className="inline-block px-4 py-2 text-slate-50 rounded-lg active font-bold"
+                      style={{ backgroundColor: `${item.color}` }}
+                      aria-current="page"
+                      onClick={() => setPartyUrlPlus(item.party)}
+                    >
+                      {item.party}
+                    </button>
+                  </li>
+                </>
               );
             })}
         </ul>
@@ -164,7 +174,7 @@ function NationalMember() {
                           }`,
                         }}
                       ></div>
-                      <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+                      <div className="mx-auto -mt-12 w-24 h-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800  flex justify-center items-center">
                         <img
                           src={item.imageUrl ? item.imageUrl : baseImg}
                           alt="Avatar 1"
@@ -186,7 +196,8 @@ function NationalMember() {
                           >
                             <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
                           </svg>
-                          {item.opinionTitle === "" || item.opinionTitle === null
+                          {item.opinionTitle === "" ||
+                          item.opinionTitle === null
                             ? `안녕하세요`
                             : item.opinionTitle}
                         </p>
@@ -213,7 +224,7 @@ function NationalMember() {
                           }`,
                         }}
                       ></div>
-                      <div className="mx-auto -mt-12 w-24 h-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+                      <div className="mx-auto -mt-12 w-24 h-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800 flex justify-center items-center">
                         <img
                           src={item.imageUrl ? item.imageUrl : baseImg}
                           alt="Avatar 1"
@@ -235,7 +246,8 @@ function NationalMember() {
                           >
                             <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.380 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
                           </svg>
-                          {item.opinionTitle === "" || item.opinionTitle === null
+                          {item.opinionTitle === "" ||
+                          item.opinionTitle === null
                             ? `안녕하세요`
                             : item.opinionTitle}
                         </p>
