@@ -78,11 +78,14 @@ function MyReply() {
 
   // put - 한마디 댓글 수정
   const putComment = async (commentId, index) => {
+    const find_data = commentData.find((a) => a.commentId === commentId)
+    const find_dataTitle = find_data.commentTitle
+    console.log('find_data.commentTitle', find_data.commentTitle)
 
     try {
       const response = await axios.put(`${serverUrl}/api/comment/${commentId}`, {
         // commentData[index].commentTitle을 뽑아야 하는데......
-        title: commentData[index].commentTitle,
+        title: find_dataTitle,
         content: null,
       }, {
         headers: { Authorization: `Bearer ${token}` } // 로그인 여부 확인(토큰을 헤더에 추가)
