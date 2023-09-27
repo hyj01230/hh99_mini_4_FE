@@ -82,8 +82,8 @@ function Modal({ onCloseModal, opinionId, id }) {
       {/* 모달 창 */}
       <div className="bg-white p-4 rounded-lg z-10 w-[30%] h-[800px]">
         {/* 모달 내용 */}
-        <h2 className="text-2xl font-semibold">{data.opinionTitle}</h2>
-        <p className="min-h-[450px] bg-slate-400">{data.opinionContent}</p>
+        <h2 className="text-2xl font-semibold bg-slate-100">{data.opinionTitle}</h2>
+        <p className="min-h-[450px] bg-slate-100 pt-5">{data.opinionContent}</p>
         <div>
           <form className="w-full ">
             <div className="flex items-center border-b border-teal-500 py-2">
