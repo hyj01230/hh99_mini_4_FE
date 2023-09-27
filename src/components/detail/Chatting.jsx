@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getTokenFromCookie } from "../../auth/cookie";
 import { serverUrl } from "../../common/common";
@@ -52,14 +51,7 @@ function Chatting() {
       console.error(error);
     }
   };
-
-  const userInfo = useSelector((state) => state.userInfo);
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   // fetchUserInfo 액션을 디스패치하여 userInfo 상태를 업데이트합니다.
-  //   dispatch(fetchUserInfo());
-  // }, [dispatch]); // dispatch가 의존성으로 들어갑니다.
+  console.log(chatList);
 
   return (
     <>
@@ -76,17 +68,17 @@ function Chatting() {
                   key={message.complementId}
                   className="clear-both inline-block whitespace-nowrap px-2 py-1 "
                 >
-                  {message.complementNickname !== userInfo.nickname ? (
-                    <div
+                  {/* {message.complementNickname !== userInfo.nickname ? ( */}
+                  {/* <div
                       className={`float-left rounded-xl p-2 self-start bg-gray-300`}
                     >
                       <p>{message.complementTitle}</p>
-                    </div>
-                  ) : (
-                    <div className="float-right rounded-xl rounded-tr bg-[#967E76] py-2 px-3 text-white">
-                      <p>{message.complementTitle}</p>
-                    </div>
-                  )}
+                    </div> */}
+                  {/* ) : ( */}
+                  <div className="float-right rounded-xl rounded-tr bg-[#967E76] py-2 px-3 text-white">
+                    <p>{message.complementTitle}</p>
+                  </div>
+                  {/* )} */}
                 </div>
               ))}
             </div>
