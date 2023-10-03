@@ -104,19 +104,22 @@ function NationalMember() {
   }, [link, locateUrlPlus, partyUrlPlus]);
 
   return (
-    <>
+    <div className="mb-20">
       <div className="mx-auto max-w-7xl px-10 sm:px-8 lg:px-[19rem] mb-10">
         <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-          { (link !== "/" && link !== "/follow") && <li className="mr-2 mb-2">
-            <button
-              class="inline-block px-4 py-2 text-white bg-slate-500 rounded-lg active font-semibold"
-              aria-current="page"
-              onClick={() => {setResultList([])}}
-            >
-              전체
-            </button>
-          </li>
-          }
+          {link !== "/" && link !== "/follow" && (
+            <li className="mr-2 mb-2">
+              <button
+                class="inline-block px-4 py-2 text-white bg-slate-500 rounded-lg active font-semibold"
+                aria-current="page"
+                onClick={() => {
+                  setResultList([]);
+                }}
+              >
+                전체
+              </button>
+            </li>
+          )}
           {link === "/location" &&
             token &&
             locations.map((item) => {
@@ -224,7 +227,7 @@ function NationalMember() {
                           }`,
                         }}
                       ></div>
-                      <div className="mx-auto -mt-12 w-24 h-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800 flex justify-center items-center">
+                      <div className="mx-auto -mt-12 w-24 h-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800  flex justify-center items-center">
                         <img
                           src={item.imageUrl ? item.imageUrl : baseImg}
                           alt="Avatar 1"
@@ -258,7 +261,7 @@ function NationalMember() {
               })}
         </div>
       </section>
-    </>
+    </div>
   );
 }
 

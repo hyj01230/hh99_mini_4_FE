@@ -64,7 +64,7 @@ function ContentsBox() {
           return (
             <div
               key={item.opinionId}
-              className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:flex-col md:w-[31%]"
+              className="max-w-sm bg-white border border-gray-200 rounded-lg shadow md:flex-col md:w-[31%]"
             >
               <div
                 onClick={() => {
@@ -73,7 +73,7 @@ function ContentsBox() {
                 }}
               >
                 <img
-                  className="rounded-t-lg"
+                  className="rounded-t-lg h-40"
                   src={item.opinionImageUrl}
                   alt=""
                 />
@@ -83,7 +83,7 @@ function ContentsBox() {
                     {item.opinionTitle}
                   </h5>
 
-                  <p className="font-normal text-gray-700 dark:text-gray-400">
+                  <p className="font-normal text-gray-700">
                     {item.opinionContent}
                   </p>
                 </div>
