@@ -10,13 +10,12 @@ function MyActivity() {
 
   const { id } = useParams();
 
-  // 업로드 제목/내용/URL/이미지 state ---------------------------------------------------
+  // 업로드 state / onchange ---------------------------------------------------
   const [uploadTitle, setUploadTitle] = useState("");
   const [uploadContent, setUploadContent] = useState("");
   const [uploadUrl, setUploadUrl] = useState("");
   const [uploadImage, setUploadImage] = useState(null);
-  const [activityData, setActivityData] = useState([]);
-  // 업로드 제목/내용/URL/이미지 onchange ---------------------------------------------------
+
   const uploadTitleHandler = (e) => {
     setUploadTitle(e.target.value);
   };
@@ -30,30 +29,17 @@ function MyActivity() {
     const image = e.target.files[0]; // 선택된 파일 가져오기
     console.log(`선택된 파일 이름: ${image.name}`);
     console.log(`선택된 파일 크기: ${image.size} bytes`);
-
     setUploadImage(image);
   };
-  const [putTitle, setPutTitle] = useState("");
-  const [putContent, setPutContent] = useState("");
-  const [putUrl, setPutUrl] = useState("");
-  const [putImage, setPutImage] = useState(null);
 
-  const onchangePutTitleHandler = (e) => {
-    setPutTitle(e.target.value);
-  };
-  const onchangePutUrlHandler = (e) => {
-    setPutUrl(e.target.value);
-  };
-  const onchangePutContentHandler = (e) => {
-    setPutContent(e.target.value);
-  };
+  // 사진변경 onchange ---------------------------------------------------
   const onchangePutImageHandler = (e) => {
     const image = e.target.files[0]; // 선택된 파일 가져오기
     console.log(`선택된 파일 이름: ${image.name}`);
     console.log(`선택된 파일 크기: ${image.size} bytes`);
-
-    setPutImage(image);
+    setUploadImage(image);
   };
+  // console.log("uploadImage", uploadImage);
 
   // 토큰가져오기 ---------------------------------------------------------------------------
   const token = getTokenFromCookie();
@@ -63,15 +49,17 @@ function MyActivity() {
     getActivity();
   }, []);
 
-  // get으로 가져온 활동모음 데이터 state에 저장하기 -------------------------------------------------------
-  // 데이터'들' 들어올거니까 []
+  // get으로 가져온 활동모음 데이터 state에 저장 --------------------------------------
+  const [activityData, setActivityData] = useState([]);
+  console.log("activityData", activityData);
+
   // GET - 활동모음 가져오기 -----------------------------------------------------------------
   const getActivity = async () => {
     try {
       const response = await axios.get(`${serverUrl}/api/campaigns`, {
         headers: { Authorization: `Bearer ${token}` }, // 로그인 여부 확인(토큰을 헤더에 추가)
       });
-
+      // console.log("활동모음 가져오기", response.data.data);
       setActivityData(response.data.data); // 가져온 활동모음 데이터 state에 저장하기!
     } catch (error) {
       alert(`${error}`);
@@ -136,27 +124,24 @@ function MyActivity() {
   };
 
   // PUT - 기존 활동모음 수정 --------------------------------------------------------------
-
-  // 수정할 제목/내용/URL/이미지 state ---------------------------------------------------
-
-  const onclickPutBtnHandler = async (campaignId) => {
-    const putFormData = new FormData();
-    const find_data = activityData.find((x) => x.campaignId === campaignId);
-    putFormData.append("title", putTitle ? putTitle : find_data.campaignTitle);
-    putFormData.append(
-      "content",
-      putContent ? putContent : find_data.campaignContent
-    );
-    putFormData.append("url", putUrl ? putUrl : find_data.campaignUrl);
-    putFormData.append(
-      "image",
-      putImage ? putImage : find_data.campaignThumbnail
-    );
-
+  const onClickPutActivity = async (
+    campaignId,
+    newtitle,
+    newUrl,
+    newContent
+  ) => {
     try {
+      // 사진 업로드는 폼데이터로!!!!!!!!!
+      const updateFormData = new FormData();
+      updateFormData.append("title", newtitle);
+      updateFormData.append("content", newContent);
+      updateFormData.append("url", newUrl);
+      updateFormData.append("image", uploadImage);
+
+      // 서버로 폼데이터 보냄
       const response = await axios.put(
         `${serverUrl}/api/campaign/${campaignId}`,
-        putFormData,
+        updateFormData,
         {
           headers: {
             Authorization: `Bearer ${token}`, // 로그인 여부 확인(토큰을 헤더에 추가)
@@ -164,6 +149,7 @@ function MyActivity() {
           },
         }
       );
+      alert("수정되었습니다.");
       getActivity();
     } catch (error) {
       alert(`${error}`);
@@ -227,7 +213,7 @@ function MyActivity() {
       <p className="mt-[50px] ml-7 text-2xl font-black">활동모음 업로드 목록</p>
 
       {activityData &&
-        activityData.map((item) => (
+        activityData.map((item, index) => (
           <div
             key={item.campaignId}
             className="bg-[#F9F5EB] my-6 mx-7 p-7 rounded-md shadow-lg"
@@ -236,10 +222,15 @@ function MyActivity() {
               <p className="text-lg font-bold">제목</p>
               <input
                 defaultValue={item.campaignTitle}
-                onChange={onchangePutTitleHandler}
+                onChange={(e) => {
+                  const updatedActivityData = [...activityData];
+                  updatedActivityData[index].campaignTitle = e.target.value;
+                  setActivityData(updatedActivityData);
+                }}
                 type="text"
                 className="rounded-md mx-3 flex-grow h-8 px-2"
               />
+              {console.log("활동모음온체인지", activityData)}
               <p className="text-lg font-bold">사진변경</p>
               <input
                 type="file"
@@ -252,7 +243,11 @@ function MyActivity() {
               <p className="text-lg font-bold">URL</p>
               <input
                 defaultValue={item.campaignUrl}
-                onChange={onchangePutUrlHandler}
+                onChange={(e) => {
+                  const updatedActivityData = [...activityData];
+                  updatedActivityData[index].campaignUrl = e.target.value;
+                  setActivityData(updatedActivityData);
+                }}
                 type="text"
                 className="rounded-md mx-3 flex-grow h-8 px-2"
               />
@@ -261,7 +256,11 @@ function MyActivity() {
               <p className="text-lg font-bold">내용</p>
               <input
                 defaultValue={item.campaignContent}
-                onChange={onchangePutContentHandler}
+                onChange={(e) => {
+                  const updatedActivityData = [...activityData];
+                  updatedActivityData[index].campaignContent = e.target.value;
+                  setActivityData(updatedActivityData);
+                }}
                 type="text"
                 className="rounded-md mx-3 flex-grow h-20 p-2"
               />
@@ -287,11 +286,16 @@ function MyActivity() {
               <button
                 type="button"
                 className="mr-3 flex items-center w-[100px] h-[30px] justify-center rounded-md bg-[#65451F] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#564024] "
-                onClick={() => {
-                  onclickPutBtnHandler(item.campaignId);
-                }}
+                onClick={() =>
+                  onClickPutActivity(
+                    item.campaignId,
+                    item.campaignTitle,
+                    item.campaignUrl,
+                    item.campaignContent
+                  )
+                }
               >
-                저장
+                수정
               </button>
             </div>
           </div>
